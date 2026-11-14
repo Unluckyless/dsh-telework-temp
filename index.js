@@ -11,12 +11,13 @@
  */
 
 import { inspectTargets, normalizeConfig } from './targets.js'
+import { listWorkspaceDirectory } from './files.js'
 
 /** Cordis plugin name. */
 export const name = 'telework'
 
-/** The Remote panel route needs the web server; the status tool needs tools. */
-export const inject = ['webServer', 'tools']
+/** The Remote panel route and files route need the web server and live sessions. */
+export const inject = ['webServer', 'tools', 'agents', 'workingDirectory']
 
 /**
  * @param {Record<string, unknown>} _args
@@ -105,6 +106,37 @@ export function apply(ctx, config) {
       })
     },
   }), 'telework: status route')
+
+  // Read-only local file tree for the sidebar. A request names a live Session;
+  // the route resolves that Session's workspace root and refuses any path that
+  // realpaths outside it. Remote workspaces will replace this backend later.
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/files',
+    resource: async (request) => {
+      const url = new URL(request.url)
+      const sessionId = url.searchParams.get('session')
+      const requested = url.searchParams.get('path') ?? undefined
+      const respond = (body, status = 200) => new Response(JSON.stringify(body), {
+        status,
+        headers: {
+          'content-type': 'application/json; charset=utf-8',
+          'cache-control': 'no-store',
+        },
+      })
+      if (sessionId === null || sessionId === '') return respond({ error: 'session is required' }, 400)
+      const agent = ctx.agents.get(sessionId)
+      if (agent === undefined) return respond({ error: 'session is not live' }, 404)
+      try {
+        const root = await ctx.workingDirectory.ensure(agent, request.signal)
+        const listing = await listWorkspaceDirectory(root, requested, request.signal)
+        return respond(listing)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        return respond({ error: message }, 400)
+      }
+    },
+  }), 'telework: files route')
 
   // An installed-but-unconfigured bundle adds no prompt tokens and no tool.
   if (settings.targets.length === 0) return
