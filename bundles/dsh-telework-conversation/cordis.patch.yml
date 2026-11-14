@@ -1,0 +1,7 @@
+# Telework conversation header: replace the shipped ui-conversation client
+# module with a vendored copy that puts the View tabs on the title row.
+- id: ui-conversation
+  disabled: true
+- insert:
+    - id: telework-conversation
+      name: './vendor/dsh-client-ui-conversation/lib/index.js'

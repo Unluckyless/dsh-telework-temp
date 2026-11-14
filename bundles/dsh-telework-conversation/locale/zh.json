@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework 对话顶栏",
+    "description": "单行对话顶栏：对话/轨迹等 View tab 与标题、创造模式徽标同行；长标题先截断，不会和 tab 或按钮重叠。"
+  }
+}

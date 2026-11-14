@@ -1,0 +1,9 @@
+# Telework top bar: replace the shipped ui-layout client module with a vendored
+# copy that adds a global top bar (brand + persistent sidebar toggle) above the
+# three-column frame. The package name is preserved so every dependent client
+# package still resolves the layout module.
+- id: ui-layout
+  disabled: true
+- insert:
+    - id: telework-layout
+      name: './vendor/dsh-client-ui-layout/lib/index.js'

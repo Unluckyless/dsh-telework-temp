@@ -1,0 +1,9 @@
+# Telework sidebar shell: replace the shipped ui-sidebar client module with a
+# vendored copy that keeps the official package name (so every dependent
+# client package still resolves it) while adding the activity rail and the
+# workspace/files split.
+- id: ui-sidebar
+  disabled: true
+- insert:
+    - id: telework-sidebar
+      name: './vendor/dsh-client-ui-sidebar/lib/index.js'

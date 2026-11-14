@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework sidebar",
+    "description": "A VS Code-style activity rail with Workspaces, Plugins, Automation tasks, and a workspace file tree. Replaces the shipped sidebar shell while keeping Settings and the workspace browser."
+  }
+}

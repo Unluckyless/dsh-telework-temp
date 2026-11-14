@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework 侧边栏",
+    "description": "VS Code 风格的左侧 activity rail：工作区、插件、自动化任务，以及当前工作区文件树。替换内置侧边栏外壳，同时保留设置面板和工作区浏览器。"
+  }
+}

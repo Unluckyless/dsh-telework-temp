@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework top bar",
+    "description": "A VS Code-style top bar with the DeepSeek Harness brand and a persistent sidebar toggle. Replaces the shipped layout shell while keeping the three columns and existing app menus."
+  }
+}

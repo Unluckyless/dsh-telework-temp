@@ -60,9 +60,18 @@ dsh-telework/
   cordis.patch.yml     Loader patch that inserts the plugin row
   locale/              Plugin Manager title and description
   icon.svg             Plugin icon
+  bundles/             UI sub-bundles installed alongside this one
+    dsh-telework-sidebar/       vendored activity rail and workspace panel
+    dsh-telework-topbar/        vendored top bar with the window controls
+    dsh-telework-conversation/  vendored single-line conversation header
   docs/design.zh-CN.md Architecture notes and open questions
   README.zh-CN.md      中文说明
 ```
+
+The three UI bundles under `bundles/` are separate DSH bundles used during
+development. They live inside this repository so a GitHub checkout is one
+directory; install each one from its `bundles/...` path. They can be merged into
+this main bundle for a single-package release.
 
 Check the syntax with any Node.js 24+ executable:
 

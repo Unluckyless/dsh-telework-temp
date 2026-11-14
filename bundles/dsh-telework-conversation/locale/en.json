@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework conversation header",
+    "description": "A single-line conversation header: View tabs sit inline with the title and badge, and the title truncates before the tabs so long names never overlap them."
+  }
+}

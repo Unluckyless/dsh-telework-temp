@@ -20,6 +20,7 @@
     "locale/*.json",
     "icon.svg",
     "docs",
+    "bundles",
     "README.md",
     "README.zh-CN.md"
   ],

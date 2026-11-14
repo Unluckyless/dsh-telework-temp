@@ -1,0 +1,956 @@
+window.__ModuleLoader__.load({id:"@deepseek-ai/dsh-client-ui-sidebar",factory:require=>{var module={exports:{}};var exports=module.exports;
+
+var process = { env: {} };
+var __teleworkPlugin = "@deepseek-ai/dsh-client-ui-sidebar";
+var __teleworkCss = "/* .tools/sidebar-build/src/client/HeaderLeadingControls.module.css */\n.HeaderLeadingControls_controls {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.HeaderLeadingControls_iconButton {\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 0;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-secondary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .HeaderLeadingControls_iconButton:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n\n/* .tools/sidebar-build/src/client/SidebarRoot.module.css */\n.SidebarRoot_root {\n  --dsh-sidebar-inline-padding: 8px;\n  --dsh-sidebar-row-padding: 12px;\n  --dsh-sidebar-label-gap: 6px;\n  --dsh-sidebar-paint-inset: 3px;\n  display: flex;\n  flex-direction: row;\n  height: 100%;\n  padding: 0;\n  box-sizing: border-box;\n  background: var(--dsw-specific-sidebar-fill);\n  color: var(--dsw-alias-label-primary);\n  font-size: 14px;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.SidebarRoot_activityRail {\n  flex: none;\n  width: 48px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 6px;\n  padding: 8px 4px 6px;\n  box-sizing: border-box;\n}\n.SidebarRoot_railBrand {\n  width: 36px;\n  height: 36px;\n  flex: none;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--dsw-alias-label-primary);\n}\n.SidebarRoot_railButton {\n  width: 36px;\n  height: 36px;\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-secondary);\n  cursor: pointer;\n  padding: 0;\n}\n@media (hover: hover) {\n  .SidebarRoot_railButton:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n    color: var(--dsw-alias-label-primary);\n  }\n}\n.SidebarRoot_railButton:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: 2px;\n}\n.SidebarRoot_railActive {\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-primary);\n}\n.SidebarRoot_railGrow {\n  flex: 1 1 auto;\n  min-height: 8px;\n}\n.SidebarRoot_railFoot {\n  flex: none;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 4px;\n  width: 100%;\n}\n.SidebarRoot_panelColumn {\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  padding: 6px var(--dsh-sidebar-inline-padding);\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.SidebarRoot_filesPane {\n  flex: 0 0 38%;\n  min-height: 96px;\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  padding: 0;\n  box-sizing: border-box;\n}\n.SidebarRoot_filesSplit {\n  flex: none;\n  height: 6px;\n  cursor: row-resize;\n  border-top: 1px solid var(--dsw-alias-border-l1);\n  touch-action: none;\n}\n.SidebarRoot_filesSplit:hover,\n.SidebarRoot_filesSplit:focus-visible {\n  border-top-color: var(--dsw-alias-brand-primary);\n}\n.SidebarRoot_filesSplit:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: -2px;\n}\n.SidebarRoot_filesHeader {\n  flex: none;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 6px;\n  padding: 0 6px 0 var(--dsh-sidebar-row-padding, 12px);\n  box-sizing: border-box;\n}\n.SidebarRoot_filesTitle {\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 20px;\n  letter-spacing: 0;\n  text-transform: none;\n  color: var(--dsw-alias-label-tertiary);\n}\n.SidebarRoot_filesRefresh {\n  width: 28px;\n  height: 28px;\n  flex: none;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-secondary);\n  cursor: pointer;\n  padding: 0;\n  line-height: 1;\n}\n.SidebarRoot_filesRefresh:hover:not(:disabled) {\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-primary);\n}\n.SidebarRoot_filesRefresh:disabled {\n  opacity: 0.4;\n  cursor: default;\n}\n.SidebarRoot_filesBody {\n  flex: 1;\n  min-height: 0;\n  overflow-y: auto;\n  padding-bottom: 4px;\n}\n.SidebarRoot_fileRow {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: var(--dsh-sidebar-label-gap);\n  height: 32px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  color: var(--dsw-alias-label-primary);\n  font: inherit;\n  font-size: 14px;\n  line-height: 20px;\n  text-align: left;\n  padding: 0 8px;\n  cursor: pointer;\n  overflow: hidden;\n  box-sizing: border-box;\n}\n.SidebarRoot_fileRow:hover:not(:disabled) {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.SidebarRoot_fileRow:disabled {\n  cursor: default;\n}\n.SidebarRoot_fileArrow {\n  width: 12px;\n  height: 12px;\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--dsw-alias-label-tertiary);\n  transition: transform 150ms var(--ds-ease-in-out);\n}\n.SidebarRoot_fileArrowOpen {\n  transform: rotate(90deg);\n}\n.SidebarRoot_fileIcon {\n  width: 16px;\n  height: 20px;\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.SidebarRoot_fileName {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.SidebarRoot_fileHint,\n.SidebarRoot_fileError {\n  padding: 2px 8px;\n  font-size: 12px;\n  line-height: 1.5;\n  color: var(--dsw-alias-label-secondary);\n}\n.SidebarRoot_fileError {\n  color: var(--dsw-alias-state-error-primary);\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n[data-animating]:not([data-dragging]) .SidebarRoot_root {\n  transition: width var(--ds-transition-duration-slow) var(--ds-ease-in-out);\n}\n[data-platform=darwin] .SidebarRoot_root {\n  background: transparent;\n}\n.SidebarRoot_root.SidebarRoot_collapsed {\n  padding: 0;\n}\n[data-windows-titlebar] .SidebarRoot_root .SidebarRoot_logoRow {\n  height: 40px;\n  margin: 0;\n  padding: 0;\n}\n[data-windows-titlebar] .SidebarRoot_toggle {\n  position: fixed;\n  top: calc((var(--dsh-windows-titlebar-height) - 28px) / 2);\n  left: 12px;\n  z-index: 30;\n  -webkit-app-region: no-drag;\n}\n[data-windows-titlebar] .SidebarRoot_root.SidebarRoot_collapsed .SidebarRoot_logoRow {\n  height: 0;\n}\n[data-windows-titlebar] .SidebarRoot_root:not(.SidebarRoot_collapsed) .SidebarRoot_brand {\n  padding-left: 8px;\n}\n[data-windows-titlebar] .SidebarRoot_brandIdentity {\n  transform: translateY(1px);\n}\n[data-windows-titlebar] .SidebarRoot_brandMark {\n  transform: translateX(1px);\n}\n[data-windows-titlebar] .SidebarRoot_brandName {\n  font-weight: 400;\n}\n[data-windows-titlebar] .SidebarRoot_root.SidebarRoot_collapsed {\n  padding: 0;\n}\n[data-windows-titlebar] .SidebarRoot_root:not(.SidebarRoot_collapsed) .SidebarRoot_newSessionRow {\n  margin-top: 6px;\n}\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_panelList,\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_regionArea,\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_footArea {\n  display: none;\n}\nhtml[data-windows-titlebar]:has([data-sidebar-collapsed=true]) {\n  --dsh-windows-menu-start: 84px;\n}\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_newSession {\n  position: fixed;\n  top: calc((var(--dsh-windows-titlebar-height) - 28px) / 2);\n  left: 48px;\n  margin: 0;\n  padding: 0;\n  border: none;\n  z-index: 30;\n  -webkit-app-region: no-drag;\n}\n[data-windows-titlebar] .SidebarRoot_railIn .SidebarRoot_iconButton,\n[data-windows-titlebar] .SidebarRoot_railIn .SidebarRoot_newSession {\n  animation: none;\n}\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_toggle,\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_newSession {\n  width: 28px;\n  height: 28px;\n  border-radius: var(--dsw-radius-sm);\n  color: var(--dsw-alias-label-secondary);\n}\n[data-windows-titlebar] .SidebarRoot_collapsed .SidebarRoot_toggle .SidebarRoot_panelIcon {\n  display: inline;\n}\n.SidebarRoot_root.SidebarRoot_quietBars {\n  --dsh-scrollbar-thumb: transparent;\n  --dsh-scrollbar-thumb-hover: transparent;\n}\n.SidebarRoot_fading > * {\n  opacity: 0;\n  transition: opacity 150ms var(--ds-ease-in-out);\n}\n.SidebarRoot_wide {\n  animation: SidebarRoot_wide-in 200ms var(--ds-ease-in-out);\n}\n@keyframes SidebarRoot_wide-in {\n  from {\n    opacity: 0;\n  }\n}\n.SidebarRoot_railIn .SidebarRoot_iconButton,\n.SidebarRoot_railIn .SidebarRoot_newSessionRow > [data-slot=\"sidebar.session.action\"] > *,\n.SidebarRoot_railIn .SidebarRoot_panelList,\n.SidebarRoot_railIn .SidebarRoot_regionArea {\n  animation: SidebarRoot_rail-in 150ms var(--ds-ease-in-out) backwards;\n}\n.SidebarRoot_railIn .SidebarRoot_footArea {\n  animation: SidebarRoot_rail-fade-in 150ms var(--ds-ease-in-out) backwards;\n}\n@keyframes SidebarRoot_rail-in {\n  from {\n    opacity: 0;\n    transform: translateX(49px);\n  }\n}\n@keyframes SidebarRoot_rail-fade-in {\n  from {\n    opacity: 0;\n  }\n}\n.SidebarRoot_topStrip {\n  flex: none;\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n  height: 52px;\n  box-sizing: border-box;\n  margin: -6px calc(-1 * var(--dsh-sidebar-inline-padding)) 0;\n  padding: 0 12px 2px;\n}\nhtml[data-platform=darwin]:not([data-fullscreen]) .SidebarRoot_root:not(.SidebarRoot_collapsed) > .SidebarRoot_topStrip > .SidebarRoot_toggle {\n  transform: translateX(4px);\n}\n[data-fullscreen] .SidebarRoot_topStrip {\n  justify-content: flex-start;\n}\n.SidebarRoot_topStrip + .SidebarRoot_logoRow {\n  margin-top: -12px;\n}\n.SidebarRoot_logoRow {\n  display: none;\n}\n.SidebarRoot_collapsed .SidebarRoot_logoRow {\n  height: 36px;\n  padding: 0;\n  margin-bottom: 12px;\n  justify-content: flex-start;\n  overflow: visible;\n}\n.SidebarRoot_brand {\n  flex: 1;\n  min-width: 0;\n  display: inline-flex;\n  align-items: center;\n  overflow: hidden;\n  padding: 0;\n  border: none;\n  background: transparent;\n  color: inherit;\n  cursor: pointer;\n}\n[data-platform=darwin] .SidebarRoot_brand {\n  cursor: default;\n}\n.SidebarRoot_brandIdentity {\n  display: inline-flex;\n  align-items: center;\n  gap: 5px;\n  height: 24px;\n  min-width: 0;\n}\n.SidebarRoot_brandMark {\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n.SidebarRoot_brandName {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  min-width: 0;\n  height: 24px;\n  font-size: 18px;\n  font-weight: 600;\n  line-height: 24px;\n  letter-spacing: 0.04em;\n}\n.SidebarRoot_fallbackBrandName {\n  font-size: 17px;\n  letter-spacing: 0px;\n  white-space: nowrap;\n}\n.SidebarRoot_localBuildBrand {\n  flex: none;\n  display: inline-flex;\n  flex-direction: column;\n  align-items: flex-start;\n  justify-content: center;\n  gap: 1px;\n  height: 24px;\n  white-space: nowrap;\n}\n.SidebarRoot_copyVersion {\n  display: inline-flex;\n  cursor: pointer;\n  -webkit-app-region: no-drag;\n}\n.SidebarRoot_localBuildTitle {\n  font-size: 12px;\n  line-height: 13px;\n  letter-spacing: 0;\n}\n.SidebarRoot_iconButton {\n  position: relative;\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  padding: 0;\n  background: transparent;\n  cursor: pointer;\n  color: var(--dsw-alias-label-secondary);\n}\n@media (hover: hover) {\n  .SidebarRoot_iconButton:hover {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.SidebarRoot_iconButton.SidebarRoot_toggle:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.SidebarRoot_collapsed .SidebarRoot_iconButton {\n  width: 36px;\n  height: 36px;\n  border-radius: var(--dsw-radius-md);\n}\n.SidebarRoot_collapsed .SidebarRoot_toggle .SidebarRoot_panelIcon {\n  display: none;\n}\n@media (hover: hover) {\n  .SidebarRoot_collapsed .SidebarRoot_toggle:hover .SidebarRoot_panelIcon {\n    display: inline;\n  }\n  .SidebarRoot_collapsed .SidebarRoot_toggle:hover .SidebarRoot_railMark {\n    display: none;\n  }\n}\n.SidebarRoot_railMark {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n.SidebarRoot_collapsed .SidebarRoot_iconButton {\n  color: var(--dsw-alias-label-primary);\n}\n.SidebarRoot_buildVersion {\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  height: 10px;\n  padding: 0 3px;\n  border-radius: 2px;\n  color: var(--dsw-alias-label-primary-inverted);\n  background: var(--dsw-alias-label-primary);\n  font-family: var(--ds-font-family-code);\n  font-size: 6px;\n  font-weight: 500;\n  line-height: 10px;\n  white-space: nowrap;\n}\n.SidebarRoot_newSessionRow {\n  flex: none;\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  margin: 0 calc(var(--dsh-sidebar-paint-inset) + 1px);\n}\n.SidebarRoot_newSession {\n  container-type: inline-size;\n  position: relative;\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0;\n  height: 38px;\n  padding: 8px 12px;\n  margin: 0;\n  box-sizing: border-box;\n  border: 0.5px solid var(--dsw-alias-border-l3);\n  border-radius: var(--dsw-radius-md);\n  background: var(--dsw-alias-button-elevated-fill);\n  color: var(--dsw-alias-label-primary);\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 22px;\n  cursor: pointer;\n  overflow: hidden;\n}\n@media (hover: hover) {\n  .SidebarRoot_newSession:hover {\n    background: var(--dsw-alias-button-floating-hover);\n  }\n}\n[data-platform=darwin] :where(.SidebarRoot_root:not([role=dialog])) .SidebarRoot_newSession {\n  background: var(--dsw-specific-sidebar-glass-fill);\n}\n@media (hover: hover) {\n  [data-platform=darwin] :where(.SidebarRoot_root:not([role=dialog])) .SidebarRoot_newSession:hover {\n    background: var(--dsw-specific-sidebar-glass-hover);\n  }\n}\n.SidebarRoot_collapsed .SidebarRoot_newSessionRow {\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 4px;\n  margin: 0 0 12px;\n}\n.SidebarRoot_collapsed .SidebarRoot_newSession {\n  flex: none;\n  width: 36px;\n  height: 36px;\n  padding: 0;\n  margin: 0;\n  gap: 0;\n  border-color: transparent;\n  background: transparent;\n}\n@media (hover: hover) {\n  .SidebarRoot_collapsed .SidebarRoot_newSession:hover {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n[data-platform=darwin] :where(.SidebarRoot_root:not([role=dialog])).SidebarRoot_collapsed .SidebarRoot_newSession {\n  background: var(--dsw-specific-sidebar-glass-collapsed-fill);\n}\n@media (hover: hover) {\n  [data-platform=darwin] :where(.SidebarRoot_root:not([role=dialog])).SidebarRoot_collapsed .SidebarRoot_newSession:hover {\n    background: var(--dsw-specific-sidebar-glass-collapsed-hover);\n  }\n}\n.SidebarRoot_newSessionLabel {\n  max-width: 200px;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.SidebarRoot_collapsed .SidebarRoot_newSessionLabel {\n  max-width: 0;\n}\n.SidebarRoot_newSessionLabelMask {\n  flex: 1;\n  min-width: 0;\n}\n.SidebarRoot_newSession:focus-visible .SidebarRoot_newSessionLabelMask:has(+ .SidebarRoot_newSessionShortcut) {\n  overflow: hidden;\n  mask-image:\n    linear-gradient(\n      to right,\n      black calc(100% - 16px),\n      transparent);\n}\n@media (hover: hover) {\n  .SidebarRoot_newSession:hover .SidebarRoot_newSessionLabelMask:has(+ .SidebarRoot_newSessionShortcut) {\n    overflow: hidden;\n    mask-image:\n      linear-gradient(\n        to right,\n        black calc(100% - 16px),\n        transparent);\n  }\n}\n.SidebarRoot_newSessionContent {\n  display: flex;\n  width: 100cqw;\n  align-items: center;\n  justify-content: center;\n  gap: 6px;\n}\n.SidebarRoot_newSessionContent > svg {\n  flex: none;\n}\n.SidebarRoot_newSessionShortcut {\n  opacity: 0;\n  display: inline-flex;\n  flex: none;\n  pointer-events: none;\n  font-weight: 400;\n}\n.SidebarRoot_newSession:focus-visible .SidebarRoot_newSessionShortcut {\n  opacity: 1;\n}\n@media (hover: hover) {\n  .SidebarRoot_newSession:hover .SidebarRoot_newSessionShortcut {\n    opacity: 1;\n  }\n}\n.SidebarRoot_scrollRegion {\n  margin-top: 4px;\n  position: relative;\n  flex: 1;\n  min-height: 0;\n  display: flex;\n  flex-direction: column;\n}\n.SidebarRoot_root:not(.SidebarRoot_collapsed) .SidebarRoot_scrollRegion {\n  container-type: size;\n}\n.SidebarRoot_scrollArea {\n  flex: 1;\n  min-height: 0;\n  display: grid;\n  grid-template-columns: 4px minmax(0, 1fr) calc(var(--dsh-sidebar-inline-padding) - 2px);\n  grid-template-rows: 8px max-content 2px max-content;\n  align-content: start;\n  margin-left: -4px;\n  margin-right: calc(2px - var(--dsh-sidebar-inline-padding));\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n.SidebarRoot_root:not(.SidebarRoot_collapsed) .SidebarRoot_scrollArea {\n  container-type: scroll-state;\n  scrollbar-width: none;\n}\n.SidebarRoot_root:not(.SidebarRoot_collapsed) .SidebarRoot_scrollArea::-webkit-scrollbar {\n  display: none;\n}\n.SidebarRoot_scrollArea::before,\n.SidebarRoot_scrollArea::after {\n  content: \"\";\n  grid-column: 2;\n  pointer-events: none;\n}\n.SidebarRoot_scrollArea::before {\n  grid-row: 1;\n}\n.SidebarRoot_scrollArea::after {\n  grid-row: 3;\n}\n.SidebarRoot_scrollFade {\n  position: absolute;\n  inset-inline: 0;\n  bottom: 0;\n  height: 24px;\n  background:\n    linear-gradient(\n      to bottom,\n      transparent,\n      var(--dsw-specific-sidebar-fill));\n  pointer-events: none;\n}\n[data-platform=darwin] .SidebarRoot_scrollFade,\n.SidebarRoot_collapsed .SidebarRoot_scrollFade,\n.SidebarRoot_collapsed .SidebarRoot_scrollArea::before,\n.SidebarRoot_collapsed .SidebarRoot_scrollArea::after {\n  display: none;\n}\n.SidebarRoot_collapsed .SidebarRoot_scrollRegion {\n  margin-top: 0;\n}\n.SidebarRoot_collapsed .SidebarRoot_scrollArea {\n  display: flex;\n  flex-direction: column;\n  margin: 0;\n  padding: 0;\n  overflow: visible;\n}\n.SidebarRoot_panelEntry {\n  position: relative;\n  display: flex;\n  border-inline: var(--dsh-sidebar-paint-inset) solid transparent;\n  border-radius: var(--dsw-radius-md);\n  background-clip: padding-box;\n}\n.SidebarRoot_panelEntryWide > *:first-child {\n  flex: 1;\n  min-width: 0;\n}\n.SidebarRoot_panelEntryWide .SidebarRoot_panelRow {\n  width: 100%;\n  margin: 0;\n  border-inline: 0;\n  padding-right: 38px;\n  background: transparent;\n}\n.SidebarRoot_panelEntryActive,\n.SidebarRoot_panelEntry:has(:focus-visible) {\n  background-color: var(--dsw-alias-interactive-bg-hover);\n}\n.SidebarRoot_panelUnpin {\n  position: absolute;\n  right: 0;\n  top: 2px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 0;\n  border: 0;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-caption);\n  cursor: pointer;\n}\n.SidebarRoot_panelUnpin:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n@media (hover: hover) {\n  .SidebarRoot_panelUnpin {\n    opacity: 0;\n  }\n  .SidebarRoot_panelEntry:hover {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n  .SidebarRoot_panelEntry .SidebarRoot_panelRow:hover {\n    background: transparent;\n  }\n  .SidebarRoot_panelUnpin:hover {\n    color: var(--dsw-alias-label-primary);\n  }\n  .SidebarRoot_panelEntry:hover .SidebarRoot_panelUnpin,\n  .SidebarRoot_panelEntry:has(:focus-visible) .SidebarRoot_panelUnpin {\n    opacity: 1;\n  }\n}\n.SidebarRoot_panelList {\n  grid-column: 2;\n  grid-row: 2;\n  flex: none;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n  margin-bottom: 8px;\n}\n.SidebarRoot_panelRow {\n  display: flex;\n  align-items: center;\n  gap: var(--dsh-sidebar-label-gap);\n  margin: 0;\n  min-height: 32px;\n  padding: 5px calc(var(--dsh-sidebar-row-padding) - var(--dsh-sidebar-paint-inset));\n  box-sizing: border-box;\n  border: none;\n  border-inline: var(--dsh-sidebar-paint-inset) solid transparent;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  background-clip: padding-box;\n  color: var(--dsw-alias-label-primary);\n  font: inherit;\n  line-height: 22px;\n  text-align: left;\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .SidebarRoot_panelRow:hover {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.SidebarRoot_panelRow:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.SidebarRoot_moreAnchor {\n  display: flex;\n  flex-direction: column;\n}\n.SidebarRoot_panelRow[aria-expanded=true] {\n  background-color: var(--dsw-alias-interactive-bg-hover);\n}\n.SidebarRoot_moreMenu {\n  width: 288px;\n  max-width: calc(100vw - 24px);\n}\n.SidebarRoot_panelGlyph {\n  flex: none;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n.SidebarRoot_panelTitle {\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.SidebarRoot_collapsed .SidebarRoot_panelList {\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.SidebarRoot_collapsed .SidebarRoot_panelEntry {\n  border-inline: 0;\n}\n.SidebarRoot_collapsed .SidebarRoot_panelRow {\n  width: 36px;\n  height: 36px;\n  justify-content: center;\n  margin: 0;\n  border-inline: 0;\n  background-clip: border-box;\n  padding: 0;\n  color: var(--dsw-alias-label-primary);\n}\n.SidebarRoot_regionArea {\n  grid-column: 2;\n  grid-row: 4;\n  min-height: 0;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n}\n.SidebarRoot_collapsed .SidebarRoot_regionArea {\n  flex: 1;\n}\n.SidebarRoot_footArea {\n  flex: none;\n  display: flex;\n  flex-direction: column;\n}\n.SidebarRoot_settingsArea,\n.SidebarRoot_footerActions {\n  flex: none;\n  min-width: 0;\n  width: 100%;\n}\n.SidebarRoot_footerActions {\n  display: flex;\n}\n.SidebarRoot_collapsed .SidebarRoot_footArea {\n  align-items: center;\n}\n.SidebarRoot_collapsed .SidebarRoot_settingsArea,\n.SidebarRoot_collapsed .SidebarRoot_footerActions {\n  display: flex;\n  justify-content: center;\n  width: auto;\n}\n@media (prefers-reduced-motion: reduce) {\n  [data-animating]:not([data-dragging]) .SidebarRoot_root,\n  .SidebarRoot_wide,\n  .SidebarRoot_fading > *,\n  .SidebarRoot_railIn .SidebarRoot_iconButton,\n  .SidebarRoot_railIn .SidebarRoot_newSessionRow > [data-slot=\"sidebar.session.action\"] > *,\n  .SidebarRoot_railIn .SidebarRoot_panelList,\n  .SidebarRoot_railIn .SidebarRoot_footArea,\n  .SidebarRoot_railIn .SidebarRoot_regionArea {\n    transition: none;\n    animation: none;\n  }\n}\n";
+if (typeof document !== 'undefined') {
+  var __teleworkSelector = 'style[data-plugin-css="' + __teleworkPlugin + '"]';
+  if (document.querySelector(__teleworkSelector) === null) {
+    var __teleworkTag = document.createElement('style');
+    __teleworkTag.dataset.plugin = __teleworkPlugin;
+    __teleworkTag.dataset.pluginCss = __teleworkPlugin;
+    __teleworkTag.textContent = __teleworkCss;
+    document.head.appendChild(__teleworkTag);
+  }
+}
+
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// .tools/sidebar-build/src/client/index.ts
+var index_exports = {};
+__export(index_exports, {
+  apply: () => apply,
+  inject: () => inject
+});
+module.exports = __toCommonJS(index_exports);
+var import_dsh_client_store2 = require("@deepseek-ai/dsh-client-store");
+var import_dsh_client_ui_slots = require("@deepseek-ai/dsh-client-ui-slots");
+
+// .tools/sidebar-build/src/client/panel-pins.ts
+var import_dsh_client_store = require("@deepseek-ai/dsh-client-store");
+var FIXED_PANEL_ID = "plugins";
+var NO_PANELS = [];
+function createPanelPins() {
+  const store = (0, import_dsh_client_store.createSnapshotStore)({ unpinned: NO_PANELS });
+  return {
+    unpinned: { getSnapshot: () => store.getSnapshot().unpinned, subscribe: (listener) => store.subscribe(listener) },
+    setPinned: (id, pinned) => {
+      const current = store.getSnapshot().unpinned;
+      if (id === FIXED_PANEL_ID || pinned !== current.includes(id)) return;
+      store.set({ unpinned: pinned ? current.filter((entry) => entry !== id) : [...current, id] });
+    }
+  };
+}
+
+// .tools/sidebar-build/src/client/HeaderLeadingControls.tsx
+var import_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// .tools/sidebar-build/src/client/HeaderLeadingControls.module.css
+var HeaderLeadingControls_default = {
+  controls: "HeaderLeadingControls_controls",
+  iconButton: "HeaderLeadingControls_iconButton"
+};
+
+// .tools/sidebar-build/src/client/HeaderLeadingControls.tsx
+var import_jsx_runtime = require("react/jsx-runtime");
+function HeaderLeadingControls({
+  toggleSidebar,
+  startSession,
+  trackEntryClick,
+  useRemoteAccess,
+  useShortcuts,
+  t
+}) {
+  const canStartSession = useRemoteAccess("session/create");
+  const desktop = document.documentElement.hasAttribute("data-platform");
+  const shortcut = useShortcuts((rows) => rows.find((row) => row.id === "sidebar.left.toggle"));
+  const newShortcut = useShortcuts((rows) => rows.find((row) => row.id === "session.new"));
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: HeaderLeadingControls_default.controls, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.Tooltip, { label: t("toggle.open"), shortcutKeys: shortcut?.keys, delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "button",
+      {
+        "data-sidebar-opener": true,
+        type: "button",
+        className: HeaderLeadingControls_default.iconButton,
+        "aria-label": t("toggle.open"),
+        "aria-keyshortcuts": shortcut?.aria,
+        onClick: () => {
+          toggleSidebar();
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.IconPanelLeftOutlineRegular, { size: 16 })
+      }
+    ) }),
+    desktop && canStartSession && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.Tooltip, { label: t("session.new.label"), shortcutKeys: newShortcut?.keys, delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "button",
+      {
+        type: "button",
+        className: HeaderLeadingControls_default.iconButton,
+        "aria-label": t("session.new.label"),
+        "aria-keyshortcuts": newShortcut?.aria,
+        onClick: () => {
+          trackEntryClick({ menu_name: "new_session", position: "titlebar" });
+          startSession();
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.IconNewChatOutlineRegular, { size: 16 })
+      }
+    ) })
+  ] });
+}
+
+// .tools/sidebar-build/src/client/SidebarRoot.tsx
+var import_react = require("react");
+
+// .tools/sidebar-build/node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
+function r(e) {
+  var t, f, n = "";
+  if ("string" == typeof e || "number" == typeof e) n += e;
+  else if ("object" == typeof e) if (Array.isArray(e)) {
+    var o = e.length;
+    for (t = 0; t < o; t++) e[t] && (f = r(e[t])) && (n && (n += " "), n += f);
+  } else for (f in e) e[f] && (n && (n += " "), n += f);
+  return n;
+}
+function clsx() {
+  for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
+  return n;
+}
+var clsx_default = clsx;
+
+// .tools/sidebar-build/src/client/SidebarRoot.tsx
+var import_dsh_client_ui_primitives2 = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// .tools/sidebar-build/src/client/scroll-handoff.ts
+var GESTURE_GAP_MS = 100;
+function verticalWheelPixels(event, page) {
+  if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return void 0;
+  if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return event.deltaY * 16;
+  if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) return event.deltaY * page;
+  return event.deltaY;
+}
+function scrollClamped(element, delta) {
+  const before = element.scrollTop;
+  element.scrollTop = before + delta;
+  return element.scrollTop - before;
+}
+function atEnd(viewport) {
+  return viewport.scrollHeight - viewport.clientHeight - viewport.scrollTop < 1;
+}
+function createScrollHandoff() {
+  let scroller = null;
+  let releaseViewport;
+  let lastSplit = Number.NEGATIVE_INFINITY;
+  const handle = (viewport, event) => {
+    if (scroller === null || event.defaultPrevented) return;
+    const delta = verticalWheelPixels(event, viewport.clientHeight);
+    if (delta === void 0 || delta === 0) return;
+    const continuing = event.cancelable && event.timeStamp - lastSplit < GESTURE_GAP_MS;
+    if (!continuing) {
+      const native = atEnd(viewport) && scroller.contains(event.target);
+      if (native && (delta > 0 || scroller.scrollTop + delta >= 0)) return;
+      if (!event.cancelable) {
+        if (native) scrollClamped(viewport, delta + scroller.scrollTop);
+        return;
+      }
+    }
+    event.preventDefault();
+    lastSplit = event.timeStamp;
+    if (delta > 0) {
+      const rest2 = delta - scrollClamped(viewport, delta);
+      if (rest2 > 0) scrollClamped(scroller, rest2);
+      return;
+    }
+    const rest = delta - scrollClamped(scroller, delta);
+    if (rest < 0) scrollClamped(viewport, rest);
+  };
+  const sectionScroller = {
+    bindScrollerRef: (element) => {
+      scroller = element;
+    }
+  };
+  return {
+    bindViewportRef: (element) => {
+      releaseViewport?.();
+      releaseViewport = void 0;
+      if (element === null) return;
+      const onWheel = (event) => {
+        handle(element, event);
+      };
+      element.addEventListener("wheel", onWheel, { passive: false });
+      releaseViewport = () => {
+        element.removeEventListener("wheel", onWheel);
+      };
+    },
+    useSectionScroller: () => sectionScroller
+  };
+}
+
+// .tools/sidebar-build/src/client/SidebarRoot.module.css
+var SidebarRoot_default = {
+  root: "SidebarRoot_root",
+  activityRail: "SidebarRoot_activityRail",
+  railBrand: "SidebarRoot_railBrand",
+  railButton: "SidebarRoot_railButton",
+  railActive: "SidebarRoot_railActive",
+  railGrow: "SidebarRoot_railGrow",
+  railFoot: "SidebarRoot_railFoot",
+  panelColumn: "SidebarRoot_panelColumn",
+  filesPane: "SidebarRoot_filesPane",
+  filesSplit: "SidebarRoot_filesSplit",
+  filesHeader: "SidebarRoot_filesHeader",
+  filesTitle: "SidebarRoot_filesTitle",
+  filesRefresh: "SidebarRoot_filesRefresh",
+  filesBody: "SidebarRoot_filesBody",
+  fileRow: "SidebarRoot_fileRow",
+  fileArrow: "SidebarRoot_fileArrow",
+  fileArrowOpen: "SidebarRoot_fileArrowOpen",
+  fileIcon: "SidebarRoot_fileIcon",
+  fileName: "SidebarRoot_fileName",
+  fileHint: "SidebarRoot_fileHint",
+  fileError: "SidebarRoot_fileError",
+  collapsed: "SidebarRoot_collapsed",
+  logoRow: "SidebarRoot_logoRow",
+  toggle: "SidebarRoot_toggle",
+  brand: "SidebarRoot_brand",
+  brandIdentity: "SidebarRoot_brandIdentity",
+  brandMark: "SidebarRoot_brandMark",
+  brandName: "SidebarRoot_brandName",
+  newSessionRow: "SidebarRoot_newSessionRow",
+  panelList: "SidebarRoot_panelList",
+  regionArea: "SidebarRoot_regionArea",
+  footArea: "SidebarRoot_footArea",
+  newSession: "SidebarRoot_newSession",
+  railIn: "SidebarRoot_railIn",
+  iconButton: "SidebarRoot_iconButton",
+  panelIcon: "SidebarRoot_panelIcon",
+  quietBars: "SidebarRoot_quietBars",
+  fading: "SidebarRoot_fading",
+  wide: "SidebarRoot_wide",
+  "wide-in": "SidebarRoot_wide-in",
+  "rail-in": "SidebarRoot_rail-in",
+  "rail-fade-in": "SidebarRoot_rail-fade-in",
+  topStrip: "SidebarRoot_topStrip",
+  fallbackBrandName: "SidebarRoot_fallbackBrandName",
+  localBuildBrand: "SidebarRoot_localBuildBrand",
+  copyVersion: "SidebarRoot_copyVersion",
+  localBuildTitle: "SidebarRoot_localBuildTitle",
+  railMark: "SidebarRoot_railMark",
+  buildVersion: "SidebarRoot_buildVersion",
+  newSessionLabel: "SidebarRoot_newSessionLabel",
+  newSessionLabelMask: "SidebarRoot_newSessionLabelMask",
+  newSessionShortcut: "SidebarRoot_newSessionShortcut",
+  newSessionContent: "SidebarRoot_newSessionContent",
+  scrollRegion: "SidebarRoot_scrollRegion",
+  scrollArea: "SidebarRoot_scrollArea",
+  scrollFade: "SidebarRoot_scrollFade",
+  panelEntry: "SidebarRoot_panelEntry",
+  panelEntryWide: "SidebarRoot_panelEntryWide",
+  panelRow: "SidebarRoot_panelRow",
+  panelEntryActive: "SidebarRoot_panelEntryActive",
+  panelUnpin: "SidebarRoot_panelUnpin",
+  moreAnchor: "SidebarRoot_moreAnchor",
+  moreMenu: "SidebarRoot_moreMenu",
+  panelGlyph: "SidebarRoot_panelGlyph",
+  panelTitle: "SidebarRoot_panelTitle",
+  settingsArea: "SidebarRoot_settingsArea",
+  footerActions: "SidebarRoot_footerActions"
+};
+
+// .tools/sidebar-build/src/client/SidebarRoot.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var COLLAPSE_SETTLE_MS = 150;
+var EMPTY_SESSION_STORE = {
+  getSnapshot: () => ({ sessionId: void 0 }),
+  subscribe: () => () => {
+  }
+};
+function FileTreeNode({ entry, sessionId, depth, t }) {
+  const [open, setOpen] = (0, import_react.useState)(false);
+  const [children, setChildren] = (0, import_react.useState)(void 0);
+  const [loading, setLoading] = (0, import_react.useState)(false);
+  const [error, setError] = (0, import_react.useState)(void 0);
+  const directory = entry.type === "directory";
+  const toggle = () => {
+    if (!directory) return;
+    if (open) {
+      setOpen(false);
+      return;
+    }
+    setOpen(true);
+    if (children !== void 0 || loading) return;
+    setLoading(true);
+    setError(void 0);
+    fetch(`/telework/files?session=${encodeURIComponent(sessionId)}&path=${encodeURIComponent(entry.path)}`, { cache: "no-store" }).then(async (response) => {
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error ?? `HTTP ${response.status}`);
+      setChildren(body.entries ?? []);
+    }).catch((caught) => {
+      setError(caught instanceof Error ? caught.message : String(caught));
+    }).finally(() => {
+      setLoading(false);
+    });
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+      "button",
+      {
+        type: "button",
+        className: SidebarRoot_default.fileRow,
+        style: { paddingLeft: 8 + depth * 12 },
+        onClick: toggle,
+        disabled: !directory,
+        "aria-expanded": directory ? open : void 0,
+        title: entry.path,
+        children: [
+          directory ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { className: clsx_default(SidebarRoot_default.fileArrow, open && SidebarRoot_default.fileArrowOpen), width: 12, height: 12, viewBox: "0 0 12 12", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M4 2l5 4-5 4z", fill: "currentColor" }) }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.fileArrow, "aria-hidden": "true" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.fileIcon, "aria-hidden": "true", children: directory ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { width: 16, height: 16, viewBox: "0 0 16 16", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1l1.2 1.5H13A1.5 1.5 0 0 1 14.5 5.5v6A1.5 1.5 0 0 1 13 13H3a1.5 1.5 0 0 1-1.5-1.5V4Z" }) }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: 16, height: 16, viewBox: "0 0 16 16", fill: "none", stroke: "currentColor", strokeWidth: 1.2, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M3.5 2.5h5l4 4v7h-9v-11Z", strokeLinejoin: "round" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M8.5 2.5v4h4", strokeLinejoin: "round" })
+          ] }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.fileName, children: entry.name })
+        ]
+      }
+    ),
+    open && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+      loading && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, style: { paddingLeft: 20 + depth * 12 }, children: t("files.loading") }),
+      error !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileError, style: { paddingLeft: 20 + depth * 12 }, children: error }),
+      (children ?? []).map((child) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry: child, sessionId, depth: depth + 1, t }, child.path)),
+      children !== void 0 && children.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, style: { paddingLeft: 20 + depth * 12 }, children: t("files.emptyFolder") })
+    ] })
+  ] });
+}
+function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }) {
+  const store = currentSession;
+  const sessionId = (0, import_react.useSyncExternalStore)(
+    store.subscribe,
+    () => store.getSnapshot().sessionId
+  );
+  const [revision, setRevision] = (0, import_react.useState)(0);
+  const [height, setHeight] = (0, import_react.useState)(() => {
+    try {
+      const stored = Number(localStorage.getItem("dsh-telework.files.height"));
+      return Number.isFinite(stored) && stored >= 96 ? stored : null;
+    } catch {
+      return null;
+    }
+  });
+  const heightRef = (0, import_react.useRef)(height);
+  const paneRef = (0, import_react.useRef)(null);
+  const dragRef = (0, import_react.useRef)(null);
+  const [state, setState] = (0, import_react.useState)({ phase: sessionId === void 0 ? "no-session" : "loading", entries: [] });
+  (0, import_react.useEffect)(() => {
+    if (sessionId === void 0) {
+      setState({ phase: "no-session", entries: [] });
+      return;
+    }
+    const controller = new AbortController();
+    setState((previous) => ({ ...previous, phase: "loading", error: void 0 }));
+    fetch(`/telework/files?session=${encodeURIComponent(sessionId)}`, { signal: controller.signal, cache: "no-store" }).then(async (response) => {
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error ?? `HTTP ${response.status}`);
+      setState({ phase: "ready", entries: body.entries ?? [] });
+    }).catch((caught) => {
+      if (controller.signal.aborted) return;
+      setState({ phase: "error", entries: [], error: caught instanceof Error ? caught.message : String(caught) });
+    });
+    return () => controller.abort();
+  }, [sessionId, revision]);
+  const applyHeight = (next) => {
+    heightRef.current = next;
+    setHeight(next);
+  };
+  const persistHeight = () => {
+    try {
+      const value = heightRef.current;
+      if (value !== null) localStorage.setItem("dsh-telework.files.height", String(value));
+    } catch {
+    }
+  };
+  const maxHeight = () => {
+    const parent = paneRef.current?.parentElement;
+    if (parent === null || parent === void 0) return 600;
+    return Math.max(128, parent.getBoundingClientRect().height - 96);
+  };
+  const onResizeStart = (event) => {
+    const rect = paneRef.current?.getBoundingClientRect();
+    if (rect === void 0) return;
+    event.preventDefault();
+    dragRef.current = { startY: event.clientY, startHeight: rect.height };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const onResizeMove = (event) => {
+    const drag = dragRef.current;
+    if (drag === null) return;
+    const next = Math.min(maxHeight(), Math.max(96, drag.startHeight + drag.startY - event.clientY));
+    applyHeight(Math.round(next));
+  };
+  const onResizeEnd = (event) => {
+    if (dragRef.current === null) return;
+    dragRef.current = null;
+    try {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    } catch {
+    }
+    persistHeight();
+  };
+  const onResizeKey = (event) => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const base = heightRef.current ?? paneRef.current?.getBoundingClientRect().height ?? 200;
+    const next = Math.min(maxHeight(), Math.max(96, base + (event.key === "ArrowUp" ? 16 : -16)));
+    applyHeight(Math.round(next));
+    persistHeight();
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    "section",
+    {
+      ref: paneRef,
+      className: SidebarRoot_default.filesPane,
+      style: height === null ? void 0 : { flex: `0 0 ${height}px` },
+      "aria-label": t("files.label"),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "div",
+          {
+            className: SidebarRoot_default.filesSplit,
+            role: "separator",
+            "aria-orientation": "horizontal",
+            "aria-label": t("files.resize"),
+            "aria-valuemin": 96,
+            "aria-valuenow": height ?? void 0,
+            tabIndex: 0,
+            onPointerDown: onResizeStart,
+            onPointerMove: onResizeMove,
+            onPointerUp: onResizeEnd,
+            onPointerCancel: onResizeEnd,
+            onKeyDown: onResizeKey
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("header", { className: SidebarRoot_default.filesHeader, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.filesTitle, children: t("files.label") }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              className: SidebarRoot_default.filesRefresh,
+              "aria-label": t("files.refresh"),
+              title: t("files.refresh"),
+              onClick: () => {
+                setRevision((value) => value + 1);
+              },
+              disabled: sessionId === void 0,
+              children: "\u21BB"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: SidebarRoot_default.filesBody, children: [
+          state.phase === "no-session" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, children: t("files.noSession") }),
+          state.phase === "loading" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, children: t("files.loading") }),
+          state.phase === "error" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileError, children: state.error }),
+          state.phase === "ready" && state.entries.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, children: t("files.empty") }),
+          state.phase === "ready" && state.entries.map((entry) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry, sessionId, depth: 0, t }, entry.path))
+        ] })
+      ]
+    }
+  );
+}
+var SCROLLBAR_LINGER_MS = 2e3;
+function localBuildVersion() {
+  const version = process.env.DSH_CLIENT_VERSION;
+  if (version === void 0) return void 0;
+  const commit = process.env.DSH_CLIENT_COMMIT_HASH;
+  return version + (commit === void 0 ? "" : `-${commit}`) + (process.env.DSH_CLIENT_GIT_DIRTY === "true" ? "-dirty" : "");
+}
+function officialEntry(id) {
+  if (id === "plugins") return "plugin";
+  return id === "schedules" ? "cron" : void 0;
+}
+function SidebarRoot({
+  collapsed,
+  width,
+  drawer,
+  startSession,
+  toggleSidebar,
+  selectPanel,
+  setPinned,
+  trackEntryClick,
+  currentSession = EMPTY_SESSION_STORE,
+  useRemoteAccess,
+  usePanels,
+  useEntryPins,
+  useEntryActions,
+  useShortcuts,
+  usePanelInfo,
+  t,
+  renderSlot,
+  renderFactorySlot
+}) {
+  const panels = usePanels((snapshot) => snapshot);
+  const unpinned = useEntryPins((ids) => ids);
+  const activePanelId = usePanelInfo((info) => info.activePanelId);
+  const hasEntryActions = useEntryActions((registered) => registered);
+  const shortcut = useShortcuts((rows) => rows.find((row) => row.id === "sidebar.left.toggle"));
+  const newShortcut = useShortcuts((rows) => rows.find((row) => row.id === "session.new"));
+  const canStartSession = useRemoteAccess("session/create");
+  const toggleLabel = collapsed ? t("toggle.open") : t("toggle.collapse");
+  const [settled, setSettled] = (0, import_react.useState)(collapsed);
+  (0, import_react.useEffect)(() => {
+    if (drawer || !collapsed) {
+      setSettled(collapsed);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      setSettled(true);
+    }, COLLAPSE_SETTLE_MS);
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [collapsed, drawer]);
+  const windowsTitlebar = document.documentElement.hasAttribute("data-windows-titlebar");
+  const wide = drawer || (windowsTitlebar ? !collapsed : !collapsed || !settled);
+  const [scrollHandoff] = (0, import_react.useState)(createScrollHandoff);
+  const sectionHookContext = (0, import_react.useMemo)(
+    () => ({ useSectionScroller: scrollHandoff.useSectionScroller }),
+    [scrollHandoff]
+  );
+  const openNewSession = () => {
+    trackEntryClick({ menu_name: "new_session", position: windowsTitlebar && collapsed ? "titlebar" : "sidebar" });
+    startSession();
+  };
+  const captionTooltipSide = windowsTitlebar ? "bottom" : "right";
+  const lastWideWidth = (0, import_react.useRef)(width);
+  if (drawer || !collapsed) lastWideWidth.current = width;
+  const animateRail = (0, import_react.useRef)(!collapsed);
+  if (drawer || !collapsed) animateRail.current = !collapsed;
+  const column = (0, import_react.useRef)(null);
+  const sidebarFocus = (0, import_react.useRef)(null);
+  (0, import_dsh_client_ui_primitives2.useModalLayer)(column, drawer && !collapsed, toggleSidebar);
+  (0, import_react.useLayoutEffect)(() => {
+    if (!collapsed) return;
+    const controlled = sidebarFocus.current?.getAttribute("aria-controls")?.split(/\s+/) ?? [];
+    const ownsMenuFocus = controlled.some((id) => document.getElementById(id)?.contains(document.activeElement));
+    if (sidebarFocus.current !== document.activeElement && !ownsMenuFocus) return;
+    const opener = drawer ? column.current?.ownerDocument.querySelector("[data-sidebar-opener]") : column.current?.querySelector("[data-sidebar-toggle]");
+    if (opener != null && !(0, import_dsh_client_ui_primitives2.isBehindModal)(opener)) (0, import_dsh_client_ui_primitives2.focusWithoutRing)(opener, { preventScroll: true });
+  }, [drawer, collapsed]);
+  const [pointerInside, setPointerInside] = (0, import_react.useState)(false);
+  const lingerTimer = (0, import_react.useRef)(void 0);
+  const armLinger = () => {
+    if (lingerTimer.current !== void 0) return;
+    lingerTimer.current = window.setTimeout(() => {
+      lingerTimer.current = void 0;
+      setPointerInside(false);
+    }, SCROLLBAR_LINGER_MS);
+  };
+  const cancelLinger = () => {
+    window.clearTimeout(lingerTimer.current);
+    lingerTimer.current = void 0;
+  };
+  (0, import_react.useEffect)(() => {
+    if (!pointerInside) return;
+    const onMove = (event) => {
+      const rect = column.current?.getBoundingClientRect();
+      if (rect === void 0) return;
+      const inside = event.clientX >= rect.left && event.clientX < rect.right && event.clientY >= rect.top && event.clientY < rect.bottom;
+      if (inside) cancelLinger();
+      else armLinger();
+    };
+    document.addEventListener("pointermove", onMove);
+    return () => {
+      document.removeEventListener("pointermove", onMove);
+      cancelLinger();
+    };
+  }, [pointerInside]);
+  const buildVersion = localBuildVersion();
+  const [copiedToast, setCopiedToast] = (0, import_react.useState)(null);
+  const copyVersion = (version) => () => {
+    void (0, import_dsh_client_ui_primitives2.writeClipboard)(version).then((ok) => {
+      if (ok) setCopiedToast((seq) => (seq ?? 0) + 1);
+    });
+  };
+  const darwinDesktop = (0, import_dsh_client_ui_primitives2.isDarwinDesktop)();
+  const toggle = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: toggleLabel, shortcutKeys: shortcut?.keys, delayMs: 500, side: captionTooltipSide, portal: drawer, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    "button",
+    {
+      "data-sidebar-toggle": true,
+      "data-modal-autofocus": drawer || void 0,
+      type: "button",
+      className: clsx_default(SidebarRoot_default.iconButton, SidebarRoot_default.toggle),
+      "aria-label": toggleLabel,
+      "aria-keyshortcuts": shortcut?.aria,
+      onClick: () => {
+        toggleSidebar();
+      },
+      children: [
+        !wide && !windowsTitlebar && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.railMark, "aria-hidden": "true", children: renderSlot("sidebar.brand.mark", { size: 24 }, { fallback: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.FishLogo, { size: 24 }) }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.IconPanelLeftOutlineRegular, { className: SidebarRoot_default.panelIcon, size: wide || windowsTitlebar ? 16 : 18 }),
+        !wide && renderSlot("sidebar.toggle.badge", {})
+      ]
+    }
+  ) });
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    "div",
+    {
+      ref: column,
+      onFocusCapture: (event) => {
+        sidebarFocus.current = event.target;
+      },
+      role: drawer ? "dialog" : void 0,
+      "data-shortcut-modal": drawer ? "sidebar" : void 0,
+      "aria-modal": drawer && !collapsed ? true : void 0,
+      "aria-label": drawer ? t("navigation.label") : void 0,
+      tabIndex: drawer ? -1 : void 0,
+      className: clsx_default(
+        SidebarRoot_default.root,
+        !wide && SidebarRoot_default.collapsed,
+        !wide && animateRail.current && SidebarRoot_default.railIn,
+        !drawer && collapsed && wide && SidebarRoot_default.fading,
+        !pointerInside && SidebarRoot_default.quietBars
+      ),
+      style: wide ? { width: !drawer && collapsed ? lastWideWidth.current : width } : void 0,
+      onPointerEnter: () => {
+        cancelLinger();
+        setPointerInside(true);
+      },
+      onPointerLeave: () => {
+        armLinger();
+      },
+      children: [
+        darwinDesktop && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.topStrip, "data-window-drag": true, children: toggle }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: SidebarRoot_default.activityRail, role: "navigation", "aria-label": t("navigation.label"), children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: t("rail.workspaces"), delayMs: 500, side: "right", portal: drawer, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              className: clsx_default(SidebarRoot_default.railButton, activePanelId === null && SidebarRoot_default.railActive),
+              "aria-label": t("rail.workspaces"),
+              "aria-current": activePanelId === null ? "page" : void 0,
+              onClick: () => {
+                selectPanel(null);
+                if (collapsed) toggleSidebar();
+              },
+              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { width: 18, height: 18, viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M2 4.5A1.5 1.5 0 0 1 3.5 3h3l1.2 1.5h5.8A1.5 1.5 0 0 1 15 6v5.5a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 2 11.5v-7Z", stroke: "currentColor", strokeWidth: "1.3", strokeLinejoin: "round", transform: "translate(-0.5 0)" }) })
+            }
+          ) }),
+          panels.map((panel) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: panel.label, delayMs: 500, side: "right", portal: drawer, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              className: clsx_default(SidebarRoot_default.railButton, activePanelId === panel.id && SidebarRoot_default.railActive),
+              "aria-label": panel.label,
+              "aria-current": activePanelId === panel.id ? "page" : void 0,
+              onClick: () => {
+                const entry = officialEntry(panel.id);
+                if (entry !== void 0) trackEntryClick({ menu_name: entry, position: "sidebar" });
+                selectPanel(panel.id);
+              },
+              children: renderFactorySlot("sidebar.panel.icon", { id: panel.id, size: 18, active: activePanelId === panel.id })
+            }
+          ) }, panel.id)),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.railGrow }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: SidebarRoot_default.railFoot, children: [
+            renderSlot("sidebar.settings", { wide: false }),
+            renderSlot("sidebar.footer.action", { wide: false })
+          ] })
+        ] }),
+        !wide && windowsTitlebar && canStartSession && renderSlot("sidebar.session.action", { wide }, {
+          children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: t("session.new.label"), shortcutKeys: newShortcut?.keys, delayMs: 500, side: captionTooltipSide, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              className: SidebarRoot_default.newSession,
+              "aria-label": t("session.new.label"),
+              "aria-keyshortcuts": newShortcut?.aria,
+              onClick: openNewSession,
+              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.newSessionLabelMask, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.newSessionContent, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.IconNewChatOutlineRegular, { size: 16 }) }) })
+            }
+          ) })
+        }),
+        wide && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: SidebarRoot_default.panelColumn, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.logoRow, "data-window-drag": true, children: wide && (() => {
+            const identity = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: SidebarRoot_default.brandIdentity, "aria-hidden": "true", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.brandMark, children: renderSlot("sidebar.brand.mark", { size: 24 }, {
+                fallback: buildVersion === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.FishLogo, { size: 24 }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.copyVersion, "data-copy-version": true, onClick: copyVersion(buildVersion), children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.FishLogo, { size: 24 }) })
+              }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.brandName, children: renderSlot("sidebar.brand.name", {}, {
+                fallback: buildVersion === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.fallbackBrandName, children: t("brand.localBuild") }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: clsx_default(SidebarRoot_default.localBuildBrand, SidebarRoot_default.copyVersion), "data-copy-version": true, onClick: copyVersion(buildVersion), children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.localBuildTitle, children: t("brand.localBuild") }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.buildVersion, children: buildVersion })
+                ] })
+              }) })
+            ] });
+            return darwinDesktop || !canStartSession ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: clsx_default(SidebarRoot_default.brand, SidebarRoot_default.wide), children: identity }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+              "button",
+              {
+                type: "button",
+                className: clsx_default(SidebarRoot_default.brand, SidebarRoot_default.wide),
+                "aria-label": t("session.new.label"),
+                "aria-keyshortcuts": newShortcut?.aria,
+                onClick: (event) => {
+                  if (event.target.closest("[data-copy-version]") !== null) return;
+                  openNewSession();
+                },
+                children: identity
+              }
+            );
+          })() }),
+          canStartSession && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.newSessionRow, children: renderSlot("sidebar.session.action", { wide }, {
+            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: t("session.new.label"), shortcutKeys: newShortcut?.keys, delayMs: 500, side: captionTooltipSide, disabled: wide, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: SidebarRoot_default.newSession,
+                "aria-label": t("session.new.label"),
+                "aria-keyshortcuts": newShortcut?.aria,
+                onClick: openNewSession,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.newSessionLabelMask, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: SidebarRoot_default.newSessionContent, children: [
+                    wide ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.IconNewChatOutlineMedium, { size: 14 }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.IconNewChatOutlineRegular, { size: windowsTitlebar ? 16 : 18 }),
+                    wide && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: clsx_default(SidebarRoot_default.newSessionLabel, SidebarRoot_default.wide), children: t("session.new") })
+                  ] }) }),
+                  wide && newShortcut !== void 0 && newShortcut.keys.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.newSessionShortcut, "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.ShortcutKeys, { keys: newShortcut.keys }) })
+                ]
+              }
+            ) })
+          }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: SidebarRoot_default.scrollRegion, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+              "div",
+              {
+                ref: scrollHandoff.bindViewportRef,
+                className: SidebarRoot_default.scrollArea,
+                "data-sidebar-scrollport": wide ? "" : void 0,
+                children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.regionArea, children: renderSlot("sidebar.workspaces", {
+                  wide,
+                  expandSidebar: () => {
+                    if (collapsed) toggleSidebar();
+                  }
+                }, { hookContext: sectionHookContext }) })
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.scrollFade, "aria-hidden": "true" })
+          ] }),
+          activePanelId === null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(WorkspaceFiles, { currentSession, t }),
+          copiedToast !== null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Toast, { tone: "success", text: t("version.copied"), onDone: () => {
+            setCopiedToast(null);
+          } }, copiedToast)
+        ] })
+      ]
+    }
+  );
+}
+
+// .tools/sidebar-build/src/client/PanelIcon.tsx
+function PanelIcon({ id, size, active, renderSlot }) {
+  return renderSlot("sidebar.panellist", { size, active }, { only: id });
+}
+
+// .tools/sidebar-build/src/client/locales.ts
+var zh = {
+  "panels.unpinTooltip": "\u4ECE\u5DE6\u4FA7\u680F\u53D6\u6D88\u56FA\u5B9A",
+  "panels.unpin": "\u4ECE\u4FA7\u8FB9\u680F\u53D6\u6D88\u56FA\u5B9A{name}",
+  "session.new": "\u65B0\u4F1A\u8BDD",
+  "session.new.label": "\u65B0\u5EFA\u4F1A\u8BDD",
+  "toggle.open": "\u6253\u5F00\u4FA7\u8FB9\u680F",
+  "toggle.collapse": "\u6536\u8D77\u4FA7\u8FB9\u680F",
+  "panels.label": "\u5168\u5C40\u9762\u677F",
+  "navigation.label": "\u5BFC\u822A",
+  "panels.more": "\u66F4\u591A",
+  "version.copied": "\u7248\u672C\u53F7\u590D\u5236\u6210\u529F",
+  "rail.workspaces": "\u5DE5\u4F5C\u533A",
+  "files.label": "\u6587\u4EF6",
+  "files.refresh": "\u5237\u65B0\u6587\u4EF6",
+  "files.loading": "\u52A0\u8F7D\u4E2D\u2026",
+  "files.empty": "\u5DE5\u4F5C\u533A\u4E3A\u7A7A",
+  "files.emptyFolder": "\u7A7A\u6587\u4EF6\u5939",
+  "files.noSession": "\u6253\u5F00\u4E00\u4E2A\u4F1A\u8BDD\u4EE5\u67E5\u770B\u6587\u4EF6",
+  "files.resize": "\u8C03\u6574\u6587\u4EF6\u9762\u677F\u9AD8\u5EA6"
+};
+var en = {
+  "panels.unpinTooltip": "Unpin from left sidebar",
+  "panels.unpin": "Unpin {name} from sidebar",
+  "session.new": "New Session",
+  "session.new.label": "New session",
+  "toggle.open": "Open sidebar",
+  "toggle.collapse": "Collapse sidebar",
+  "panels.label": "Global panels",
+  "navigation.label": "Navigation",
+  "panels.more": "More",
+  "version.copied": "Version copied",
+  "rail.workspaces": "Workspaces",
+  "files.label": "Files",
+  "files.refresh": "Refresh files",
+  "files.loading": "Loading\u2026",
+  "files.empty": "Workspace is empty",
+  "files.emptyFolder": "Empty folder",
+  "files.noSession": "Open a session to browse files",
+  "files.resize": "Resize the files panel"
+};
+var ja = {
+  "panels.unpinTooltip": "\u5DE6\u30B5\u30A4\u30C9\u30D0\u30FC\u304B\u3089\u56FA\u5B9A\u89E3\u9664",
+  "panels.unpin": "{name}\u3092\u30B5\u30A4\u30C9\u30D0\u30FC\u304B\u3089\u56FA\u5B9A\u89E3\u9664",
+  "session.new": "\u65B0\u898F\u30BB\u30C3\u30B7\u30E7\u30F3",
+  "session.new.label": "\u65B0\u898F\u30BB\u30C3\u30B7\u30E7\u30F3",
+  "toggle.open": "\u30B5\u30A4\u30C9\u30D0\u30FC\u3092\u958B\u304F",
+  "toggle.collapse": "\u30B5\u30A4\u30C9\u30D0\u30FC\u3092\u6298\u308A\u305F\u305F\u3080",
+  "panels.label": "\u30B0\u30ED\u30FC\u30D0\u30EB\u30D1\u30CD\u30EB",
+  "navigation.label": "\u30CA\u30D3\u30B2\u30FC\u30B7\u30E7\u30F3",
+  "panels.more": "\u305D\u306E\u4ED6",
+  "version.copied": "\u30D0\u30FC\u30B8\u30E7\u30F3\u3092\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F"
+};
+var es = {
+  "panels.unpinTooltip": "Desanclar de la barra lateral izquierda",
+  "panels.unpin": "Desfijar {name} de la barra lateral",
+  "session.new": "Nueva sesi\xF3n",
+  "session.new.label": "Nueva sesi\xF3n",
+  "toggle.open": "Abrir barra lateral",
+  "toggle.collapse": "Contraer barra lateral",
+  "panels.label": "Paneles globales",
+  "navigation.label": "Navegaci\xF3n",
+  "panels.more": "M\xE1s",
+  "version.copied": "Versi\xF3n copiada"
+};
+var fr = {
+  "panels.unpinTooltip": "Retirer l'\xE9pingle de la barre lat\xE9rale gauche",
+  "panels.unpin": "D\xE9s\xE9pingler {name} de la barre lat\xE9rale",
+  "session.new": "Nouvelle s\xE9ance",
+  "session.new.label": "Nouvelle s\xE9ance",
+  "toggle.open": "Ouvrir la barre lat\xE9rale",
+  "toggle.collapse": "R\xE9duire la barre lat\xE9rale",
+  "panels.label": "Panneaux globaux",
+  "navigation.label": "Navigation",
+  "panels.more": "Plus",
+  "version.copied": "Version copi\xE9e"
+};
+var de = {
+  "panels.unpinTooltip": "Von der linken Seitenleiste l\xF6sen",
+  "panels.unpin": "{name} von der Seitenleiste l\xF6sen",
+  "session.new": "Neue Sitzung",
+  "session.new.label": "Neue Sitzung",
+  "toggle.open": "Seitenleiste \xF6ffnen",
+  "toggle.collapse": "Seitenleiste einklappen",
+  "panels.label": "Globale Bereiche",
+  "navigation.label": "Navigation",
+  "panels.more": "Mehr",
+  "version.copied": "Version kopiert"
+};
+var ru = {
+  "panels.unpinTooltip": "\u041E\u0442\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u043E\u0442 \u043B\u0435\u0432\u043E\u0439 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
+  "panels.unpin": "\u041E\u0442\u043A\u0440\u0435\u043F\u0438\u0442\u044C {name} \u043E\u0442 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
+  "session.new": "\u041D\u043E\u0432\u0430\u044F \u0441\u0435\u0441\u0441\u0438\u044F",
+  "session.new.label": "\u041D\u043E\u0432\u0430\u044F \u0441\u0435\u0441\u0441\u0438\u044F",
+  "toggle.open": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0431\u043E\u043A\u043E\u0432\u0443\u044E \u043F\u0430\u043D\u0435\u043B\u044C",
+  "toggle.collapse": "\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C \u0431\u043E\u043A\u043E\u0432\u0443\u044E \u043F\u0430\u043D\u0435\u043B\u044C",
+  "panels.label": "\u0413\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u044B\u0435 \u043F\u0430\u043D\u0435\u043B\u0438",
+  "navigation.label": "\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044F",
+  "panels.more": "\u0415\u0449\u0451",
+  "version.copied": "\u0412\u0435\u0440\u0441\u0438\u044F \u0441\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0430"
+};
+var pt = {
+  "panels.unpinTooltip": "Soltar da barra lateral esquerda",
+  "panels.unpin": "Desafixar {name} da barra lateral",
+  "session.new": "Nova sess\xE3o",
+  "session.new.label": "Nova sess\xE3o",
+  "toggle.open": "Abrir barra lateral",
+  "toggle.collapse": "Recolher barra lateral",
+  "panels.label": "Pain\xE9is globais",
+  "navigation.label": "Navega\xE7\xE3o",
+  "panels.more": "Mais",
+  "version.copied": "Vers\xE3o copiada"
+};
+
+// .tools/sidebar-build/src/client/index.ts
+var SIDEBAR_SECTION_INJECT = {
+  hooks: { sectionScroller: (_standard, { useSectionScroller }) => useSectionScroller }
+};
+var NS = "sidebar";
+var inject = ["slots", "layout", "uiWorkspace", "locale", "shortcuts"];
+function apply(ctx) {
+  const workspaceNavigation = ctx.get("uiWorkspace");
+  ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), "ui-sidebar: dictionaries");
+  const panels = (0, import_dsh_client_store2.createSnapshotStore)([]);
+  const syncPanels = () => {
+    const next = ctx.slots.entriesOfSlot("sidebar.panellist").map(({ options }) => {
+      const id = options.id;
+      return { id, order: options.order ?? 0, label: (0, import_dsh_client_ui_slots.resolveSlotLabel)(options.label) ?? id };
+    }).sort((a, b) => a.order - b.order);
+    const previous = panels.getSnapshot();
+    if (previous.length === next.length && previous.every((panel, index) => {
+      const candidate = next[index];
+      return panel.id === candidate.id && panel.order === candidate.order && panel.label === candidate.label;
+    })) return;
+    panels.set(next);
+  };
+  ctx.effect(() => ctx.slots.subscribe("sidebar.panellist", syncPanels), "ui-sidebar: panel entries");
+  ctx.effect(() => ctx.locale.subscribe(syncPanels), "ui-sidebar: panel labels");
+  const panelPins = createPanelPins();
+  const selection = workspaceNavigation.selection ?? (0, import_dsh_client_store2.createSnapshotStore)({});
+  const entryActions = {
+    getSnapshot: () => ctx.slots.entriesOfSlot("sidebar.panellist.actions").length > 0,
+    subscribe: (listener) => ctx.slots.subscribe("sidebar.panellist.actions", listener)
+  };
+  const injectProps = () => ({
+    // The shell's New Session button rides the Workspace UI's shared action
+    // (current Session Workspace, then recent Workspace).
+    startSession: (workspaceId) => {
+      workspaceNavigation.startSession(workspaceId);
+    },
+    toggleSidebar: () => {
+      ctx.layout.toggleSidebar();
+    },
+    selectPanel: (id) => {
+      ctx.layout.selectPanel(id);
+    },
+    setPinned: panelPins.setPinned,
+    currentSession: selection,
+    trackEntryClick: (attributes) => {
+      ctx.get("productAnalytics")?.track("sidebar_menu_click", attributes);
+    },
+    hooks: { panels, shortcuts: ctx.shortcuts.catalog, entryPins: panelPins.unpinned, entryActions }
+  });
+  ctx.slots.inject("sidebar", function* () {
+    yield ctx.slots.registerFactory({
+      name: "sidebar.panel.icon",
+      scope: "root",
+      children: { "sidebar.panellist": { kind: "list", scope: "root" } }
+    }, PanelIcon);
+    yield ctx.slots.register({
+      name: "sidebar",
+      locale: NS,
+      children: {
+        "sidebar.brand.mark": { kind: "single", scope: "root" },
+        "sidebar.brand.name": { kind: "single", scope: "root" },
+        "sidebar.toggle.badge": { kind: "single", scope: "root" },
+        "sidebar.panellist.actions": { kind: "list", scope: "root" },
+        "sidebar.workspaces": { kind: "single", scope: "root", inject: SIDEBAR_SECTION_INJECT },
+        "sidebar.settings": { kind: "single", scope: "root" },
+        "sidebar.footer.action": { kind: "list", scope: "root" },
+        "sidebar.session.action": { kind: "hoc", scope: "root" }
+      },
+      inject: injectProps
+    }, SidebarRoot);
+  });
+  ctx.slots.inject("shell.leading", () => ctx.slots.register({
+    name: "shell.leading",
+    locale: NS,
+    inject: injectProps
+  }, HeaderLeadingControls));
+  syncPanels();
+}
+
+return module.exports;}});

@@ -24,3 +24,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# The sub-bundles ship vendored, prebuilt client/host entries. The generic
+# lib/ ignore above is for this package's own build output, not those vendors.
+!bundles/**/vendor/**/lib/
+!bundles/**/vendor/**/lib/**

@@ -1,0 +1,22 @@
+{
+  "name": "dsh-telework-sidebar",
+  "version": "0.0.0",
+  "private": true,
+  "description": "VS Code-style activity rail and workspace/files sidebar for the Telework plugin (vendored ui-sidebar shell).",
+  "type": "module",
+  "exports": {
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "vendor",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

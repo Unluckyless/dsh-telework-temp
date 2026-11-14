@@ -7,6 +7,7 @@ window.__ModuleLoader__.load({
 
     const EN = {
       panelLabel: 'Remote',
+      toggleSidebar: 'Collapse or expand the sidebar',
       back: 'Back to conversation',
       title: 'Telework remote development',
       description: 'Inspect the SSH targets this DSH host can use. This early build reads your local OpenSSH configuration only; files, shells and terminals still run locally.',
@@ -31,6 +32,7 @@ window.__ModuleLoader__.load({
 
     const ZH = {
       panelLabel: '远程',
+      toggleSidebar: '收起或展开侧边栏',
       back: '返回对话',
       title: 'Telework 远程开发',
       description: '查看这台 DSH 主机可以使用的 SSH 目标。当前版本只读取本机 OpenSSH 配置；文件、shell 和终端仍在本机运行。',
@@ -401,6 +403,36 @@ window.__ModuleLoader__.load({
           return h(TeleworkPanel, { t, onBack: () => ctx.layout.selectPanel(null) })
         }
 
+        const SidebarToggle = () => h('button', {
+          type: 'button',
+          'aria-label': t('toggleSidebar'),
+          title: t('toggleSidebar'),
+          onClick: () => ctx.layout.toggleSidebar(),
+          style: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 28,
+            height: 28,
+            flex: 'none',
+            padding: 0,
+            border: 'none',
+            borderRadius: 6,
+            background: 'transparent',
+            color: 'var(--dsw-alias-label-secondary)',
+            cursor: 'pointer',
+          },
+        }, h('svg', {
+          width: 16,
+          height: 16,
+          viewBox: '0 0 16 16',
+          fill: 'none',
+          'aria-hidden': true,
+        },
+          h('rect', { x: 1.5, y: 2.5, width: 13, height: 11, rx: 2, stroke: 'currentColor', strokeWidth: 1.3 }),
+          h('path', { d: 'M6 3v10', stroke: 'currentColor', strokeWidth: 1.3 }),
+        ))
+
         // The sidebar's global panel list selects a `main` panel by id; the
         // icon component gets { size, active } and the label is localized.
         ctx.slots.inject('main', () => ctx.slots.register({
@@ -414,6 +446,13 @@ window.__ModuleLoader__.load({
           order: 20,
           label: () => t('panelLabel'),
         }, TeleworkIcon))
+
+        // A persistent sidebar toggle outside the collapsing column: the
+        // conversation header stays visible when the sidebar is hidden, so the
+        // user always has a way back. The VS Code-style top bar can grow here.
+        ctx.slots.inject('conversation.header.leading', () => ctx.slots.register({
+          name: 'conversation.header.leading',
+        }, SidebarToggle))
       },
     }
   },

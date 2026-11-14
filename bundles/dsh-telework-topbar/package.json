@@ -1,0 +1,22 @@
+{
+  "name": "dsh-telework-topbar",
+  "version": "0.0.0",
+  "private": true,
+  "description": "VS Code-style top bar for the Telework UI: brand, persistent sidebar toggle, and space for the existing app menus.",
+  "type": "module",
+  "exports": {
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "vendor",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

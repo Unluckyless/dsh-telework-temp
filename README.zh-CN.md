@@ -60,9 +60,17 @@ dsh-telework/
   cordis.patch.yml     插入插件行的 Loader 补丁
   locale/              插件管理器的标题与描述
   icon.svg             插件图标
+  bundles/             UI 子 bundle，和主插件一起安装
+    dsh-telework-sidebar/       活动栏 + 工作区面板
+    dsh-telework-topbar/        顶栏与窗口按钮区
+    dsh-telework-conversation/  单行对话顶栏
   docs/design.zh-CN.md 架构备忘与待定问题
   README.zh-CN.md      本文件
 ```
+
+`bundles/` 下的三个 UI 子 bundle 是独立安装的 DSH bundle，放在主目录里是为了
+整个项目只上传一个仓库目录；开发时从各自的 `bundles/...` 路径安装。发布时可以
+把它们合并进主 bundle，做成单包安装。
 
 用任意 Node.js 24+ 可执行文件检查语法：
 
