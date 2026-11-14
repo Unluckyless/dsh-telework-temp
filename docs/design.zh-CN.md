@@ -22,6 +22,21 @@
 - 但当前安装包的 `node_modules/@deepseek-ai` 中没有这些包，Config 目录里也没有对应行。可以依赖的 `ctx.ssh` 接口存在，但现成的远程 provider 不在，需要自行实现或等待官方 bundle。
 - `docs/config-catalog.md` 中有 “Deployment-owned SSH identity and installed helper” 与 “OpenSSH host alias …” 的配置项，升级指南提到远端 helper 协议 2。官方路线看起来是：部署级组合 + 在远端安装 helper，而不是每个会话动态连接。
 
+## UI 扩展边界
+
+2026-11-14 核对了运行中的 Web GUI 的 Slot 树：
+
+- 左栏是一个 `sidebar` slot（single）。展开时是工作区/会话导航，折叠时是 56px 图标栏；它由 `ui-sidebar` 的 `SidebarRoot` 占用。`sidebar` 的 catalog 明确写着：注册到这里会整体替换左栏，内置的 `sidebar.workspaces`、`sidebar.settings` 等子槽会一起消失。
+- DSH 没有独立的 activity bar 插槽。最接近的官方机制是：
+  - `sidebar.panellist`（list）：全局面板图标，内置 Plugins、Automation tasks；每个 id 对应一个 `main` 面板。
+  - `main`（keyed）：中央面板内容，按 `sidebar.panellist` 的 id 选择；`conversation` 是保留 key。
+  - `layout.selectPanel(id)`：切换中央面板。
+- 因此插件可以做到：在左栏增加 VS Code 风格的面板入口，点击后打开自己的中央页面（当前骨架就是这么做的）。插件做不到：把左栏拆成“48px activity bar + 二级面板”，并让内置资源管理器/搜索/插件列表复用它。
+- 真正的 VS Code 三栏需要改 DSH 前端：
+  1. fork `packages/client/ui-layout`（增加 activity bar slot）和 `packages/client/ui-sidebar`（把 rail 与 panel 拆开），然后构建并运行自定义 Web 前端；
+  2. 或者替换整个 `sidebar` slot，自己重写工作区/会话导航、设置入口和对应子槽——工作量大，且会偏离上游。
+- 当前选择：先走官方 `sidebar.panellist` + `main`，保证可升级、可回滚；真正的三栏改造等确认后再做。
+
 ## 可选架构
 
 ### A. Provider 级：替换 fs / subprocess / sandbox（最接近“像本地一样”）
@@ -63,7 +78,8 @@
 
 ## 当前骨架
 
-- Host-only bundle；无依赖、无构建步骤。
-- 配置校验 + `telework_status` 工具（调用 `ssh -G`，只读，不连接、不执行远端命令）。
+- Host + Web Client bundle；无依赖、无构建步骤。
+- 配置校验、只读状态路由 `GET /telework/status`，以及 `telework_status` 工具（调用 `ssh -G`，只读，不连接、不执行远端命令）。
+- 左栏 `sidebar.panellist` 的 **Remote** 入口 + 中央 `main` 面板，显示已配置目标及其 `ssh -G` 结果。
 - `targets[].workspace` 目前只是登记，没有任何实际远端 I/O。
-- 下一步建议：先决定上面第 1、2、3 个问题，再选择 A / B / C 中的一条路线；在决定之前不引入 helper 或依赖。
+- 下一步建议：先决定上面第 1、2、3 个问题，再选择 A / B / C 中的一条路线；在决定之前不引入 helper 或依赖。UI 上如果要真正的 VS Code 三栏，先做“是否 fork 前端”的决定。
