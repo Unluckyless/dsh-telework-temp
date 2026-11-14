@@ -1,0 +1,5 @@
+# dsh-telework bundle patch: inserts the plugin row. Configure targets in the
+# profile patch layer (see README), not here, so upgrades keep your values.
+- insert:
+    - id: telework
+      name: dsh-telework

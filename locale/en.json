@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Telework",
+    "description": "Inspect the SSH targets prepared for remote development. Early scaffold: files, shells and terminals still run locally."
+  }
+}
