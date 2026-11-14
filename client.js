@@ -7,6 +7,7 @@ window.__ModuleLoader__.load({
 
     const EN = {
       panelLabel: 'Remote',
+      back: 'Back to conversation',
       title: 'Telework remote development',
       description: 'Inspect the SSH targets this DSH host can use. This early build reads your local OpenSSH configuration only; files, shells and terminals still run locally.',
       refresh: 'Refresh',
@@ -30,6 +31,7 @@ window.__ModuleLoader__.load({
 
     const ZH = {
       panelLabel: '远程',
+      back: '返回对话',
       title: 'Telework 远程开发',
       description: '查看这台 DSH 主机可以使用的 SSH 目标。当前版本只读取本机 OpenSSH 配置；文件、shell 和终端仍在本机运行。',
       refresh: '刷新',
@@ -89,6 +91,7 @@ window.__ModuleLoader__.load({
       }
       .telework-toolbar {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 10px;
         margin: 22px 0 14px;
@@ -306,7 +309,7 @@ window.__ModuleLoader__.load({
       )
     }
 
-    function TeleworkPanel({ t }) {
+    function TeleworkPanel({ t, onBack }) {
       const [revision, setRevision] = useState(0)
       const [state, setState] = useState({ phase: 'loading', targets: [], error: undefined })
 
@@ -369,6 +372,7 @@ window.__ModuleLoader__.load({
             h('p', { className: 'telework-description' }, t('description')),
           ),
           h('div', { className: 'telework-toolbar' },
+            h('button', { type: 'button', className: 'telework-button', onClick: onBack }, t('back')),
             h('button', {
               type: 'button',
               className: 'telework-button',
@@ -386,7 +390,7 @@ window.__ModuleLoader__.load({
     }
 
     return {
-      inject: ['slots', 'locale'],
+      inject: ['slots', 'locale', 'layout'],
       apply(ctx) {
         ctx.effect(() => ctx.locale.register('telework', 'en', EN), 'telework: English dictionary')
         ctx.effect(() => ctx.locale.register('telework', 'zh', ZH), 'telework: Chinese dictionary')
@@ -394,7 +398,7 @@ window.__ModuleLoader__.load({
 
         const TeleworkPanelBound = () => {
           useLocaleRefresh(ctx)
-          return h(TeleworkPanel, { t })
+          return h(TeleworkPanel, { t, onBack: () => ctx.layout.selectPanel(null) })
         }
 
         // The sidebar's global panel list selects a `main` panel by id; the
