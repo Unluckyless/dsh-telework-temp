@@ -294,8 +294,6 @@ interface RemoteConnectionSummary {
 
 type SharedRemoteStatus = 'connecting' | 'connected' | 'error'
 
-const EMPTY_WORKSPACE_LIST = { items: [] as const }
-
 interface SharedRemoteConnection {
   id: string
   host: string
@@ -1476,7 +1474,7 @@ export function SidebarRoot({
   setPinned,
   trackEntryClick,
   currentSession = EMPTY_SESSION_STORE,
-  workspaceList,
+  useWorkspaces,
   useRemoteAccess,
   usePanels,
   useEntryPins,
@@ -1501,25 +1499,23 @@ export function SidebarRoot({
   const remoteConnections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
   const storedRemoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
-  const workspaceListSnapshot = useSyncExternalStore(
-    useMemo(
-      () => (listener: () => void) => workspaceList?.subscribe(listener) ?? (() => {}),
-      [workspaceList],
-    ),
-    useMemo(
-      () => () => workspaceList?.getSnapshot() ?? EMPTY_WORKSPACE_LIST,
-      [workspaceList],
-    ),
-  )
+  const workspaceItems = useWorkspaces(state => state.items)
   // Mirror the official Workspace browser: a remote Workspace's rows are the
   // local placeholder Workspace's own Session ids, so blank reuse, new rows and
   // the automatic disappearance of an unused blank all come from DSH itself.
   const remoteWorkspaces = useMemo(() => storedRemoteWorkspaces.map((workspace) => {
+    // The placeholder path embeds the stable remote Workspace id. Prefer the
+    // path match so a stale localWorkspaceId cannot hide the real session list.
+    const marker = `placeholders/${workspace.id}/`
+    const markerWindows = `placeholders\\${workspace.id}\\`
+    const byPath = workspaceItems.find(item => (
+      item.path.includes(marker) || item.path.includes(markerWindows)
+    ))
     const local = workspace.localWorkspaceId === undefined
       ? undefined
-      : workspaceListSnapshot.items.find(item => item.workspaceId === workspace.localWorkspaceId)
-    return { ...workspace, sessions: local?.sessionIds ?? [] }
-  }), [storedRemoteWorkspaces, workspaceListSnapshot])
+      : workspaceItems.find(item => item.workspaceId === workspace.localWorkspaceId)
+    return { ...workspace, sessions: (byPath ?? local)?.sessionIds ?? [] }
+  }), [storedRemoteWorkspaces, workspaceItems])
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
   useEffect(() => {

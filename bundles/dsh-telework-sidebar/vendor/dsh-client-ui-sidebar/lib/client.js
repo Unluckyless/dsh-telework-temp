@@ -549,7 +549,6 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }) {
     }
   );
 }
-var EMPTY_WORKSPACE_LIST = { items: [] };
 function ensureRemoteStore() {
   if (window.__DSH_TELEWORK_REMOTE__ !== void 0) return window.__DSH_TELEWORK_REMOTE__;
   const listeners = /* @__PURE__ */ new Set();
@@ -1520,7 +1519,7 @@ function SidebarRoot({
   setPinned,
   trackEntryClick,
   currentSession = EMPTY_SESSION_STORE,
-  workspaceList,
+  useWorkspaces,
   useRemoteAccess,
   usePanels,
   useEntryPins,
@@ -1542,21 +1541,14 @@ function SidebarRoot({
   const remoteConnections = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.get);
   const storedRemoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const remoteConnected = remoteConnections.some((connection) => connection.status === "connected");
-  const workspaceListSnapshot = (0, import_react.useSyncExternalStore)(
-    (0, import_react.useMemo)(
-      () => (listener) => workspaceList?.subscribe(listener) ?? (() => {
-      }),
-      [workspaceList]
-    ),
-    (0, import_react.useMemo)(
-      () => () => workspaceList?.getSnapshot() ?? EMPTY_WORKSPACE_LIST,
-      [workspaceList]
-    )
-  );
+  const workspaceItems = useWorkspaces((state) => state.items);
   const remoteWorkspaces = (0, import_react.useMemo)(() => storedRemoteWorkspaces.map((workspace) => {
-    const local = workspace.localWorkspaceId === void 0 ? void 0 : workspaceListSnapshot.items.find((item) => item.workspaceId === workspace.localWorkspaceId);
-    return { ...workspace, sessions: local?.sessionIds ?? [] };
-  }), [storedRemoteWorkspaces, workspaceListSnapshot]);
+    const marker = `placeholders/${workspace.id}/`;
+    const markerWindows = `placeholders\\${workspace.id}\\`;
+    const byPath = workspaceItems.find((item) => item.path.includes(marker) || item.path.includes(markerWindows));
+    const local = workspace.localWorkspaceId === void 0 ? void 0 : workspaceItems.find((item) => item.workspaceId === workspace.localWorkspaceId);
+    return { ...workspace, sessions: (byPath ?? local)?.sessionIds ?? [] };
+  }), [storedRemoteWorkspaces, workspaceItems]);
   (0, import_react.useEffect)(() => {
     remoteStore.relinkWorkspaces();
   }, [remoteStore, remoteConnections, storedRemoteWorkspaces]);
@@ -2237,7 +2229,6 @@ function apply(ctx) {
     },
     setPinned: panelPins.setPinned,
     currentSession: selection,
-    workspaceList: workspaceRegistry.list,
     waitForWorkspace: (workspaceId) => new Promise((resolve) => {
       const deadline = Date.now() + 4e3;
       const check = () => {

@@ -47,7 +47,7 @@ interface WorkspaceNavigation {
 
 interface WorkspaceRegistry {
   create(input: { path: string }): Promise<{ workspaceId: string, path: string, title: string }>
-  list: SidebarRootInjected['workspaceList']
+  list: { getSnapshot(): { items: readonly { workspaceId: string }[] } }
 }
 
 /** Services required by the sidebar plugin. */
@@ -94,7 +94,6 @@ export function apply(ctx: ClientContext): void {
     toggleSidebar: () => { ctx.layout.toggleSidebar() },
     selectPanel: (id) => { ctx.layout.selectPanel(id) },    setPinned: panelPins.setPinned,
     currentSession: selection,
-    workspaceList: workspaceRegistry.list,
     waitForWorkspace: (workspaceId) => new Promise<void>((resolve) => {
       const deadline = Date.now() + 4000
       const check = (): void => {

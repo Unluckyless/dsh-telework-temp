@@ -237,13 +237,6 @@ export type SidebarRootInjected = {
   trackEntryClick: (attributes: ProductEventMap['sidebar_menu_click']) => void
   /** Current main-view Session selection; the file tree lists its workspace. */
   currentSession: ObservableSnapshot<{ sessionId?: string }>
-  /** Live workspace registry snapshot, including each Workspace's Session ids. */
-  workspaceList: ObservableSnapshot<{
-    items: readonly {
-      workspaceId: WorkspaceId
-      sessionIds: readonly string[]
-    }[]
-  }>
   /** Private reactive sources bound to framework selector hooks. */
   hooks: {
     panels: ObservableSnapshot<readonly SidebarPanelMetadata[]>
