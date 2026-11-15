@@ -161,19 +161,39 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }: {
       setState({ phase: 'no-session', entries: [] })
       return
     }
+    let cancelled = false
+    let retryTimer: number | undefined
+    let attempt = 0
     const controller = new AbortController()
-    setState(previous => ({ ...previous, phase: 'loading', error: undefined }))
-    fetch(`/telework/files?session=${encodeURIComponent(sessionId)}`, { signal: controller.signal, cache: 'no-store' })
-      .then(async (response) => {
-        const body = await response.json() as { entries?: WorkspaceFileEntry[], error?: string }
-        if (!response.ok) throw new Error(body.error ?? `HTTP ${response.status}`)
-        setState({ phase: 'ready', entries: body.entries ?? [] })
-      })
-      .catch((caught: unknown) => {
-        if (controller.signal.aborted) return
-        setState({ phase: 'error', entries: [], error: caught instanceof Error ? caught.message : String(caught) })
-      })
-    return () => controller.abort()
+    const load = (): void => {
+      if (cancelled) return
+      setState(previous => ({ ...previous, phase: 'loading', error: undefined }))
+      fetch(`/telework/files?session=${encodeURIComponent(sessionId)}`, { signal: controller.signal, cache: 'no-store' })
+        .then(async (response) => {
+          const body = await response.json() as { entries?: WorkspaceFileEntry[], error?: string }
+          if (!response.ok) throw new Error(body.error ?? `HTTP ${response.status}`)
+          if (cancelled) return
+          setState({ phase: 'ready', entries: body.entries ?? [] })
+        })
+        .catch((caught: unknown) => {
+          if (cancelled || controller.signal.aborted) return
+          const message = caught instanceof Error ? caught.message : String(caught)
+          // Opening the Web UI races the Session's Host activation. Retry this
+          // transient state briefly instead of leaving a red error on startup.
+          if (/session is not live/i.test(message) && attempt < 6) {
+            attempt += 1
+            retryTimer = window.setTimeout(load, 800)
+            return
+          }
+          setState({ phase: 'error', entries: [], error: message })
+        })
+    }
+    load()
+    return () => {
+      cancelled = true
+      controller.abort()
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer)
+    }
   }, [sessionId, revision])
 
   const applyHeight = (next: number): void => {
@@ -262,7 +282,11 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }: {
       <div className={css.filesBody}>
         {state.phase === 'no-session' && <div className={css.fileHint}>{t('files.noSession')}</div>}
         {state.phase === 'loading' && <div className={css.fileHint}>{t('files.loading')}</div>}
-        {state.phase === 'error' && <div className={css.fileError}>{state.error}</div>}
+        {state.phase === 'error' && (
+          <div className={/session is not live/i.test(state.error ?? '') ? css.fileErrorMuted : css.fileError}>
+            {state.error}
+          </div>
+        )}
         {state.phase === 'ready' && state.entries.length === 0 && <div className={css.fileHint}>{t('files.empty')}</div>}
         {state.phase === 'ready' && state.entries.map(entry => (
           <FileTreeNode key={entry.path} entry={entry} sessionId={sessionId as string} depth={0} t={t} />

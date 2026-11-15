@@ -286,6 +286,12 @@
   word-break: break-word;
 }
 
+.fileErrorMuted {
+  color: var(--dsw-alias-label-tertiary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 :global([data-animating]:not([data-dragging])) .root {
   transition: width var(--ds-transition-duration-slow) var(--ds-ease-in-out);
 }
