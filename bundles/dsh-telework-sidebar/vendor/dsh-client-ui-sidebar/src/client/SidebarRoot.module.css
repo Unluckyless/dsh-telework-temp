@@ -1556,6 +1556,13 @@
   white-space: nowrap;
 }
 
+.remoteWorkspaceSessionCount {
+  flex: none;
+  margin-left: 2px;
+  color: var(--dsw-alias-label-caption);
+  font-size: 10px;
+}
+
 .remoteWorkspaceRemove {
   flex: none;
   width: 24px;

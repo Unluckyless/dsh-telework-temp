@@ -525,6 +525,19 @@ window.__ModuleLoader__.load({
           writeStoredRemoteWorkspaces(workspaces)
           emit()
         },
+        addSession: (workspaceId, sessionId) => {
+          let changed = false
+          workspaces = workspaces.map((workspace) => {
+            if (workspace.id !== workspaceId) return workspace
+            const sessions = workspace.sessions ?? []
+            if (sessions.includes(sessionId)) return workspace
+            changed = true
+            return { ...workspace, sessions: [...sessions, sessionId] }
+          })
+          if (!changed) return
+          writeStoredRemoteWorkspaces(workspaces)
+          emit()
+        },
       }
       window.__DSH_TELEWORK_REMOTE__ = store
       return store

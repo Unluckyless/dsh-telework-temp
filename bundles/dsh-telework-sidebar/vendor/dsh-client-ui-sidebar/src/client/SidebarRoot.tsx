@@ -312,6 +312,7 @@ interface SharedRemoteWorkspace {
   host?: string
   username?: string
   port?: string
+  sessions?: readonly string[]
 }
 
 interface SharedRemoteStore {
@@ -324,6 +325,7 @@ interface SharedRemoteStore {
   addWorkspace: (connectionId: string, path: string) => SharedRemoteWorkspace
   removeWorkspace: (id: string) => void
   relinkWorkspaces: () => void
+  addSession: (workspaceId: string, sessionId: string) => void
 }
 
 declare global {
@@ -426,6 +428,19 @@ function ensureRemoteStore(): SharedRemoteStore {
         if (match === undefined) return workspace
         changed = true
         return { ...workspace, connectionId: match.id, port: workspace.port ?? match.port }
+      })
+      if (!changed) return
+      writeStoredWorkspaces(workspaces)
+      emit()
+    },
+    addSession: (workspaceId, sessionId) => {
+      let changed = false
+      workspaces = workspaces.map((workspace) => {
+        if (workspace.id !== workspaceId) return workspace
+        const sessions = workspace.sessions ?? []
+        if (sessions.includes(sessionId)) return workspace
+        changed = true
+        return { ...workspace, sessions: [...sessions, sessionId] }
       })
       if (!changed) return
       writeStoredWorkspaces(workspaces)
@@ -552,9 +567,10 @@ function parseSshCommand(input: string): { host: string, username: string, port:
   return result
 }
 
-function RemoteConnectionPanel({ t, onConnectionChange }: {
+function RemoteConnectionPanel({ t, onConnectionChange, onNewSession }: {
   t: (key: string) => string
   onConnectionChange: (connection: RemoteConnectionSummary | null) => void
+  onNewSession: (workspace: SharedRemoteWorkspace) => void
 }) {
   const remoteStore = useMemo(ensureRemoteStore, [])
   const connections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
@@ -840,6 +856,7 @@ function RemoteConnectionPanel({ t, onConnectionChange }: {
             connections={connections}
             t={t}
             onOpen={() => { setStatus(t('remote.workspaceOpenSoon')); setStatusTone('info') }}
+            onNewSession={onNewSession}
             onRemove={(id) => { remoteStore.removeWorkspace(id) }}
           />
         </div>
@@ -935,13 +952,14 @@ function mockRemoteListing(connection: SharedRemoteConnection, path: string): re
   return []
 }
 
-function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, onRemove }: {
+function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, onNewSession, onRemove }: {
   workspace: SharedRemoteWorkspace
   connection: SharedRemoteConnection | undefined
   target: string
   online: boolean
   t: (key: string) => string
   onOpen: (workspace: SharedRemoteWorkspace) => void
+  onNewSession: (workspace: SharedRemoteWorkspace) => void
   onRemove: (id: string) => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -965,6 +983,11 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
               {online ? t('remote.connected') : t('remote.workspaceOfflineShort')}
             </span>
             <span className={css.remoteWorkspaceTarget}>{target}</span>
+            {workspace.sessions !== undefined && workspace.sessions.length > 0 && (
+              <span className={css.remoteWorkspaceSessionCount}>
+                {t('remote.sessionCount').replace('{n}', String(workspace.sessions.length))}
+              </span>
+            )}
           </span>
         </span>
       </button>
@@ -1006,7 +1029,7 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
             type="button"
             className={css.remoteWorkspaceAction}
             aria-label={t('remote.newSession')}
-            onClick={() => { onOpen(workspace) }}
+            onClick={() => { onNewSession(workspace) }}
           >
             <IconNewChatOutlineRegular size={14} />
           </button>
@@ -1016,11 +1039,12 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
   )
 }
 
-function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onRemove }: {
+function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onNewSession, onRemove }: {
   workspaces: readonly SharedRemoteWorkspace[]
   connections: readonly SharedRemoteConnection[]
   t: (key: string) => string
   onOpen: (workspace: SharedRemoteWorkspace) => void
+  onNewSession: (workspace: SharedRemoteWorkspace) => void
   onRemove: (id: string) => void
 }) {
   if (workspaces.length === 0) return null
@@ -1046,6 +1070,7 @@ function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onRemove }: {
             online={online}
             t={t}
             onOpen={onOpen}
+            onNewSession={onNewSession}
             onRemove={onRemove}
           />
         )
@@ -1442,11 +1467,25 @@ export function SidebarRoot({
   const remoteConnections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
   const remoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
+  const [pendingRemoteWorkspaceId, setPendingRemoteWorkspaceId] = useState<string | null>(null)
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
   useEffect(() => {
     remoteStore.relinkWorkspaces()
   }, [remoteStore, remoteConnections, remoteWorkspaces])
+
+  useEffect(() => {
+    if (pendingRemoteWorkspaceId === null) return
+    const timer = window.setTimeout(() => {
+      const sessionId = currentSession.getSnapshot().sessionId
+      if (sessionId !== undefined) {
+        remoteStore.addSession(pendingRemoteWorkspaceId, sessionId)
+        setRemoteWorkspaceToast(t('remote.sessionCreated'))
+      }
+      setPendingRemoteWorkspaceId(null)
+    }, 300)
+    return () => { window.clearTimeout(timer) }
+  }, [pendingRemoteWorkspaceId, currentSession, remoteStore, t])
   const hasEntryActions = useEntryActions(registered => registered)
   const shortcut = useShortcuts(rows => rows.find(row => row.id === 'sidebar.left.toggle'))
   const newShortcut = useShortcuts(rows => rows.find(row => row.id === 'session.new'))
@@ -1588,6 +1627,13 @@ export function SidebarRoot({
   const handleRemoteConnection = (summary: RemoteConnectionSummary | null): void => {
     if (summary !== null) remoteStore.add({ ...summary, status: 'connected' })
   }
+
+  // Start a normal DSH Session and bind it to the remote workspace after the
+  // session selection advances. The Session log itself stays local.
+  const startRemoteSession = (workspace: SharedRemoteWorkspace): void => {
+    setPendingRemoteWorkspaceId(workspace.id)
+    openNewSession()
+  }
   // Rail resting state is the whale mark; hovering swaps in the panel icon
   // (the expand affordance, figma sidebar-hover flow). Expanded it is a plain
   // panel icon.
@@ -1719,7 +1765,7 @@ export function SidebarRoot({
       })}
       {wide && (
         <div className={clsx(css.panelColumn, remoteMode && css.panelColumnRemote)}>
-          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} />}
+          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} onNewSession={startRemoteSession} />}
           <div className={css.logoRow} data-window-drag>
         {/* Expanded, the brand doubles as a New Session shortcut while the
             access snapshot allows `session/create` — except on
@@ -1815,6 +1861,7 @@ export function SidebarRoot({
               connections={remoteConnections}
               t={t}
               onOpen={() => { setRemoteWorkspaceToast(t('remote.workspaceOpenSoon')) }}
+              onNewSession={startRemoteSession}
               onRemove={(id) => { remoteStore.removeWorkspace(id) }}
             />
           </div>
