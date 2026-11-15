@@ -44,6 +44,8 @@ const EMPTY_SESSION_STORE = {
   subscribe: () => () => {},
 }
 
+const WORKSPACE_PANE_STORAGE_KEY = 'dsh-telework.workspaces.height'
+
 interface WorkspaceFileEntry {
   readonly name: string
   readonly path: string
@@ -1597,6 +1599,58 @@ export function SidebarRoot({
     })
     return { ...workspace, sessions: visible, sessionItems }
   }), [storedRemoteWorkspaces, workspaceItems, workspaceState.archivedSessionIds, sessionList, currentSessionId])
+  const [workspacePaneHeight, setWorkspacePaneHeight] = useState<number | null>(() => {
+    try {
+      const stored = Number(localStorage.getItem(WORKSPACE_PANE_STORAGE_KEY))
+      return Number.isFinite(stored) && stored >= 96 ? stored : null
+    } catch {
+      return null
+    }
+  })
+  const workspacePaneRef = useRef<HTMLDivElement | null>(null)
+  const workspaceDragRef = useRef<{ startY: number, startHeight: number } | null>(null)
+  useEffect(() => {
+    try {
+      if (workspacePaneHeight !== null) localStorage.setItem(WORKSPACE_PANE_STORAGE_KEY, String(workspacePaneHeight))
+    } catch {
+      // Storage can be denied; the resized height still lives in memory.
+    }
+  }, [workspacePaneHeight])
+  const maxWorkspacePaneHeight = (): number => {
+    const parent = workspacePaneRef.current?.parentElement
+    if (parent === null || parent === undefined) return 600
+    return Math.max(128, parent.getBoundingClientRect().height - 96)
+  }
+  const onWorkspaceSplitStart = (event: ReactPointerEvent<HTMLDivElement>): void => {
+    const rect = workspacePaneRef.current?.getBoundingClientRect()
+    if (rect === undefined) return
+    event.preventDefault()
+    workspaceDragRef.current = { startY: event.clientY, startHeight: rect.height }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+  const onWorkspaceSplitMove = (event: ReactPointerEvent<HTMLDivElement>): void => {
+    const drag = workspaceDragRef.current
+    if (drag === null) return
+    // This splitter sits at the bottom of the local pane: moving down grows it.
+    const next = Math.min(maxWorkspacePaneHeight(), Math.max(96, drag.startHeight + event.clientY - drag.startY))
+    setWorkspacePaneHeight(Math.round(next))
+  }
+  const onWorkspaceSplitEnd = (event: ReactPointerEvent<HTMLDivElement>): void => {
+    if (workspaceDragRef.current === null) return
+    workspaceDragRef.current = null
+    try {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    } catch {
+      // The pointer may already be released by a cancelled capture.
+    }
+  }
+  const onWorkspaceSplitKey = (event: ReactKeyboardEvent<HTMLDivElement>): void => {
+    if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return
+    event.preventDefault()
+    const base = workspacePaneHeight ?? workspacePaneRef.current?.getBoundingClientRect().height ?? 200
+    const next = Math.min(maxWorkspacePaneHeight(), Math.max(96, base + (event.key === 'ArrowDown' ? 16 : -16)))
+    setWorkspacePaneHeight(Math.round(next))
+  }
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
   useEffect(() => {
@@ -2001,19 +2055,47 @@ export function SidebarRoot({
           data-sidebar-scrollport={wide ? '' : undefined}
         >
           <div className={css.regionArea}>
-            {renderSlot('sidebar.workspaces', {
-              wide,
-              expandSidebar: () => { if (collapsed) toggleSidebar() },
-            }, { hookContext: sectionHookContext })}
-            <RemoteWorkspaceList
-              workspaces={remoteWorkspaces}
-              connections={remoteConnections}
-              t={t}
-              onOpen={() => { notifyRemoteWorkspace(t('remote.workspaceOpenSoon'), 'plain') }}
-              onNewSession={startRemoteSession}
-              onOpenSession={(sessionId) => { openSession(sessionId) }}
-              onRemove={(id) => { remoteStore.removeWorkspace(id) }}
-            />
+            <div
+              ref={workspacePaneRef}
+              className={remoteWorkspaces.length > 0 ? css.workspaceListPane : css.workspaceListPaneFill}
+              style={remoteWorkspaces.length > 0 && workspacePaneHeight !== null
+                ? { height: `${workspacePaneHeight}px` }
+                : undefined}
+            >
+              {renderSlot('sidebar.workspaces', {
+                wide,
+                expandSidebar: () => { if (collapsed) toggleSidebar() },
+              }, { hookContext: sectionHookContext })}
+            </div>
+            {remoteWorkspaces.length > 0 && (
+              <>
+                <div
+                  className={css.workspaceSplit}
+                  role="separator"
+                  aria-orientation="horizontal"
+                  aria-label={t('remote.resize')}
+                  aria-valuemin={96}
+                  aria-valuenow={workspacePaneHeight ?? undefined}
+                  tabIndex={0}
+                  onPointerDown={onWorkspaceSplitStart}
+                  onPointerMove={onWorkspaceSplitMove}
+                  onPointerUp={onWorkspaceSplitEnd}
+                  onPointerCancel={onWorkspaceSplitEnd}
+                  onKeyDown={onWorkspaceSplitKey}
+                />
+                <div className={css.remoteWorkspacePane}>
+                  <RemoteWorkspaceList
+                    workspaces={remoteWorkspaces}
+                    connections={remoteConnections}
+                    t={t}
+                    onOpen={() => { notifyRemoteWorkspace(t('remote.workspaceOpenSoon'), 'plain') }}
+                    onNewSession={startRemoteSession}
+                    onOpenSession={(sessionId) => { openSession(sessionId) }}
+                    onRemove={(id) => { remoteStore.removeWorkspace(id) }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
         <span className={css.scrollFade} aria-hidden="true" />
