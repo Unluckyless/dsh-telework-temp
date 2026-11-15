@@ -58,6 +58,12 @@ cd dsh-telework-temp
 pnpm install
 ```
 
+`pnpm` 11 may print `ERR_PNPM_IGNORED_BUILDS` and exit 1 for the optional
+native scripts of `cpu-features`, `ssh2`, and `esbuild`. The JavaScript
+packages are installed and the plugin works; this is a security prompt, not a
+failed dependency install. Use `pnpm approve-builds` if you want to opt in to
+those scripts.
+
 Then open **Plugins → Add plugin** in the DSH Web GUI and select this main
 directory. Refresh the Web GUI once after installation.
 

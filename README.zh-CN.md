@@ -57,6 +57,10 @@ cd dsh-telework-temp
 pnpm install
 ```
 
+pnpm 11 可能因为 `cpu-features`、`ssh2`、`esbuild` 的可选原生脚本打印
+`ERR_PNPM_IGNORED_BUILDS` 并以 1 退出；JavaScript 包已经安装，插件可以正常使用，
+这不是依赖安装失败。需要放行时执行 `pnpm approve-builds`。
+
 然后在 DSH Web GUI 的 **Plugins → Add plugin** 中选择这个主目录，安装后刷新一次页面。
 
 > 只安装主目录。`bundles/` 下的目录是主 bundle 的 `cordis.patch.yml` 引用的
