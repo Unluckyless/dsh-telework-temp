@@ -42,6 +42,7 @@ const NS = 'sidebar'
 
 interface WorkspaceNavigation {
   startSession(workspaceId?: Parameters<SidebarRootInjected['startSession']>[0]): void
+  openSession(sessionId: string): void
 }
 
 interface WorkspaceRegistry {
@@ -87,6 +88,7 @@ export function apply(ctx: ClientContext): void {
     // The shell's New Session button rides the Workspace UI's shared action
     // (current Session Workspace, then recent Workspace).
     startSession: (workspaceId) => { workspaceNavigation.startSession(workspaceId) },
+    openSession: (sessionId) => { workspaceNavigation.openSession(sessionId) },
     createWorkspace: (input) => workspaceRegistry.create(input),
     toggleSidebar: () => { ctx.layout.toggleSidebar() },
     selectPanel: (id) => { ctx.layout.selectPanel(id) },    setPinned: panelPins.setPinned,

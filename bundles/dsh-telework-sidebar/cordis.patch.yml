@@ -4,6 +4,10 @@
 # workspace/files split.
 - id: ui-sidebar
   disabled: true
+- id: ui-workspace
+  disabled: true
 - insert:
     - id: telework-sidebar
       name: './vendor/dsh-client-ui-sidebar/lib/index.js'
+    - id: telework-workspace
+      name: './vendor/dsh-client-ui-workspace/lib/index.js'

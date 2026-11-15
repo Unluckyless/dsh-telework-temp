@@ -32,6 +32,18 @@ const targets = [
     external: ['react', 'react/*', 'react-dom', 'react-dom/*', '@deepseek-ai/*'],
   },
   {
+    name: 'workspace',
+    packageDir: 'bundles/dsh-telework-sidebar/vendor/dsh-client-ui-workspace',
+    id: '@deepseek-ai/dsh-client-ui-workspace',
+    external: [
+      '@deepseek-ai/dsh-client-ui-primitives',
+      '@deepseek-ai/dsh-client-store',
+      '@deepseek-ai/cordis',
+      'react',
+      'react/*',
+    ],
+  },
+  {
     name: 'conversation',
     packageDir: 'bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation',
     id: '@deepseek-ai/dsh-client-ui-conversation',

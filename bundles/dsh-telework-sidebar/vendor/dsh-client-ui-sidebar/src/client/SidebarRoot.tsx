@@ -576,10 +576,11 @@ function parseSshCommand(input: string): { host: string, username: string, port:
   return result
 }
 
-function RemoteConnectionPanel({ t, onConnectionChange, onNewSession }: {
+function RemoteConnectionPanel({ t, onConnectionChange, onNewSession, onOpenSession }: {
   t: (key: string) => string
   onConnectionChange: (connection: RemoteConnectionSummary | null) => void
   onNewSession: (workspace: SharedRemoteWorkspace) => void
+  onOpenSession: (sessionId: string) => void
 }) {
   const remoteStore = useMemo(ensureRemoteStore, [])
   const connections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
@@ -866,6 +867,7 @@ function RemoteConnectionPanel({ t, onConnectionChange, onNewSession }: {
             t={t}
             onOpen={() => { setStatus(t('remote.workspaceOpenSoon')); setStatusTone('info') }}
             onNewSession={onNewSession}
+            onOpenSession={onOpenSession}
             onRemove={(id) => { remoteStore.removeWorkspace(id) }}
           />
         </div>
@@ -961,7 +963,7 @@ function mockRemoteListing(connection: SharedRemoteConnection, path: string): re
   return []
 }
 
-function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, onNewSession, onRemove }: {
+function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, onNewSession, onOpenSession, onRemove }: {
   workspace: SharedRemoteWorkspace
   connection: SharedRemoteConnection | undefined
   target: string
@@ -969,11 +971,13 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
   t: (key: string) => string
   onOpen: (workspace: SharedRemoteWorkspace) => void
   onNewSession: (workspace: SharedRemoteWorkspace) => void
+  onOpenSession: (sessionId: string) => void
   onRemove: (id: string) => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = (): void => { setMenuOpen(false) }
   return (
+    <div className={css.remoteWorkspaceBlock}>
     <div className={css.remoteWorkspaceItem}>
       <button
         type="button"
@@ -992,11 +996,6 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
               {online ? t('remote.connected') : t('remote.workspaceOfflineShort')}
             </span>
             <span className={css.remoteWorkspaceTarget}>{target}</span>
-            {workspace.sessions !== undefined && workspace.sessions.length > 0 && (
-              <span className={css.remoteWorkspaceSessionCount}>
-                {t('remote.sessionCount').replace('{n}', String(workspace.sessions.length))}
-              </span>
-            )}
           </span>
         </span>
       </button>
@@ -1045,15 +1044,33 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
         </Tooltip>
       </div>
     </div>
+    {workspace.sessions !== undefined && workspace.sessions.length > 0 && (
+      <div className={css.remoteWorkspaceSessions}>
+        {workspace.sessions.map((sessionId, index) => (
+          <button
+            key={sessionId}
+            type="button"
+            className={css.remoteWorkspaceSessionRow}
+            title={sessionId}
+            onClick={() => { onOpenSession(sessionId) }}
+          >
+            <IconNewChatOutlineRegular size={13} />
+            <span>{t('remote.sessionRow').replace('{n}', String(index + 1))}</span>
+          </button>
+        ))}
+      </div>
+    )}
+    </div>
   )
 }
 
-function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onNewSession, onRemove }: {
+function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onNewSession, onOpenSession, onRemove }: {
   workspaces: readonly SharedRemoteWorkspace[]
   connections: readonly SharedRemoteConnection[]
   t: (key: string) => string
   onOpen: (workspace: SharedRemoteWorkspace) => void
   onNewSession: (workspace: SharedRemoteWorkspace) => void
+  onOpenSession: (sessionId: string) => void
   onRemove: (id: string) => void
 }) {
   if (workspaces.length === 0) return null
@@ -1080,6 +1097,7 @@ function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onNewSession,
             t={t}
             onOpen={onOpen}
             onNewSession={onNewSession}
+            onOpenSession={onOpenSession}
             onRemove={onRemove}
           />
         )
@@ -1447,6 +1465,7 @@ export function SidebarRoot({
   width,
   drawer,
   startSession,
+  openSession,
   createWorkspace,
   toggleSidebar,
   selectPanel,
@@ -1803,7 +1822,7 @@ export function SidebarRoot({
       })}
       {wide && (
         <div className={clsx(css.panelColumn, remoteMode && css.panelColumnRemote)}>
-          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} onNewSession={startRemoteSession} />}
+          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} onNewSession={startRemoteSession} onOpenSession={(sessionId) => { openSession(sessionId) }} />}
           <div className={css.logoRow} data-window-drag>
         {/* Expanded, the brand doubles as a New Session shortcut while the
             access snapshot allows `session/create` — except on
@@ -1900,6 +1919,7 @@ export function SidebarRoot({
               t={t}
               onOpen={() => { setRemoteWorkspaceToast(t('remote.workspaceOpenSoon')) }}
               onNewSession={startRemoteSession}
+              onOpenSession={(sessionId) => { openSession(sessionId) }}
               onRemove={(id) => { remoteStore.removeWorkspace(id) }}
             />
           </div>
