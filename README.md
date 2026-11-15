@@ -68,9 +68,14 @@ dsh-telework/
     dsh-telework-sidebar/       vendored activity rail and workspace panel
     dsh-telework-topbar/        vendored top bar with the window controls
     dsh-telework-conversation/  vendored single-line conversation header
+  dev/                 UI bundle build scripts (pnpm run build:ui)
   docs/design.zh-CN.md Architecture notes and open questions
   README.zh-CN.md      中文说明
 ```
+
+The vendored UI bundles are rebuilt from their committed sources with
+`pnpm run build:ui`; see `dev/README.md`. A GitHub checkout does not need the
+old sibling `.tools` workspace.
 
 The three UI bundles under `bundles/` are separate DSH bundles used during
 development. They live inside this repository so a GitHub checkout is one

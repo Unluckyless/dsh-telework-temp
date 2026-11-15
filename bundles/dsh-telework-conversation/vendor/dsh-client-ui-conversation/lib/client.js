@@ -2,7 +2,7 @@ window.__ModuleLoader__.load({id:"@deepseek-ai/dsh-client-ui-conversation",facto
 
 var process = { env: {} };
 var __teleworkPlugin = "@deepseek-ai/dsh-client-ui-conversation";
-var __teleworkCss = "/* .tools/sidebar-build/src-conversation/client/user-text/UserText.module.css */\n.UserText_root {\n  display: contents;\n}\n.UserText_ellipsis {\n  display: block;\n  min-width: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n/* .tools/sidebar-build/src-conversation/client/input/editor/ReferenceChip.module.css */\n.ReferenceChip_chip {\n  display: inline-flex;\n  align-items: baseline;\n  gap: 3px;\n  max-width: 240px;\n  color: var(--dsw-alias-state-business-primary);\n  user-select: none;\n}\n.ReferenceChip_marker {\n  flex: none;\n  font-weight: 500;\n}\n.ReferenceChip_icon {\n  flex: none;\n  align-self: center;\n}\n.ReferenceChip_label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.ReferenceChip_invalid {\n  color: var(--dsw-alias-state-error-primary);\n  text-decoration: line-through;\n  opacity: 0.7;\n}\n\n/* .tools/sidebar-build/src-conversation/client/input/editor/composer-editor.module.css */\n.composer_editor_reference {\n  padding: 0 4px;\n  border-radius: var(--dsw-radius-sm);\n  line-height: inherit;\n  vertical-align: baseline;\n  color: var(--dsw-alias-state-business-primary);\n  background: transparent;\n  box-decoration-break: clone;\n  -webkit-box-decoration-break: clone;\n}\n@media (hover: hover) {\n  .composer_editor_reference:hover {\n    background: var(--dsw-alias-state-business-tertiary);\n  }\n}\n.composer_editor_openable {\n  cursor: pointer;\n}\n[data-composer-command][data-selected] > .composer_editor_reference {\n  background: var(--dsw-alias-state-business-tertiary);\n}\n.composer_editor_textRef {\n  display: inline-block;\n  max-width: 100%;\n}\n\n/* .tools/sidebar-build/src-conversation/client/queue/QueueDock.module.css */\n.QueueDock_dock {\n  box-sizing: border-box;\n  flex: none;\n  width: calc(100% - var(--dsh-composer-side-clearance) - var(--dsh-composer-side-clearance) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  max-width: calc(var(--dsh-composer-card-max-width) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  margin: 0 auto calc(0px - var(--dsh-composer-stack-gap) - 3px);\n  padding: 0 var(--dsh-composer-dock-inset);\n}\n.QueueDock_panel {\n  position: relative;\n  isolation: isolate;\n  overflow: hidden;\n  width: 100%;\n  padding: 2px 0;\n  border-radius: var(--dsw-radius-lg) var(--dsw-radius-lg) 0 0;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.QueueDock_panel::before {\n  position: absolute;\n  z-index: -1;\n  inset: 0;\n  border-radius: inherit;\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  content: \"\";\n  pointer-events: none;\n}\n.QueueDock_panel::after {\n  position: absolute;\n  inset: 0;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-bottom: none;\n  border-radius: inherit;\n  content: \"\";\n  pointer-events: none;\n}\n.QueueDock_header {\n  box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 36px;\n  padding: 4px 12px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  color: var(--dsw-alias-label-primary);\n  text-align: left;\n  cursor: pointer;\n}\n.QueueDock_header:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.QueueDock_header:disabled {\n  cursor: default;\n}\n.QueueDock_lead {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.QueueDock_count {\n  flex: 1 1 auto;\n  min-width: 0;\n  font-family: Inter, var(--dsw-font-family);\n  font-size: 13px;\n  font-weight: 500;\n  line-height: 24px;\n}\n.QueueDock_chevron {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 14px;\n  height: 14px;\n  color: var(--dsw-alias-label-tertiary);\n}\n.QueueDock_list {\n  max-height: 180px;\n  overflow-y: auto;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.QueueDock_row {\n  box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  min-height: 36px;\n  padding: 4px 5px 4px 12px;\n  border-radius: var(--dsw-radius-md);\n}\n.QueueDock_row + .QueueDock_row {\n  box-shadow: inset 0 1px 0 var(--dsw-alias-border-l1);\n}\n.QueueDock_attachments {\n  display: flex;\n  flex: none;\n  gap: 4px;\n  min-width: 0;\n  max-width: 55%;\n  overflow: hidden;\n}\n.QueueDock_pendingRow .QueueDock_attachments {\n  flex-shrink: 1;\n}\n.QueueDock_file {\n  display: inline-flex;\n  flex: 0 1 180px;\n  align-items: center;\n  gap: 4px;\n  min-width: 74px;\n  height: 24px;\n  padding: 0 6px;\n  overflow: hidden;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-sm);\n  background: var(--dsw-alias-bg-base);\n  box-sizing: border-box;\n}\n.QueueDock_fileIcon {\n  display: inline-flex;\n  flex: none;\n  width: 16px;\n  height: 16px;\n}\n.QueueDock_fileName {\n  min-width: 0;\n  overflow: hidden;\n  color: var(--dsw-alias-label-primary-dimmed);\n  font: var(--dsw-font-xs-13);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.QueueDock_fileSize {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 10px;\n  white-space: nowrap;\n}\n.QueueDock_thumb {\n  width: 24px;\n  height: 24px;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-xs);\n  background: var(--dsw-alias-bg-base);\n  object-fit: cover;\n}\n.QueueDock_preview {\n  flex: 1 1 auto;\n  min-width: 0;\n  font: var(--dsw-font-xs-13);\n  font-family: Inter, var(--dsw-font-family);\n  color: var(--dsw-alias-label-primary-dimmed);\n}\n.QueueDock_actions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n}\n.QueueDock_status {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n  font: var(--dsw-font-xs-13);\n  white-space: nowrap;\n}\n.QueueDock_action {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 28px;\n  height: 28px;\n  padding: 0;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: transparent;\n  color: var(--dsw-alias-label-tertiary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .QueueDock_action:hover:not(:disabled) {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.QueueDock_action:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.QueueDock_action:disabled {\n  cursor: default;\n  opacity: 0.45;\n}\n\n/* .tools/sidebar-build/src-conversation/client/settings/EnterBehaviorRow.module.css */\n.EnterBehaviorRow_row {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 16px 0;\n  border-bottom: 0.5px solid var(--dsw-alias-border-l2);\n}\n.EnterBehaviorRow_rowText {\n  flex: 1;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n  padding-right: 48px;\n}\n@media (max-width: 767px) {\n  html:not([data-windows-titlebar]):not([data-platform=darwin]) .EnterBehaviorRow_rowText {\n    padding-right: 16px;\n  }\n}\n.EnterBehaviorRow_title {\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n}\n.EnterBehaviorRow_desc {\n  font-size: 12px;\n  font-weight: 400;\n  line-height: 18px;\n  color: var(--dsw-alias-label-tertiary);\n}\n.EnterBehaviorRow_selector {\n  display: inline-flex;\n  align-items: center;\n  gap: 12px;\n  height: 36px;\n  padding: 0 14px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: var(--dsw-alias-bg-module-platform);\n  font: inherit;\n  font-size: 14px;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .EnterBehaviorRow_selector:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.EnterBehaviorRow_chevron {\n  flex: none;\n}\n\n/* .tools/sidebar-build/src-conversation/client/skeleton/ConversationRoot.module.css */\n.ConversationRoot_root {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  min-width: 0;\n  background: var(--dsw-alias-bg-base);\n}\n.ConversationRoot_root[data-phase=hero] {\n  isolation: isolate;\n}\n.ConversationRoot_header {\n  display: grid;\n  grid-template-columns: auto minmax(0, 1fr);\n  flex: none;\n  box-sizing: border-box;\n  min-height: 0;\n  padding: 10px 28px 10px 20px;\n  border-bottom: 0.5px solid var(--dsw-alias-border-l3);\n}\n.ConversationRoot_header:where(:not(:has(.ConversationRoot_tabs))) {\n  min-height: 0;\n  padding-bottom: 10px;\n}\n.ConversationRoot_headerBlank {\n  min-height: 0;\n  padding-bottom: 0;\n  border-bottom: none;\n}\n.ConversationRoot_headerBlank .ConversationRoot_headerCorner {\n  margin-left: auto;\n}\n[data-platform=darwin] .ConversationRoot_headerLeading,\n[data-platform=darwin] .ConversationRoot_headerActions,\n[data-platform=darwin] .ConversationRoot_headerUtilities,\n[data-platform=darwin] .ConversationRoot_headerCorner {\n  -webkit-app-region: no-drag;\n}\n.ConversationRoot_titleRow {\n  grid-column: 2;\n  container-type: inline-size;\n  display: flex;\n  align-items: center;\n  gap: 0;\n  min-height: 30px;\n  padding-inline-start: max(0px, calc(var(--dsh-frame-leading-clearance, 0px) - 20px));\n}\n.ConversationRoot_titleCluster {\n  display: flex;\n  flex: 1;\n  align-items: center;\n  gap: 10px;\n  min-width: 0;\n  --title-cluster-fade: 20px;\n  margin: -4px calc(-1 * var(--title-cluster-fade)) -4px -4px;\n  padding: 4px var(--title-cluster-fade) 4px 4px;\n  overflow: clip;\n  mask-image:\n    linear-gradient(\n      to left,\n      transparent calc(0.3 * var(--title-cluster-fade)),\n      #000 var(--title-cluster-fade));\n}\n.ConversationRoot_titleCluster:has(+ .ConversationRoot_headerUtilities:empty) {\n  --title-cluster-fade: 8px;\n}\n.ConversationRoot_headerLeading {\n  grid-column: 1;\n  grid-row: 1;\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n}\n.ConversationRoot_crumbs {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  min-width: 0;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.ConversationRoot_crumbSeg {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  min-width: 0;\n}\n.ConversationRoot_crumbSep {\n  color: var(--dsw-alias-label-caption);\n  font-size: 14px;\n  line-height: 20px;\n}\n.ConversationRoot_crumb {\n  display: inline-block;\n  max-width: 220px;\n  overflow: hidden;\n  padding: 4px 8px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  font-size: 14px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-tertiary);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  cursor: pointer;\n}\n@media (hover: hover) {\n  button.ConversationRoot_crumb:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.ConversationRoot_crumbCurrent {\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n  cursor: default;\n}\n.ConversationRoot_headerActions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 10px;\n}\n@container (max-width: 460px) {\n  .ConversationRoot_headerActions {\n    gap: 8px;\n  }\n}\n.ConversationRoot_headerUtilities {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n  margin-left: 18px;\n}\n.ConversationRoot_headerUtilities:empty {\n  display: none;\n}\n.ConversationRoot_headerMenuButton {\n  flex: none;\n  width: 28px;\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n}\n.ConversationRoot_headerMenuButton svg {\n  width: 15px;\n  height: 15px;\n}\n.ConversationRoot_headerCorner {\n  display: flex;\n  flex: none;\n  align-items: center;\n  margin-left: 8px;\n  margin-right: -16px;\n}\n.ConversationRoot_headerCorner:empty {\n  display: none;\n}\n.ConversationRoot_tabs {\n  grid-column: 1 / -1;\n  position: relative;\n  z-index: 1;\n  display: flex;\n  gap: 16px 20px;\n  width: 100%;\n  min-width: 0;\n  box-sizing: border-box;\n  align-items: flex-start;\n  flex-wrap: wrap;\n  margin-top: 10px;\n  padding-left: 8px;\n}\n@media (max-width: 767px) {\n  html:not([data-platform]) .ConversationRoot_tabs {\n    padding-left: 0;\n  }\n}\n.ConversationRoot_viewTabs {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 32px;\n  min-width: 0;\n  min-height: 25px;\n}\n.ConversationRoot_tab {\n  --dsh-tab-hit-inline: 10px;\n  position: relative;\n  box-sizing: border-box;\n  min-height: 35px;\n  margin: -10px calc(-1 * var(--dsh-tab-hit-inline)) 0;\n  padding: 10px var(--dsh-tab-hit-inline) 9px;\n  border: none;\n  background: transparent;\n  font-size: 13px;\n  line-height: 16px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-tertiary);\n  cursor: pointer;\n}\n.ConversationRoot_tab::after {\n  content: \"\";\n  position: absolute;\n  right: var(--dsh-tab-hit-inline);\n  bottom: -1px;\n  left: var(--dsh-tab-hit-inline);\n  height: 2px;\n  border-radius: 2px;\n  background: transparent;\n}\n.ConversationRoot_tabActive {\n  color: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_tabActive::after {\n  background: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_viewsMoreAnchor {\n  flex: none;\n}\n.ConversationRoot_viewsMore {\n  width: auto;\n  height: 22px;\n  margin-top: -3px;\n  padding: 0 6px;\n  color: var(--dsw-alias-label-secondary);\n}\n.ConversationRoot_viewsMoreLabel {\n  font-size: 12px;\n  line-height: 20px;\n  white-space: nowrap;\n}\n.ConversationRoot_viewsMoreActive {\n  color: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_tabLabel {\n  display: block;\n  max-width: 88px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.ConversationRoot_viewsMore[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.ConversationRoot_viewsMoreMenu {\n  width: 288px;\n  max-width: calc(100vw - 24px);\n}\n.ConversationRoot_tabsInline {\n  grid-column: auto;\n  position: relative;\n  z-index: auto;\n  flex: 0 1 auto;\n  width: auto;\n  max-width: 52%;\n  min-width: 0;\n  margin: 0 0 0 12px;\n  padding-left: 0;\n  flex-wrap: nowrap;\n  align-items: center;\n  gap: 18px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_viewTabs {\n  flex-wrap: nowrap;\n  gap: 18px;\n  min-height: 0;\n  overflow: hidden;\n}\n.ConversationRoot_tabsInline .ConversationRoot_tab {\n  min-height: 28px;\n  margin: 0;\n  padding: 4px 6px;\n  font-size: 13px;\n  line-height: 20px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_tab::after {\n  left: 6px;\n  right: 6px;\n  bottom: -1px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_viewsMore {\n  margin-top: 0;\n}\n.ConversationRoot_titleCluster:has(+ .ConversationRoot_tabsInline) {\n  --title-cluster-fade: 8px;\n  margin-right: 0;\n}\n.ConversationRoot_headerCorner {\n  display: none;\n}\n.ConversationRoot_headerUtilities > * button {\n  width: auto;\n  padding: 0 6px;\n}\n.ConversationRoot_headerUtilities > * button svg {\n  display: none;\n}\n.ConversationRoot_headerUtilities > * button::after {\n  content: \"\\66f4\\591a\\64cd\\4f5c\";\n  font-size: 12px;\n  line-height: 20px;\n  white-space: nowrap;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button) {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: auto;\n  height: 28px;\n  padding: 0 6px;\n  line-height: 1;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button) > * {\n  display: none;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button)::after {\n  content: \"\\66f4\\591a\\64cd\\4f5c\";\n  display: block;\n  font-size: 12px;\n  line-height: 1;\n  white-space: nowrap;\n}\n.ConversationRoot_viewArea {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n}\n.ConversationRoot_widthHandle {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  z-index: 0;\n  width: min(10px, calc((100% - var(--dsh-chat-content-width)) / 2 - 24px - 24px));\n  cursor: col-resize;\n}\n.ConversationRoot_widthHandle[data-side=left] {\n  right: calc(50% + var(--dsh-chat-content-width) / 2 + 24px);\n}\n.ConversationRoot_widthHandle[data-side=right] {\n  left: calc(50% + var(--dsh-chat-content-width) / 2 + 24px);\n}\n.ConversationRoot_widthHandle::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 2px;\n  border-radius: 2px;\n  background:\n    linear-gradient(\n      to bottom,\n      transparent calc(var(--dsh-width-handle-pointer-y, 50%) - 36px),\n      var(--dsw-alias-scrollbar-bg-l1) calc(var(--dsh-width-handle-pointer-y, 50%) - 8px),\n      var(--dsw-alias-scrollbar-bg-l1) calc(var(--dsh-width-handle-pointer-y, 50%) + 8px),\n      transparent calc(var(--dsh-width-handle-pointer-y, 50%) + 36px));\n  opacity: 0;\n  pointer-events: none;\n}\n.ConversationRoot_widthHandle[data-side=left]::after {\n  right: 4px;\n}\n.ConversationRoot_widthHandle[data-side=right]::after {\n  left: 4px;\n}\n.ConversationRoot_widthHandle[data-dragging]::after {\n  opacity: 1;\n}\n@media (hover: hover) {\n  .ConversationRoot_widthHandle:hover::after {\n    opacity: 1;\n  }\n}\n.ConversationRoot_root:has([data-conversation-composer-overlay]) .ConversationRoot_widthHandle {\n  display: none;\n}\n.ConversationRoot_composerStack {\n  --dsh-composer-stack-gap: 6px;\n  display: flex;\n  flex-direction: column;\n  gap: var(--dsh-composer-stack-gap);\n}\n.ConversationRoot_composerSeat {\n  display: flex;\n  flex: none;\n  flex-direction: column;\n  --dsh-composer-text-max-height: 336px;\n}\n.ConversationRoot_root[data-phase=active] {\n  overflow: hidden;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_header {\n  flex: none;\n}\n.ConversationRoot_body {\n  position: relative;\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n  --dsh-chat-content-width: var( --dsh-chat-user-width, clamp(680px, calc(var(--dsh-conversation-column-width, 0px) * 0.64), 920px) );\n  --dsh-composer-card-max-width: calc(var(--dsh-chat-content-width) + 32px);\n  --dsh-composer-side-clearance: 16px;\n  --dsh-composer-dock-inset: 8px;\n}\n.ConversationRoot_embeddedBody {\n  overflow: hidden;\n  --dsh-chat-content-width: min(calc(100% - 32px), 920px);\n  --dsh-composer-card-max-width: min(calc(100% - 16px), 952px);\n  --dsh-composer-side-clearance: 8px;\n  --dsh-composer-dock-inset: 8px;\n}\n.ConversationRoot_scrollBody {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n  margin-right: 2px;\n  overflow-y: auto;\n  scrollbar-gutter: stable;\n}\n.ConversationRoot_scrollBody::-webkit-scrollbar-track {\n  margin: 2px;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_viewArea,\n.ConversationRoot_embeddedBody[data-content-phase=active] .ConversationRoot_viewArea {\n  flex: 1 0 auto;\n  min-height: auto;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_composerSeat,\n.ConversationRoot_embeddedBody[data-content-phase=active] .ConversationRoot_composerSeat {\n  position: sticky;\n  bottom: 0;\n  margin-top: auto;\n  z-index: 9;\n  will-change: transform;\n  overflow-anchor: none;\n  background:\n    linear-gradient(\n      180deg,\n      color-mix(in srgb, var(--dsw-alias-bg-base) 0%, transparent) 0px,\n      var(--dsw-alias-bg-base) 36px);\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) {\n  position: relative;\n  overflow-x: hidden;\n  overflow-y: auto;\n  scrollbar-gutter: auto;\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) > [data-slot=\"conversation.session\"] > .ConversationRoot_viewArea {\n  flex: 1 1 0;\n  min-height: 0;\n  overflow: hidden;\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) > .ConversationRoot_composerSeat {\n  position: absolute;\n  right: var(--dsh-scrollbar-width);\n  bottom: 0;\n  left: 0;\n}\n.ConversationRoot_composerHero {\n  align-self: center;\n  gap: 8px;\n  padding-bottom: 32px;\n  width: min(calc(var(--dsh-composer-card-max-width) + 2 * var(--dsh-composer-side-clearance)), 100%);\n  z-index: 1;\n}\n.ConversationRoot_heroWorkspaceRow {\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  min-width: 0;\n  margin-top: 4px;\n  padding: 0 16px 0 20px;\n}\n.ConversationRoot_heroOptions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 2px;\n  min-width: 0;\n  margin-left: auto;\n}\n.ConversationRoot_heroOptions:empty {\n  display: none;\n}\n.ConversationRoot_root[data-phase=hero] .ConversationRoot_scrollBody,\n.ConversationRoot_embeddedBody[data-content-phase=hero] .ConversationRoot_scrollBody {\n  justify-content: center;\n  overflow-y: auto;\n}\n.ConversationRoot_root[data-phase=settling] .ConversationRoot_composerSeat,\n.ConversationRoot_embeddedBody[data-content-phase=settling] .ConversationRoot_composerSeat {\n  visibility: hidden;\n}\n\n/* .tools/sidebar-build/src-conversation/client/skeleton/HeroShell.module.css */\n.HeroShell_root {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  min-width: 0;\n  padding: 0 24px;\n}\n.HeroShell_stack {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  gap: 12px;\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  overflow: visible;\n}\n.HeroShell_headline {\n  display: flex;\n  flex-wrap: wrap;\n  column-gap: 10px;\n  row-gap: 12px;\n  align-items: center;\n  justify-content: center;\n  font-size: 26px;\n  line-height: 32px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_titleGroup {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  column-gap: 7px;\n  row-gap: 4px;\n  min-width: 0;\n}\n.HeroShell_previewBadge {\n  align-self: flex-start;\n  margin-top: 2px;\n  padding: 1px 7px 0;\n  border: 0.5px solid var(--dsw-alias-interactive-bg-hover);\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-state-business-tertiary);\n  color: var(--dsw-alias-label-primary-bluish);\n  font-family: var(--ds-font-family-code);\n  font-size: 12px;\n  line-height: 18px;\n  font-weight: 500;\n  white-space: nowrap;\n}\n.HeroShell_fishHitbox {\n  display: inline-flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n}\n.HeroShell_fish {\n  display: block;\n  overflow: visible;\n  transform-origin: 50% 60%;\n  color: var(--dsw-alias-label-primary);\n}\n@keyframes HeroShell_hero-fish-swim {\n  0%, 100% {\n    transform: none;\n  }\n  35% {\n    transform: rotate(-4deg) translate(-0.4px, -0.9px);\n  }\n  70% {\n    transform: rotate(1.6deg) translate(0.3px, 0.2px);\n  }\n}\n@media (hover: hover) and (prefers-reduced-motion: no-preference) {\n  .HeroShell_fishHitbox:hover .HeroShell_fish {\n    animation: HeroShell_hero-fish-swim 1.6s ease-in-out infinite;\n  }\n}\n.HeroShell_body {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  min-width: 0;\n  overflow: visible;\n}\n.HeroShell_body > * {\n  position: relative;\n  z-index: 1;\n}\n.HeroShell_body > .HeroShell_workspaceRow {\n  z-index: 10;\n  display: flex;\n  align-items: center;\n  min-width: 0;\n  padding-left: 8px;\n}\n.HeroShell_workspace {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  max-width: min(100%, 360px);\n  min-height: 28px;\n  padding: 0 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-primary);\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 500;\n  cursor: pointer;\n}\n.HeroShell_workspace[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n@media (hover: hover) {\n  .HeroShell_workspace:not(:disabled):hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.HeroShell_workspace:disabled {\n  cursor: default;\n}\n.HeroShell_folder {\n  flex: none;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_workspaceLabel {\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.HeroShell_chevron {\n  flex: none;\n  color: var(--dsw-alias-label-caption);\n}\n.HeroShell_modalInput {\n  box-sizing: border-box;\n  width: 100%;\n  height: 44px;\n  padding: 7px 14px;\n  border: 0.5px solid var(--dsw-alias-border-l4);\n  border-radius: var(--dsw-radius-lg);\n  outline: none;\n  background: transparent;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_modalInput::placeholder {\n  color: var(--dsw-alias-label-caption);\n}\n.HeroShell_modalInput:disabled {\n  color: var(--dsw-alias-label-dimmed);\n}\n.HeroShell_modalAction {\n  min-width: 72px;\n}\n.HeroShell_modalError {\n  margin-top: 8px;\n  font-size: 12px;\n  line-height: 18px;\n  color: var(--dsw-alias-state-error-primary);\n}\n\n/* .tools/sidebar-build/src-conversation/client/skeleton/ContextMeter.module.css */\n.ContextMeter_root {\n  display: inline-flex;\n  flex: none;\n}\n.ContextMeter_trigger {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  flex: none;\n  padding: 1px 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-tertiary);\n  font-family: inherit;\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n  font-variant-numeric: tabular-nums;\n  line-height: calc(20px + var(--dsh-content-font-delta-secondary, 0px));\n  white-space: nowrap;\n  cursor: pointer;\n}\n.ContextMeter_trigger[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-secondary);\n}\n@media (hover: hover) {\n  .ContextMeter_trigger:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n    color: var(--dsw-alias-label-secondary);\n  }\n}\n.ContextMeter_track {\n  fill: none;\n  stroke: var(--dsw-alias-border-l3);\n  stroke-width: 2;\n}\n.ContextMeter_fill {\n  fill: none;\n  stroke: var(--dsw-alias-label-tertiary);\n  stroke-width: 2;\n  stroke-linecap: round;\n}\n.ContextMeter_panel {\n  position: fixed;\n  z-index: 1100;\n  box-sizing: border-box;\n  width: min(264px, calc(100vw - 24px));\n  padding: 12px;\n  border: 0;\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);\n  box-shadow: var(--dsw-elevation-prominent);\n  font-size: 12px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-secondary);\n  cursor: default;\n  max-width: calc(100vw - 24px);\n  max-height: calc(100dvh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));\n  overflow-x: hidden;\n  overflow-y: auto;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: max(12px, calc(anchor(top) + 8px));\n  left: max(12px, anchor(left));\n  right: 12px;\n  position-try-fallbacks:\n    --dsh-context-window,\n    --dsh-context-opposite,\n    --dsh-context-wide-opposite,\n    --dsh-context-tall,\n    --dsh-context-viewport;\n  align-self: end;\n  justify-self: start;\n  height: fit-content;\n  min-height: 0;\n  margin: 0;\n}\n.ContextMeter_header {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n}\n.ContextMeter_figures {\n  margin-left: auto;\n  font-weight: 500;\n  font-variant-numeric: tabular-nums;\n  color: var(--dsw-alias-label-primary);\n}\n.ContextMeter_percent {\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.ContextMeter_headline {\n  color: var(--dsw-alias-label-tertiary);\n}\n.ContextMeter_headline:empty {\n  display: none;\n}\n.ContextMeter_bar {\n  display: flex;\n  gap: 1px;\n  margin: 10px 0 12px;\n  height: 4px;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-interactive-bg-hover);\n  overflow: hidden;\n}\n.ContextMeter_segment {\n  flex: none;\n  min-width: 2px;\n  height: 100%;\n  border-radius: 1px;\n  background: var(--meter-tint, var(--dsw-alias-label-tertiary));\n}\n.ContextMeter_swatch {\n  display: inline-block;\n  margin-right: 6px;\n  width: 8px;\n  height: 8px;\n  border-radius: 2px;\n  background: var(--meter-tint);\n  vertical-align: baseline;\n}\n.ContextMeter_colorSystem {\n  --meter-tint: var(--dsw-alias-chart-system);\n}\n.ContextMeter_colorTools {\n  --meter-tint: var(--dsw-alias-chart-tools);\n}\n.ContextMeter_colorMessages {\n  --meter-tint: var(--dsw-alias-chart-messages);\n}\n.ContextMeter_rows {\n  margin: 6px 0 0;\n}\n.ContextMeter_row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 2px 0;\n}\n.ContextMeter_row dt {\n  color: var(--dsw-alias-label-secondary);\n}\n.ContextMeter_row dd {\n  margin: 0;\n  font-variant-numeric: tabular-nums;\n  color: var(--dsw-alias-label-primary);\n}\n@position-try --dsh-context-window {\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: max(12px, calc(anchor(top) + 8px));\n  left: 12px;\n  right: 12px;\n  margin: 0;\n  align-self: safe end;\n  justify-self: safe end;\n}\n@position-try --dsh-context-opposite {\n  top: max(12px, calc(anchor(bottom) + 8px));\n  bottom: 12px;\n  align-self: start;\n}\n@position-try --dsh-context-wide-opposite {\n  top: max(12px, calc(anchor(bottom) + 8px));\n  bottom: 12px;\n  left: 12px;\n  right: 12px;\n  align-self: start;\n  justify-self: safe end;\n}\n@position-try --dsh-context-tall {\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: 12px;\n  left: max(12px, anchor(left));\n  right: 12px;\n  margin: 0;\n  align-self: safe start;\n  justify-self: start;\n}\n@position-try --dsh-context-viewport {\n  position-area: none;\n  inset: max(12px, var(--dsh-frame-overlay-top, 12px)) 12px 12px;\n  margin: 0;\n  align-self: safe start;\n  justify-self: safe end;\n}\n\n/* .tools/sidebar-build/src-conversation/client/skeleton/InputBar.module.css */\n.InputBar_root {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 0 var(--dsh-composer-side-clearance) 4px;\n}\n.InputBar_dock {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 12px;\n  max-width: 100%;\n  padding-top: 4px;\n}\n.InputBar_root:not(.InputBar_hero) > .InputBar_dock {\n  min-height: calc(22px + var(--dsh-content-font-delta-secondary, 0px));\n}\n.InputBar_hero .InputBar_dock:empty {\n  display: none;\n}\n.InputBar_hero {\n  padding: 0 var(--dsh-composer-side-clearance);\n}\n.InputBar_notice {\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  margin-bottom: 6px;\n  padding: 4px 8px;\n  border-radius: var(--dsw-radius-md);\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  line-height: 18px;\n}\n.InputBar_card {\n  box-sizing: border-box;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  padding-top: 8px;\n  border: 0;\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-panel);\n  background: var(--dsw-specific-input-major);\n  box-shadow: var(--dsw-elevation-soft);\n  font-size: var(--dsh-content-font-size, 14px);\n  line-height: calc(24px + var(--dsh-content-font-delta, 0px));\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n@media (pointer: coarse) {\n  .InputBar_card {\n    font-size: max(16px, var(--dsh-content-font-size, 14px));\n  }\n}\n.InputBar_cardWorkspaceTrigger {\n  --dsw-elevation-stroke-color: transparent;\n  cursor: pointer;\n}\n.InputBar_cardWorkspaceTrigger::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  box-sizing: border-box;\n  border: 1px dashed currentColor;\n  border-radius: var(--dsw-radius-panel);\n  color: var(--dsw-alias-border-l4);\n  transition: color 100ms ease;\n  pointer-events: none;\n}\n.InputBar_cardWorkspaceTrigger :disabled {\n  pointer-events: none;\n}\n@media (hover: hover) {\n  .InputBar_cardWorkspaceTrigger:hover::after {\n    color: var(--dsw-alias-state-business-primary);\n  }\n}\n.InputBar_accessory {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px 0;\n}\n.InputBar_overlayAnchor {\n  position: absolute;\n  inset: 0 0 auto;\n  height: 0;\n}\n.InputBar_scroll {\n  max-height: var(--dsh-composer-text-max-height);\n  overflow-y: auto;\n  margin-right: 4px;\n}\n.InputBar_scroll::-webkit-scrollbar-track {\n  margin-top: 8px;\n}\n.InputBar_grow {\n  position: relative;\n}\n.InputBar_pending {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  corner-shape: round;\n  background: var(--dsw-alias-state-business-primary);\n  animation: InputBar_input-pending 1s ease-in-out infinite alternate;\n}\n@keyframes InputBar_input-pending {\n  from {\n    opacity: 0.35;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.InputBar_input {\n  box-sizing: border-box;\n  min-height: 36px;\n  padding: 4px 8px 0 14px;\n  font-family: var(--dsw-font-family);\n  font-size: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  word-break: break-word;\n  overflow-wrap: anywhere;\n  outline: none;\n  color: var(--dsw-alias-label-primary);\n  caret-color: var(--dsw-alias-state-business-primary);\n}\n.InputBar_input p {\n  margin: 0;\n}\n.InputBar_input p:last-child::after {\n  content: var(--dsh-composer-hint);\n  color: var(--dsw-alias-label-caption);\n}\n.InputBar_input[data-composer-composing] p:last-child::after {\n  content: none;\n}\n.InputBar_input[data-composer-chip-selected] {\n  caret-color: transparent;\n}\n.InputBar_input[data-composer-composing] + .InputBar_placeholder {\n  visibility: hidden;\n}\n.InputBar_placeholder {\n  position: absolute;\n  inset: 4px 8px auto 14px;\n  color: var(--dsw-alias-label-caption);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  pointer-events: none;\n  user-select: none;\n}\n.InputBar_inputDisabled {\n  color: var(--dsw-alias-label-tertiary);\n  cursor: not-allowed;\n}\n.InputBar_input[aria-haspopup=menu] {\n  cursor: pointer;\n}\n.InputBar_hero .InputBar_input {\n  min-height: 52px;\n}\n.InputBar_hero .InputBar_placeholder {\n  white-space: normal;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n  line-clamp: 2;\n}\n.InputBar_row {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 2px 8px 6px;\n  min-width: 0;\n  container-type: inline-size;\n}\n.InputBar_row[data-model-compact] {\n  --dsh-composer-model-text-display: none;\n  --dsh-composer-model-icon-display: block;\n}\n.InputBar_tools,\n.InputBar_modes,\n.InputBar_trailing {\n  display: flex;\n  align-items: center;\n  min-width: 0;\n}\n.InputBar_tools {\n  gap: 12px;\n}\n.InputBar_modes {\n  gap: 12px;\n}\n.InputBar_trailing {\n  flex: none;\n  margin-left: auto;\n  gap: 12px;\n}\n@container (max-width: 560px) {\n  .InputBar_tools,\n  .InputBar_modes,\n  .InputBar_trailing {\n    gap: 8px;\n  }\n}\n.InputBar_add {\n  display: grid;\n  place-items: center;\n  flex: none;\n  width: 28px;\n  height: 28px;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-specific-selector);\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .InputBar_add:hover:not(:disabled) {\n    background: var(--dsw-alias-interactive-bg-hover-solid);\n  }\n}\n.InputBar_add:disabled {\n  opacity: 0.5;\n  cursor: default;\n}\n.InputBar_select {\n  max-width: 220px;\n  height: 28px;\n  padding: 0 20px 0 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  outline: none;\n  background-color: transparent;\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2381858C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");\n  background-repeat: no-repeat;\n  background-position: right 4px center;\n  background-size: 12px 12px;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 500;\n  white-space: nowrap;\n  cursor: pointer;\n  appearance: none;\n}\n@media (hover: hover) {\n  .InputBar_select:hover:not(:disabled) {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.InputBar_select:disabled {\n  opacity: 0.5;\n  cursor: default;\n}\n.InputBar_primary {\n  display: grid;\n  place-items: center;\n  flex: none;\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-button-info-fill);\n  color: var(--dsw-alias-label-on-color);\n  cursor: pointer;\n  transition: background-color 100ms ease;\n  transform: translateY(-2px);\n}\n.InputBar_continueIcon {\n  transform: scale(1.5);\n}\n@media (hover: hover) {\n  .InputBar_primary:hover:not(:disabled) {\n    background: var(--dsw-alias-button-info-hover);\n  }\n}\n.InputBar_primary:disabled {\n  opacity: 0.4;\n  cursor: default;\n}\n.InputBar_primary[data-sending]:disabled {\n  opacity: 1;\n  cursor: progress;\n}\n.InputBar_sendingSpinner {\n  animation: InputBar_input-sending 800ms linear infinite;\n}\n@media (prefers-reduced-motion: reduce) {\n  .InputBar_sendingSpinner {\n    animation-duration: 2400ms;\n  }\n}\n@keyframes InputBar_input-sending {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.InputBar_retry {\n  margin-left: 8px;\n  padding: 1px 8px;\n  border: 1px solid currentColor;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: inherit;\n  font-size: 12px;\n  cursor: pointer;\n}\n.InputBar_standardControls {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  min-width: 0;\n}\n.InputBar_tools[hidden],\n.InputBar_standardControls[hidden] {\n  display: none;\n}\n.InputBar_trailingActive {\n  flex: 1;\n  margin-left: 0;\n}\n.InputBar_activity {\n  display: flex;\n  align-items: center;\n  flex: none;\n}\n.InputBar_activity:empty {\n  display: none;\n}\n.InputBar_activityExpanded {\n  flex: 1;\n  min-width: 0;\n}\n\n/* .tools/sidebar-build/src-conversation/client/skeleton/TodoPanel.module.css */\n.TodoPanel_root {\n  box-sizing: border-box;\n  flex: none;\n  overflow: hidden;\n  margin: 0 auto;\n  width: calc(100% - var(--dsh-composer-side-clearance) - var(--dsh-composer-side-clearance) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  max-width: calc(var(--dsh-composer-card-max-width) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  border: 0;\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  box-shadow: var(--dsw-elevation-panel);\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.TodoPanel_body {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  padding: 6px 12px;\n}\n.TodoPanel_header {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 0;\n  border: none;\n  background: transparent;\n  text-align: left;\n  cursor: pointer;\n}\n.TodoPanel_lead {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.TodoPanel_title {\n  flex: none;\n  font-size: 13px;\n  line-height: 24px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.TodoPanel_progress {\n  flex: 1 1 auto;\n  min-width: 0;\n  overflow: hidden;\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 400;\n  color: var(--dsw-alias-label-tertiary);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.TodoPanel_chevron {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.TodoPanel_list {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  max-height: 180px;\n  overflow-y: auto;\n}\n.TodoPanel_item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  min-width: 0;\n  font-size: 13px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-secondary);\n}\n.TodoPanel_glyph {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 16px;\n  height: 16px;\n}\n.TodoPanel_content {\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n";
+var __teleworkCss = "/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/UserText.module.css */\n.UserText_root {\n  display: contents;\n}\n.UserText_ellipsis {\n  display: block;\n  min-width: 0;\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/ReferenceChip.module.css */\n.ReferenceChip_chip {\n  display: inline-flex;\n  align-items: baseline;\n  gap: 3px;\n  max-width: 240px;\n  color: var(--dsw-alias-state-business-primary);\n  user-select: none;\n}\n.ReferenceChip_marker {\n  flex: none;\n  font-weight: 500;\n}\n.ReferenceChip_icon {\n  flex: none;\n  align-self: center;\n}\n.ReferenceChip_label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.ReferenceChip_invalid {\n  color: var(--dsw-alias-state-error-primary);\n  text-decoration: line-through;\n  opacity: 0.7;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/composer-editor.module.css */\n.composer_editor_reference {\n  padding: 0 4px;\n  border-radius: var(--dsw-radius-sm);\n  line-height: inherit;\n  vertical-align: baseline;\n  color: var(--dsw-alias-state-business-primary);\n  background: transparent;\n  box-decoration-break: clone;\n  -webkit-box-decoration-break: clone;\n}\n@media (hover: hover) {\n  .composer_editor_reference:hover {\n    background: var(--dsw-alias-state-business-tertiary);\n  }\n}\n.composer_editor_openable {\n  cursor: pointer;\n}\n[data-composer-command][data-selected] > .composer_editor_reference {\n  background: var(--dsw-alias-state-business-tertiary);\n}\n.composer_editor_textRef {\n  display: inline-block;\n  max-width: 100%;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/queue/QueueDock.module.css */\n.QueueDock_dock {\n  box-sizing: border-box;\n  flex: none;\n  width: calc(100% - var(--dsh-composer-side-clearance) - var(--dsh-composer-side-clearance) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  max-width: calc(var(--dsh-composer-card-max-width) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  margin: 0 auto calc(0px - var(--dsh-composer-stack-gap) - 3px);\n  padding: 0 var(--dsh-composer-dock-inset);\n}\n.QueueDock_panel {\n  position: relative;\n  isolation: isolate;\n  overflow: hidden;\n  width: 100%;\n  padding: 2px 0;\n  border-radius: var(--dsw-radius-lg) var(--dsw-radius-lg) 0 0;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.QueueDock_panel::before {\n  position: absolute;\n  z-index: -1;\n  inset: 0;\n  border-radius: inherit;\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  content: \"\";\n  pointer-events: none;\n}\n.QueueDock_panel::after {\n  position: absolute;\n  inset: 0;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-bottom: none;\n  border-radius: inherit;\n  content: \"\";\n  pointer-events: none;\n}\n.QueueDock_header {\n  box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 36px;\n  padding: 4px 12px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  color: var(--dsw-alias-label-primary);\n  text-align: left;\n  cursor: pointer;\n}\n.QueueDock_header:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.QueueDock_header:disabled {\n  cursor: default;\n}\n.QueueDock_lead {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.QueueDock_count {\n  flex: 1 1 auto;\n  min-width: 0;\n  font-family: Inter, var(--dsw-font-family);\n  font-size: 13px;\n  font-weight: 500;\n  line-height: 24px;\n}\n.QueueDock_chevron {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 14px;\n  height: 14px;\n  color: var(--dsw-alias-label-tertiary);\n}\n.QueueDock_list {\n  max-height: 180px;\n  overflow-y: auto;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.QueueDock_row {\n  box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  min-height: 36px;\n  padding: 4px 5px 4px 12px;\n  border-radius: var(--dsw-radius-md);\n}\n.QueueDock_row + .QueueDock_row {\n  box-shadow: inset 0 1px 0 var(--dsw-alias-border-l1);\n}\n.QueueDock_attachments {\n  display: flex;\n  flex: none;\n  gap: 4px;\n  min-width: 0;\n  max-width: 55%;\n  overflow: hidden;\n}\n.QueueDock_pendingRow .QueueDock_attachments {\n  flex-shrink: 1;\n}\n.QueueDock_file {\n  display: inline-flex;\n  flex: 0 1 180px;\n  align-items: center;\n  gap: 4px;\n  min-width: 74px;\n  height: 24px;\n  padding: 0 6px;\n  overflow: hidden;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-sm);\n  background: var(--dsw-alias-bg-base);\n  box-sizing: border-box;\n}\n.QueueDock_fileIcon {\n  display: inline-flex;\n  flex: none;\n  width: 16px;\n  height: 16px;\n}\n.QueueDock_fileName {\n  min-width: 0;\n  overflow: hidden;\n  color: var(--dsw-alias-label-primary-dimmed);\n  font: var(--dsw-font-xs-13);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.QueueDock_fileSize {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 10px;\n  white-space: nowrap;\n}\n.QueueDock_thumb {\n  width: 24px;\n  height: 24px;\n  border: 0.5px solid var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-xs);\n  background: var(--dsw-alias-bg-base);\n  object-fit: cover;\n}\n.QueueDock_preview {\n  flex: 1 1 auto;\n  min-width: 0;\n  font: var(--dsw-font-xs-13);\n  font-family: Inter, var(--dsw-font-family);\n  color: var(--dsw-alias-label-primary-dimmed);\n}\n.QueueDock_actions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n}\n.QueueDock_status {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n  font: var(--dsw-font-xs-13);\n  white-space: nowrap;\n}\n.QueueDock_action {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 28px;\n  height: 28px;\n  padding: 0;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: transparent;\n  color: var(--dsw-alias-label-tertiary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .QueueDock_action:hover:not(:disabled) {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.QueueDock_action:focus-visible {\n  outline: var(--dsw-focus-ring-width) solid var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));\n  outline-offset: -2px;\n}\n.QueueDock_action:disabled {\n  cursor: default;\n  opacity: 0.45;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/settings/EnterBehaviorRow.module.css */\n.EnterBehaviorRow_row {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 16px 0;\n  border-bottom: 0.5px solid var(--dsw-alias-border-l2);\n}\n.EnterBehaviorRow_rowText {\n  flex: 1;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n  padding-right: 48px;\n}\n@media (max-width: 767px) {\n  html:not([data-windows-titlebar]):not([data-platform=darwin]) .EnterBehaviorRow_rowText {\n    padding-right: 16px;\n  }\n}\n.EnterBehaviorRow_title {\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n}\n.EnterBehaviorRow_desc {\n  font-size: 12px;\n  font-weight: 400;\n  line-height: 18px;\n  color: var(--dsw-alias-label-tertiary);\n}\n.EnterBehaviorRow_selector {\n  display: inline-flex;\n  align-items: center;\n  gap: 12px;\n  height: 36px;\n  padding: 0 14px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: var(--dsw-alias-bg-module-platform);\n  font: inherit;\n  font-size: 14px;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .EnterBehaviorRow_selector:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.EnterBehaviorRow_chevron {\n  flex: none;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationRoot.module.css */\n.ConversationRoot_root {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  min-width: 0;\n  background: var(--dsw-alias-bg-base);\n}\n.ConversationRoot_root[data-phase=hero] {\n  isolation: isolate;\n}\n.ConversationRoot_header {\n  display: grid;\n  grid-template-columns: auto minmax(0, 1fr);\n  flex: none;\n  box-sizing: border-box;\n  min-height: 0;\n  padding: 10px 28px 10px 20px;\n  border-bottom: 0.5px solid var(--dsw-alias-border-l3);\n}\n.ConversationRoot_header:where(:not(:has(.ConversationRoot_tabs))) {\n  min-height: 0;\n  padding-bottom: 10px;\n}\n.ConversationRoot_headerBlank {\n  min-height: 0;\n  padding-bottom: 0;\n  border-bottom: none;\n}\n.ConversationRoot_headerBlank .ConversationRoot_headerCorner {\n  margin-left: auto;\n}\n[data-platform=darwin] .ConversationRoot_headerLeading,\n[data-platform=darwin] .ConversationRoot_headerActions,\n[data-platform=darwin] .ConversationRoot_headerUtilities,\n[data-platform=darwin] .ConversationRoot_headerCorner {\n  -webkit-app-region: no-drag;\n}\n.ConversationRoot_titleRow {\n  grid-column: 2;\n  container-type: inline-size;\n  display: flex;\n  align-items: center;\n  gap: 0;\n  min-height: 30px;\n  padding-inline-start: max(0px, calc(var(--dsh-frame-leading-clearance, 0px) - 20px));\n}\n.ConversationRoot_titleCluster {\n  display: flex;\n  flex: 1;\n  align-items: center;\n  gap: 10px;\n  min-width: 0;\n  --title-cluster-fade: 20px;\n  margin: -4px calc(-1 * var(--title-cluster-fade)) -4px -4px;\n  padding: 4px var(--title-cluster-fade) 4px 4px;\n  overflow: clip;\n  mask-image:\n    linear-gradient(\n      to left,\n      transparent calc(0.3 * var(--title-cluster-fade)),\n      #000 var(--title-cluster-fade));\n}\n.ConversationRoot_titleCluster:has(+ .ConversationRoot_headerUtilities:empty) {\n  --title-cluster-fade: 8px;\n}\n.ConversationRoot_headerLeading {\n  grid-column: 1;\n  grid-row: 1;\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n}\n.ConversationRoot_crumbs {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  min-width: 0;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.ConversationRoot_crumbSeg {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  min-width: 0;\n}\n.ConversationRoot_crumbSep {\n  color: var(--dsw-alias-label-caption);\n  font-size: 14px;\n  line-height: 20px;\n}\n.ConversationRoot_crumb {\n  display: inline-block;\n  max-width: 220px;\n  overflow: hidden;\n  padding: 4px 8px;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  background: transparent;\n  font-size: 14px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-tertiary);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  cursor: pointer;\n}\n@media (hover: hover) {\n  button.ConversationRoot_crumb:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.ConversationRoot_crumbCurrent {\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n  cursor: default;\n}\n.ConversationRoot_headerActions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 10px;\n}\n@container (max-width: 460px) {\n  .ConversationRoot_headerActions {\n    gap: 8px;\n  }\n}\n.ConversationRoot_headerUtilities {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 8px;\n  margin-left: 18px;\n}\n.ConversationRoot_headerUtilities:empty {\n  display: none;\n}\n.ConversationRoot_headerMenuButton {\n  flex: none;\n  width: 28px;\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n}\n.ConversationRoot_headerMenuButton svg {\n  width: 15px;\n  height: 15px;\n}\n.ConversationRoot_headerCorner {\n  display: flex;\n  flex: none;\n  align-items: center;\n  margin-left: 8px;\n  margin-right: -16px;\n}\n.ConversationRoot_headerCorner:empty {\n  display: none;\n}\n.ConversationRoot_tabs {\n  grid-column: 1 / -1;\n  position: relative;\n  z-index: 1;\n  display: flex;\n  gap: 16px 20px;\n  width: 100%;\n  min-width: 0;\n  box-sizing: border-box;\n  align-items: flex-start;\n  flex-wrap: wrap;\n  margin-top: 10px;\n  padding-left: 8px;\n}\n@media (max-width: 767px) {\n  html:not([data-platform]) .ConversationRoot_tabs {\n    padding-left: 0;\n  }\n}\n.ConversationRoot_viewTabs {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 32px;\n  min-width: 0;\n  min-height: 25px;\n}\n.ConversationRoot_tab {\n  --dsh-tab-hit-inline: 10px;\n  position: relative;\n  box-sizing: border-box;\n  min-height: 35px;\n  margin: -10px calc(-1 * var(--dsh-tab-hit-inline)) 0;\n  padding: 10px var(--dsh-tab-hit-inline) 9px;\n  border: none;\n  background: transparent;\n  font-size: 13px;\n  line-height: 16px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-tertiary);\n  cursor: pointer;\n}\n.ConversationRoot_tab::after {\n  content: \"\";\n  position: absolute;\n  right: var(--dsh-tab-hit-inline);\n  bottom: -1px;\n  left: var(--dsh-tab-hit-inline);\n  height: 2px;\n  border-radius: 2px;\n  background: transparent;\n}\n.ConversationRoot_tabActive {\n  color: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_tabActive::after {\n  background: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_viewsMoreAnchor {\n  flex: none;\n}\n.ConversationRoot_viewsMore {\n  width: auto;\n  height: 22px;\n  margin-top: -3px;\n  padding: 0 6px;\n  color: var(--dsw-alias-label-secondary);\n}\n.ConversationRoot_viewsMoreLabel {\n  font-size: 12px;\n  line-height: 20px;\n  white-space: nowrap;\n}\n.ConversationRoot_viewsMoreActive {\n  color: var(--dsw-alias-state-business-primary);\n}\n.ConversationRoot_tabLabel {\n  display: block;\n  max-width: 88px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.ConversationRoot_viewsMore[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.ConversationRoot_viewsMoreMenu {\n  width: 288px;\n  max-width: calc(100vw - 24px);\n}\n.ConversationRoot_tabsInline {\n  grid-column: auto;\n  position: relative;\n  z-index: auto;\n  flex: 0 1 auto;\n  width: auto;\n  max-width: 52%;\n  min-width: 0;\n  margin: 0 0 0 12px;\n  padding-left: 0;\n  flex-wrap: nowrap;\n  align-items: center;\n  gap: 18px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_viewTabs {\n  flex-wrap: nowrap;\n  gap: 18px;\n  min-height: 0;\n  overflow: hidden;\n}\n.ConversationRoot_tabsInline .ConversationRoot_tab {\n  min-height: 28px;\n  margin: 0;\n  padding: 4px 6px;\n  font-size: 13px;\n  line-height: 20px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_tab::after {\n  left: 6px;\n  right: 6px;\n  bottom: -1px;\n}\n.ConversationRoot_tabsInline .ConversationRoot_viewsMore {\n  margin-top: 0;\n}\n.ConversationRoot_titleCluster:has(+ .ConversationRoot_tabsInline) {\n  --title-cluster-fade: 8px;\n  margin-right: 0;\n}\n.ConversationRoot_headerCorner {\n  display: none;\n}\n.ConversationRoot_headerUtilities > * button {\n  width: auto;\n  padding: 0 6px;\n}\n.ConversationRoot_headerUtilities > * button svg {\n  display: none;\n}\n.ConversationRoot_headerUtilities > * button::after {\n  content: \"\\66f4\\591a\\64cd\\4f5c\";\n  font-size: 12px;\n  line-height: 20px;\n  white-space: nowrap;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button) {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: auto;\n  height: 28px;\n  padding: 0 6px;\n  line-height: 1;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button) > * {\n  display: none;\n}\n.ConversationRoot_titleRow button[aria-haspopup=menu]:not(.ConversationRoot_tabsInline button)::after {\n  content: \"\\66f4\\591a\\64cd\\4f5c\";\n  display: block;\n  font-size: 12px;\n  line-height: 1;\n  white-space: nowrap;\n}\n.ConversationRoot_viewArea {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n}\n.ConversationRoot_widthHandle {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  z-index: 0;\n  width: min(10px, calc((100% - var(--dsh-chat-content-width)) / 2 - 24px - 24px));\n  cursor: col-resize;\n}\n.ConversationRoot_widthHandle[data-side=left] {\n  right: calc(50% + var(--dsh-chat-content-width) / 2 + 24px);\n}\n.ConversationRoot_widthHandle[data-side=right] {\n  left: calc(50% + var(--dsh-chat-content-width) / 2 + 24px);\n}\n.ConversationRoot_widthHandle::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 2px;\n  border-radius: 2px;\n  background:\n    linear-gradient(\n      to bottom,\n      transparent calc(var(--dsh-width-handle-pointer-y, 50%) - 36px),\n      var(--dsw-alias-scrollbar-bg-l1) calc(var(--dsh-width-handle-pointer-y, 50%) - 8px),\n      var(--dsw-alias-scrollbar-bg-l1) calc(var(--dsh-width-handle-pointer-y, 50%) + 8px),\n      transparent calc(var(--dsh-width-handle-pointer-y, 50%) + 36px));\n  opacity: 0;\n  pointer-events: none;\n}\n.ConversationRoot_widthHandle[data-side=left]::after {\n  right: 4px;\n}\n.ConversationRoot_widthHandle[data-side=right]::after {\n  left: 4px;\n}\n.ConversationRoot_widthHandle[data-dragging]::after {\n  opacity: 1;\n}\n@media (hover: hover) {\n  .ConversationRoot_widthHandle:hover::after {\n    opacity: 1;\n  }\n}\n.ConversationRoot_root:has([data-conversation-composer-overlay]) .ConversationRoot_widthHandle {\n  display: none;\n}\n.ConversationRoot_composerStack {\n  --dsh-composer-stack-gap: 6px;\n  display: flex;\n  flex-direction: column;\n  gap: var(--dsh-composer-stack-gap);\n}\n.ConversationRoot_composerSeat {\n  display: flex;\n  flex: none;\n  flex-direction: column;\n  --dsh-composer-text-max-height: 336px;\n}\n.ConversationRoot_root[data-phase=active] {\n  overflow: hidden;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_header {\n  flex: none;\n}\n.ConversationRoot_body {\n  position: relative;\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n  --dsh-chat-content-width: var( --dsh-chat-user-width, clamp(680px, calc(var(--dsh-conversation-column-width, 0px) * 0.64), 920px) );\n  --dsh-composer-card-max-width: calc(var(--dsh-chat-content-width) + 32px);\n  --dsh-composer-side-clearance: 16px;\n  --dsh-composer-dock-inset: 8px;\n}\n.ConversationRoot_embeddedBody {\n  overflow: hidden;\n  --dsh-chat-content-width: min(calc(100% - 32px), 920px);\n  --dsh-composer-card-max-width: min(calc(100% - 16px), 952px);\n  --dsh-composer-side-clearance: 8px;\n  --dsh-composer-dock-inset: 8px;\n}\n.ConversationRoot_scrollBody {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  min-height: 0;\n  margin-right: 2px;\n  overflow-y: auto;\n  scrollbar-gutter: stable;\n}\n.ConversationRoot_scrollBody::-webkit-scrollbar-track {\n  margin: 2px;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_viewArea,\n.ConversationRoot_embeddedBody[data-content-phase=active] .ConversationRoot_viewArea {\n  flex: 1 0 auto;\n  min-height: auto;\n}\n.ConversationRoot_root[data-phase=active] .ConversationRoot_composerSeat,\n.ConversationRoot_embeddedBody[data-content-phase=active] .ConversationRoot_composerSeat {\n  position: sticky;\n  bottom: 0;\n  margin-top: auto;\n  z-index: 9;\n  will-change: transform;\n  overflow-anchor: none;\n  background:\n    linear-gradient(\n      180deg,\n      color-mix(in srgb, var(--dsw-alias-bg-base) 0%, transparent) 0px,\n      var(--dsw-alias-bg-base) 36px);\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) {\n  position: relative;\n  overflow-x: hidden;\n  overflow-y: auto;\n  scrollbar-gutter: auto;\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) > [data-slot=\"conversation.session\"] > .ConversationRoot_viewArea {\n  flex: 1 1 0;\n  min-height: 0;\n  overflow: hidden;\n}\n.ConversationRoot_scrollBody:has([data-conversation-composer-overlay]) > .ConversationRoot_composerSeat {\n  position: absolute;\n  right: var(--dsh-scrollbar-width);\n  bottom: 0;\n  left: 0;\n}\n.ConversationRoot_composerHero {\n  align-self: center;\n  gap: 8px;\n  padding-bottom: 32px;\n  width: min(calc(var(--dsh-composer-card-max-width) + 2 * var(--dsh-composer-side-clearance)), 100%);\n  z-index: 1;\n}\n.ConversationRoot_heroWorkspaceRow {\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  min-width: 0;\n  margin-top: 4px;\n  padding: 0 16px 0 20px;\n}\n.ConversationRoot_heroOptions {\n  display: flex;\n  flex: none;\n  align-items: center;\n  gap: 2px;\n  min-width: 0;\n  margin-left: auto;\n}\n.ConversationRoot_heroOptions:empty {\n  display: none;\n}\n.ConversationRoot_root[data-phase=hero] .ConversationRoot_scrollBody,\n.ConversationRoot_embeddedBody[data-content-phase=hero] .ConversationRoot_scrollBody {\n  justify-content: center;\n  overflow-y: auto;\n}\n.ConversationRoot_root[data-phase=settling] .ConversationRoot_composerSeat,\n.ConversationRoot_embeddedBody[data-content-phase=settling] .ConversationRoot_composerSeat {\n  visibility: hidden;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/HeroShell.module.css */\n.HeroShell_root {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  min-width: 0;\n  padding: 0 24px;\n}\n.HeroShell_stack {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  gap: 12px;\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  overflow: visible;\n}\n.HeroShell_headline {\n  display: flex;\n  flex-wrap: wrap;\n  column-gap: 10px;\n  row-gap: 12px;\n  align-items: center;\n  justify-content: center;\n  font-size: 26px;\n  line-height: 32px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_titleGroup {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  column-gap: 7px;\n  row-gap: 4px;\n  min-width: 0;\n}\n.HeroShell_previewBadge {\n  align-self: flex-start;\n  margin-top: 2px;\n  padding: 1px 7px 0;\n  border: 0.5px solid var(--dsw-alias-interactive-bg-hover);\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-state-business-tertiary);\n  color: var(--dsw-alias-label-primary-bluish);\n  font-family: var(--ds-font-family-code);\n  font-size: 12px;\n  line-height: 18px;\n  font-weight: 500;\n  white-space: nowrap;\n}\n.HeroShell_fishHitbox {\n  display: inline-flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n}\n.HeroShell_fish {\n  display: block;\n  overflow: visible;\n  transform-origin: 50% 60%;\n  color: var(--dsw-alias-label-primary);\n}\n@keyframes HeroShell_hero-fish-swim {\n  0%, 100% {\n    transform: none;\n  }\n  35% {\n    transform: rotate(-4deg) translate(-0.4px, -0.9px);\n  }\n  70% {\n    transform: rotate(1.6deg) translate(0.3px, 0.2px);\n  }\n}\n@media (hover: hover) and (prefers-reduced-motion: no-preference) {\n  .HeroShell_fishHitbox:hover .HeroShell_fish {\n    animation: HeroShell_hero-fish-swim 1.6s ease-in-out infinite;\n  }\n}\n.HeroShell_body {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  min-width: 0;\n  overflow: visible;\n}\n.HeroShell_body > * {\n  position: relative;\n  z-index: 1;\n}\n.HeroShell_body > .HeroShell_workspaceRow {\n  z-index: 10;\n  display: flex;\n  align-items: center;\n  min-width: 0;\n  padding-left: 8px;\n}\n.HeroShell_workspace {\n  display: inline-flex;\n  align-items: center;\n  gap: 4px;\n  max-width: min(100%, 360px);\n  min-height: 28px;\n  padding: 0 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-primary);\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 500;\n  cursor: pointer;\n}\n.HeroShell_workspace[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n@media (hover: hover) {\n  .HeroShell_workspace:not(:disabled):hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.HeroShell_workspace:disabled {\n  cursor: default;\n}\n.HeroShell_folder {\n  flex: none;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_workspaceLabel {\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.HeroShell_chevron {\n  flex: none;\n  color: var(--dsw-alias-label-caption);\n}\n.HeroShell_modalInput {\n  box-sizing: border-box;\n  width: 100%;\n  height: 44px;\n  padding: 7px 14px;\n  border: 0.5px solid var(--dsw-alias-border-l4);\n  border-radius: var(--dsw-radius-lg);\n  outline: none;\n  background: transparent;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 22px;\n  color: var(--dsw-alias-label-primary);\n}\n.HeroShell_modalInput::placeholder {\n  color: var(--dsw-alias-label-caption);\n}\n.HeroShell_modalInput:disabled {\n  color: var(--dsw-alias-label-dimmed);\n}\n.HeroShell_modalAction {\n  min-width: 72px;\n}\n.HeroShell_modalError {\n  margin-top: 8px;\n  font-size: 12px;\n  line-height: 18px;\n  color: var(--dsw-alias-state-error-primary);\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ContextMeter.module.css */\n.ContextMeter_root {\n  display: inline-flex;\n  flex: none;\n}\n.ContextMeter_trigger {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  flex: none;\n  padding: 1px 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: var(--dsw-alias-label-tertiary);\n  font-family: inherit;\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n  font-variant-numeric: tabular-nums;\n  line-height: calc(20px + var(--dsh-content-font-delta-secondary, 0px));\n  white-space: nowrap;\n  cursor: pointer;\n}\n.ContextMeter_trigger[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-secondary);\n}\n@media (hover: hover) {\n  .ContextMeter_trigger:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n    color: var(--dsw-alias-label-secondary);\n  }\n}\n.ContextMeter_track {\n  fill: none;\n  stroke: var(--dsw-alias-border-l3);\n  stroke-width: 2;\n}\n.ContextMeter_fill {\n  fill: none;\n  stroke: var(--dsw-alias-label-tertiary);\n  stroke-width: 2;\n  stroke-linecap: round;\n}\n.ContextMeter_panel {\n  position: fixed;\n  z-index: 1100;\n  box-sizing: border-box;\n  width: min(264px, calc(100vw - 24px));\n  padding: 12px;\n  border: 0;\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);\n  box-shadow: var(--dsw-elevation-prominent);\n  font-size: 12px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-secondary);\n  cursor: default;\n  max-width: calc(100vw - 24px);\n  max-height: calc(100dvh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));\n  overflow-x: hidden;\n  overflow-y: auto;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: max(12px, calc(anchor(top) + 8px));\n  left: max(12px, anchor(left));\n  right: 12px;\n  position-try-fallbacks:\n    --dsh-context-window,\n    --dsh-context-opposite,\n    --dsh-context-wide-opposite,\n    --dsh-context-tall,\n    --dsh-context-viewport;\n  align-self: end;\n  justify-self: start;\n  height: fit-content;\n  min-height: 0;\n  margin: 0;\n}\n.ContextMeter_header {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n}\n.ContextMeter_figures {\n  margin-left: auto;\n  font-weight: 500;\n  font-variant-numeric: tabular-nums;\n  color: var(--dsw-alias-label-primary);\n}\n.ContextMeter_percent {\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.ContextMeter_headline {\n  color: var(--dsw-alias-label-tertiary);\n}\n.ContextMeter_headline:empty {\n  display: none;\n}\n.ContextMeter_bar {\n  display: flex;\n  gap: 1px;\n  margin: 10px 0 12px;\n  height: 4px;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-interactive-bg-hover);\n  overflow: hidden;\n}\n.ContextMeter_segment {\n  flex: none;\n  min-width: 2px;\n  height: 100%;\n  border-radius: 1px;\n  background: var(--meter-tint, var(--dsw-alias-label-tertiary));\n}\n.ContextMeter_swatch {\n  display: inline-block;\n  margin-right: 6px;\n  width: 8px;\n  height: 8px;\n  border-radius: 2px;\n  background: var(--meter-tint);\n  vertical-align: baseline;\n}\n.ContextMeter_colorSystem {\n  --meter-tint: var(--dsw-alias-chart-system);\n}\n.ContextMeter_colorTools {\n  --meter-tint: var(--dsw-alias-chart-tools);\n}\n.ContextMeter_colorMessages {\n  --meter-tint: var(--dsw-alias-chart-messages);\n}\n.ContextMeter_rows {\n  margin: 6px 0 0;\n}\n.ContextMeter_row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 2px 0;\n}\n.ContextMeter_row dt {\n  color: var(--dsw-alias-label-secondary);\n}\n.ContextMeter_row dd {\n  margin: 0;\n  font-variant-numeric: tabular-nums;\n  color: var(--dsw-alias-label-primary);\n}\n@position-try --dsh-context-window {\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: max(12px, calc(anchor(top) + 8px));\n  left: 12px;\n  right: 12px;\n  margin: 0;\n  align-self: safe end;\n  justify-self: safe end;\n}\n@position-try --dsh-context-opposite {\n  top: max(12px, calc(anchor(bottom) + 8px));\n  bottom: 12px;\n  align-self: start;\n}\n@position-try --dsh-context-wide-opposite {\n  top: max(12px, calc(anchor(bottom) + 8px));\n  bottom: 12px;\n  left: 12px;\n  right: 12px;\n  align-self: start;\n  justify-self: safe end;\n}\n@position-try --dsh-context-tall {\n  position-area: none;\n  top: max(12px, var(--dsh-frame-overlay-top, 12px));\n  bottom: 12px;\n  left: max(12px, anchor(left));\n  right: 12px;\n  margin: 0;\n  align-self: safe start;\n  justify-self: start;\n}\n@position-try --dsh-context-viewport {\n  position-area: none;\n  inset: max(12px, var(--dsh-frame-overlay-top, 12px)) 12px 12px;\n  margin: 0;\n  align-self: safe start;\n  justify-self: safe end;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/InputBar.module.css */\n.InputBar_root {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 0 var(--dsh-composer-side-clearance) 4px;\n}\n.InputBar_dock {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 12px;\n  max-width: 100%;\n  padding-top: 4px;\n}\n.InputBar_root:not(.InputBar_hero) > .InputBar_dock {\n  min-height: calc(22px + var(--dsh-content-font-delta-secondary, 0px));\n}\n.InputBar_hero .InputBar_dock:empty {\n  display: none;\n}\n.InputBar_hero {\n  padding: 0 var(--dsh-composer-side-clearance);\n}\n.InputBar_notice {\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  margin-bottom: 6px;\n  padding: 4px 8px;\n  border-radius: var(--dsw-radius-md);\n  background: var(--dsw-alias-interactive-bg-hover);\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  line-height: 18px;\n}\n.InputBar_card {\n  box-sizing: border-box;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  width: 100%;\n  max-width: var(--dsh-composer-card-max-width);\n  padding-top: 8px;\n  border: 0;\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-panel);\n  background: var(--dsw-specific-input-major);\n  box-shadow: var(--dsw-elevation-soft);\n  font-size: var(--dsh-content-font-size, 14px);\n  line-height: calc(24px + var(--dsh-content-font-delta, 0px));\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n@media (pointer: coarse) {\n  .InputBar_card {\n    font-size: max(16px, var(--dsh-content-font-size, 14px));\n  }\n}\n.InputBar_cardWorkspaceTrigger {\n  --dsw-elevation-stroke-color: transparent;\n  cursor: pointer;\n}\n.InputBar_cardWorkspaceTrigger::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  box-sizing: border-box;\n  border: 1px dashed currentColor;\n  border-radius: var(--dsw-radius-panel);\n  color: var(--dsw-alias-border-l4);\n  transition: color 100ms ease;\n  pointer-events: none;\n}\n.InputBar_cardWorkspaceTrigger :disabled {\n  pointer-events: none;\n}\n@media (hover: hover) {\n  .InputBar_cardWorkspaceTrigger:hover::after {\n    color: var(--dsw-alias-state-business-primary);\n  }\n}\n.InputBar_accessory {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px 0;\n}\n.InputBar_overlayAnchor {\n  position: absolute;\n  inset: 0 0 auto;\n  height: 0;\n}\n.InputBar_scroll {\n  max-height: var(--dsh-composer-text-max-height);\n  overflow-y: auto;\n  margin-right: 4px;\n}\n.InputBar_scroll::-webkit-scrollbar-track {\n  margin-top: 8px;\n}\n.InputBar_grow {\n  position: relative;\n}\n.InputBar_pending {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  corner-shape: round;\n  background: var(--dsw-alias-state-business-primary);\n  animation: InputBar_input-pending 1s ease-in-out infinite alternate;\n}\n@keyframes InputBar_input-pending {\n  from {\n    opacity: 0.35;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.InputBar_input {\n  box-sizing: border-box;\n  min-height: 36px;\n  padding: 4px 8px 0 14px;\n  font-family: var(--dsw-font-family);\n  font-size: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  word-break: break-word;\n  overflow-wrap: anywhere;\n  outline: none;\n  color: var(--dsw-alias-label-primary);\n  caret-color: var(--dsw-alias-state-business-primary);\n}\n.InputBar_input p {\n  margin: 0;\n}\n.InputBar_input p:last-child::after {\n  content: var(--dsh-composer-hint);\n  color: var(--dsw-alias-label-caption);\n}\n.InputBar_input[data-composer-composing] p:last-child::after {\n  content: none;\n}\n.InputBar_input[data-composer-chip-selected] {\n  caret-color: transparent;\n}\n.InputBar_input[data-composer-composing] + .InputBar_placeholder {\n  visibility: hidden;\n}\n.InputBar_placeholder {\n  position: absolute;\n  inset: 4px 8px auto 14px;\n  color: var(--dsw-alias-label-caption);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  pointer-events: none;\n  user-select: none;\n}\n.InputBar_inputDisabled {\n  color: var(--dsw-alias-label-tertiary);\n  cursor: not-allowed;\n}\n.InputBar_input[aria-haspopup=menu] {\n  cursor: pointer;\n}\n.InputBar_hero .InputBar_input {\n  min-height: 52px;\n}\n.InputBar_hero .InputBar_placeholder {\n  white-space: normal;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n  line-clamp: 2;\n}\n.InputBar_row {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 2px 8px 6px;\n  min-width: 0;\n  container-type: inline-size;\n}\n.InputBar_row[data-model-compact] {\n  --dsh-composer-model-text-display: none;\n  --dsh-composer-model-icon-display: block;\n}\n.InputBar_tools,\n.InputBar_modes,\n.InputBar_trailing {\n  display: flex;\n  align-items: center;\n  min-width: 0;\n}\n.InputBar_tools {\n  gap: 12px;\n}\n.InputBar_modes {\n  gap: 12px;\n}\n.InputBar_trailing {\n  flex: none;\n  margin-left: auto;\n  gap: 12px;\n}\n@container (max-width: 560px) {\n  .InputBar_tools,\n  .InputBar_modes,\n  .InputBar_trailing {\n    gap: 8px;\n  }\n}\n.InputBar_add {\n  display: grid;\n  place-items: center;\n  flex: none;\n  width: 28px;\n  height: 28px;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-specific-selector);\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .InputBar_add:hover:not(:disabled) {\n    background: var(--dsw-alias-interactive-bg-hover-solid);\n  }\n}\n.InputBar_add:disabled {\n  opacity: 0.5;\n  cursor: default;\n}\n.InputBar_select {\n  max-width: 220px;\n  height: 28px;\n  padding: 0 20px 0 8px;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  outline: none;\n  background-color: transparent;\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2381858C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");\n  background-repeat: no-repeat;\n  background-position: right 4px center;\n  background-size: 12px 12px;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 500;\n  white-space: nowrap;\n  cursor: pointer;\n  appearance: none;\n}\n@media (hover: hover) {\n  .InputBar_select:hover:not(:disabled) {\n    background-color: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.InputBar_select:disabled {\n  opacity: 0.5;\n  cursor: default;\n}\n.InputBar_primary {\n  display: grid;\n  place-items: center;\n  flex: none;\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 999px;\n  corner-shape: round;\n  background: var(--dsw-alias-button-info-fill);\n  color: var(--dsw-alias-label-on-color);\n  cursor: pointer;\n  transition: background-color 100ms ease;\n  transform: translateY(-2px);\n}\n.InputBar_continueIcon {\n  transform: scale(1.5);\n}\n@media (hover: hover) {\n  .InputBar_primary:hover:not(:disabled) {\n    background: var(--dsw-alias-button-info-hover);\n  }\n}\n.InputBar_primary:disabled {\n  opacity: 0.4;\n  cursor: default;\n}\n.InputBar_primary[data-sending]:disabled {\n  opacity: 1;\n  cursor: progress;\n}\n.InputBar_sendingSpinner {\n  animation: InputBar_input-sending 800ms linear infinite;\n}\n@media (prefers-reduced-motion: reduce) {\n  .InputBar_sendingSpinner {\n    animation-duration: 2400ms;\n  }\n}\n@keyframes InputBar_input-sending {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.InputBar_retry {\n  margin-left: 8px;\n  padding: 1px 8px;\n  border: 1px solid currentColor;\n  border-radius: var(--dsw-radius-sm);\n  background: transparent;\n  color: inherit;\n  font-size: 12px;\n  cursor: pointer;\n}\n.InputBar_standardControls {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  min-width: 0;\n}\n.InputBar_tools[hidden],\n.InputBar_standardControls[hidden] {\n  display: none;\n}\n.InputBar_trailingActive {\n  flex: 1;\n  margin-left: 0;\n}\n.InputBar_activity {\n  display: flex;\n  align-items: center;\n  flex: none;\n}\n.InputBar_activity:empty {\n  display: none;\n}\n.InputBar_activityExpanded {\n  flex: 1;\n  min-width: 0;\n}\n\n/* bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/TodoPanel.module.css */\n.TodoPanel_root {\n  box-sizing: border-box;\n  flex: none;\n  overflow: hidden;\n  margin: 0 auto;\n  width: calc(100% - var(--dsh-composer-side-clearance) - var(--dsh-composer-side-clearance) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  max-width: calc(var(--dsh-composer-card-max-width) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset) - var(--dsh-composer-dock-inset));\n  border: 0;\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-specific-menu);\n  backdrop-filter: var(--dsw-menu-backdrop-filter);\n  box-shadow: var(--dsw-elevation-panel);\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.TodoPanel_body {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  padding: 6px 12px;\n}\n.TodoPanel_header {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  padding: 0;\n  border: none;\n  background: transparent;\n  text-align: left;\n  cursor: pointer;\n}\n.TodoPanel_lead {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.TodoPanel_title {\n  flex: none;\n  font-size: 13px;\n  line-height: 24px;\n  font-weight: 500;\n  color: var(--dsw-alias-label-primary);\n}\n.TodoPanel_progress {\n  flex: 1 1 auto;\n  min-width: 0;\n  overflow: hidden;\n  font-size: 13px;\n  line-height: 20px;\n  font-weight: 400;\n  color: var(--dsw-alias-label-tertiary);\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.TodoPanel_chevron {\n  display: grid;\n  flex: none;\n  place-items: center;\n  color: var(--dsw-alias-label-tertiary);\n}\n.TodoPanel_list {\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  max-height: 180px;\n  overflow-y: auto;\n}\n.TodoPanel_item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  min-width: 0;\n  font-size: 13px;\n  line-height: 20px;\n  color: var(--dsw-alias-label-secondary);\n}\n.TodoPanel_glyph {\n  display: grid;\n  flex: none;\n  place-items: center;\n  width: 16px;\n  height: 16px;\n}\n.TodoPanel_content {\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n";
 if (typeof document !== 'undefined') {
   var __teleworkSelector = 'style[data-plugin-css="' + __teleworkPlugin + '"]';
   if (document.querySelector(__teleworkSelector) === null) {
@@ -42,7 +42,7 @@ var __toESM = (mod11, isNodeMode, target) => (target = mod11 != null ? __create(
 ));
 var __toCommonJS = (mod11) => __copyProps(__defProp({}, "__esModule", { value: true }), mod11);
 
-// .tools/sidebar-build/src-conversation/client/index.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/index.ts
 var index_exports = {};
 __export(index_exports, {
   Config: () => Config,
@@ -62,7 +62,7 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+cosmokit@1.9.0/node_modules/@deepseek-ai/cosmokit/lib/index.js
+// node_modules/.pnpm/@deepseek-ai+cosmokit@1.9.0/node_modules/@deepseek-ai/cosmokit/lib/index.js
 function isNullable(value) {
   return value === null || value === void 0;
 }
@@ -287,7 +287,7 @@ var Time;
   Time2.template = template;
 })(Time || (Time = {}));
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+schemastery@3.19.0/node_modules/@deepseek-ai/schemastery/lib/index.mjs
+// node_modules/.pnpm/@deepseek-ai+schemastery@3.19.0/node_modules/@deepseek-ai/schemastery/lib/index.mjs
 var kSchema = /* @__PURE__ */ Symbol.for("schemastery");
 var kValidationError = /* @__PURE__ */ Symbol.for("ValidationError");
 globalThis.__schemastery_index__ ??= 0;
@@ -928,15 +928,15 @@ defineMethod("transform", [
   "preserve"
 ], ({ inner }, isInner) => inner.toString(isInner));
 
-// .tools/sidebar-build/src-conversation/client/apply.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/apply.ts
 var import_dsh_client_ui_primitives17 = require("@deepseek-ai/dsh-client-ui-primitives");
 var import_dsh_client_store11 = require("@deepseek-ai/dsh-client-store");
 var import_dsh_client_ui_slots = require("@deepseek-ai/dsh-client-ui-slots");
 
-// .tools/sidebar-build/src-conversation/client/conversation/assembly.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/assembly.ts
 var import_cordis2 = require("@deepseek-ai/cordis");
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-util-value_f181d1fcd8a8b46f1abb181be7cb1d74/node_modules/@deepseek-ai/dsh-util-values/lib/index.js
+// node_modules/.pnpm/@deepseek-ai+dsh-util-value_f181d1fcd8a8b46f1abb181be7cb1d74/node_modules/@deepseek-ai/dsh-util-values/lib/index.js
 var SIMPLE_ESCAPES = {
   '"': '"',
   "\\": "\\",
@@ -1613,10 +1613,10 @@ var WeakMapWithValues = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/assembly.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/assembly.ts
 var import_dsh_client_store4 = require("@deepseek-ai/dsh-client-store");
 
-// .tools/sidebar-build/src-conversation/client/contract/request-inspection.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/contract/request-inspection.ts
 function inspectRequestPrompt(previous, event, system) {
   const header = event.data.header;
   const rawTools = header.tools;
@@ -1641,7 +1641,7 @@ function inspectRequestPrompt(previous, event, system) {
   };
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-session@0._8cdd61b1154f5d685261866b42f1df49/node_modules/@deepseek-ai/dsh-session/lib/types/surface.js
+// node_modules/.pnpm/@deepseek-ai+dsh-session@0._8cdd61b1154f5d685261866b42f1df49/node_modules/@deepseek-ai/dsh-session/lib/types/surface.js
 var SURFACE_EVENT_TYPES = /* @__PURE__ */ new Set([
   "system/message",
   "developer/message",
@@ -1656,7 +1656,7 @@ function isSurfaceEvent(event) {
   return candidate.surfaceOp !== void 0;
 }
 
-// .tools/sidebar-build/src-conversation/client/contract/system-prompt.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/contract/system-prompt.ts
 function inspectSystemPrompt(previous, event) {
   const op = isSurfaceEvent(event) ? event.surfaceOp : void 0;
   const firstSeq = previous?.firstSeq ?? event.seq;
@@ -1699,12 +1699,12 @@ function inspectSystemPrompt(previous, event) {
   return { firstSeq, uncertain, nodes, replacements, effective, introduced };
 }
 
-// .tools/sidebar-build/src-conversation/client/contract/conversation.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/contract/conversation.ts
 function conversationContextKey(kind, id) {
   return `${kind.length}:${kind}${id}`;
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/group-store.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/group-store.ts
 var import_dsh_client_store = require("@deepseek-ai/dsh-client-store");
 function sameNodeReference(left, right) {
   return left.key === right.key && left.groupPart === right.groupPart;
@@ -1884,7 +1884,7 @@ var ConversationGroupStore = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/location-index.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/location-index.ts
 var import_dsh_client_store2 = require("@deepseek-ai/dsh-client-store");
 var MutableLocationDataSource = class {
   constructor(store, key) {
@@ -2411,7 +2411,7 @@ function requireStep(data) {
   throw new Error(`conversation Step data "${data.key}" requires a step`);
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/assembler.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/assembler.ts
 var ConversationUpdateError = class extends Error {
   /** Whether every active view shows the complete rebuild. */
   rebuilt;
@@ -3329,7 +3329,7 @@ function requireState(definition, phase, state) {
   return state;
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/definition-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/definition-registry.ts
 var import_cordis = require("@deepseek-ai/cordis");
 var import_dsh_client_store3 = require("@deepseek-ai/dsh-client-store");
 var ConversationDefinitionRegistry = class {
@@ -3393,7 +3393,7 @@ var ConversationDefinitionRegistry = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/event-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/event-registry.ts
 var ConversationEventRegistry = class extends ConversationDefinitionRegistry {
   fallback;
   routes = /* @__PURE__ */ new Map();
@@ -3495,7 +3495,7 @@ function assertDefinitionTarget(definition) {
   }
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-util-crypt_4a55503ceb94d7a445d3557b359d2821/node_modules/@deepseek-ai/dsh-util-crypto/lib/index.js
+// node_modules/.pnpm/@deepseek-ai+dsh-util-crypt_4a55503ceb94d7a445d3557b359d2821/node_modules/@deepseek-ai/dsh-util-crypto/lib/index.js
 function bytesToBase64(data) {
   let binary = "";
   const chunk = 32768;
@@ -3510,7 +3510,7 @@ function randomUUID() {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/historical-images.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/historical-images.ts
 var HistoricalImageCache = class {
   /**
    * @param ctx - Owning ui-conversation fiber.
@@ -3665,7 +3665,7 @@ function revokeUrl(url) {
   if (url.startsWith("blob:")) URL.revokeObjectURL(url);
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/view-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/view-registry.ts
 var ConversationViewRegistry = class extends ConversationDefinitionRegistry {
   /**
    * Register a uniquely named view builder factory for the caller's lifetime.
@@ -3682,7 +3682,7 @@ var ConversationViewRegistry = class extends ConversationDefinitionRegistry {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/group-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/group-registry.ts
 var ConversationGroupRegistry = class extends ConversationDefinitionRegistry {
   /**
    * @param ctx - owning plugin context.
@@ -3719,7 +3719,7 @@ var ConversationGroupRegistry = class extends ConversationDefinitionRegistry {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/interaction-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/interaction-registry.ts
 var ConversationInteractionRegistry = class extends ConversationDefinitionRegistry {
   ids = [];
   /**
@@ -3777,7 +3777,7 @@ var ConversationInteractionRegistry = class extends ConversationDefinitionRegist
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/user-text-document.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/user-text-document.ts
 var UserTextTransformError = class extends Error {
   constructor(ruleId, cause) {
     super(`user-text rule "${ruleId}" failed to evaluate`, { cause });
@@ -3973,7 +3973,7 @@ function equalJson(left, right) {
   return keys.every((key) => Object.hasOwn(right, key) && equalJson(Reflect.get(left, key), Reflect.get(right, key)));
 }
 
-// .tools/sidebar-build/src-conversation/client/conversation/user-text-registry.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/user-text-registry.ts
 var UserTextRegistry = class extends ConversationDefinitionRegistry {
   rules = [];
   revision = 0;
@@ -4015,7 +4015,7 @@ var UserTextRegistry = class extends ConversationDefinitionRegistry {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/conversation/assembly.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/conversation/assembly.ts
 var BoundConversation = class {
   constructor(feed, assembler) {
     this.assembler = assembler;
@@ -4289,17 +4289,17 @@ var UiConversation = class extends import_cordis2.Service {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/user-text/UserText.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/UserText.tsx
 var import_react = require("react");
 var import_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/user-text/UserText.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/UserText.module.css
 var UserText_default = {
   root: "UserText_root",
   ellipsis: "UserText_ellipsis"
 };
 
-// .tools/sidebar-build/src-conversation/client/user-text/UserText.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/UserText.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
 function UserText({
   text,
@@ -4341,7 +4341,7 @@ function SessionReference({ node, raw }) {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.ReferenceChip, { appearance: "session", label: node.data.label, title: raw });
 }
 
-// .tools/sidebar-build/src-conversation/client/user-text/session-reference-rule.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/session-reference-rule.ts
 var sessionReferenceRule = {
   id: "session",
   order: 10,
@@ -4374,7 +4374,7 @@ var sessionReferenceRule = {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/user-text/whitespace-rules.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/user-text/whitespace-rules.ts
 function replacement(text, start, end, display) {
   return { id: "text", start, end, data: { text: text.slice(start, end), display } };
 }
@@ -4408,10 +4408,10 @@ var trimWhitespaceRule = {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/stores.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/stores.ts
 var import_dsh_client_store5 = require("@deepseek-ai/dsh-client-store");
 
-// .tools/sidebar-build/src-conversation/client/draft.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/draft.ts
 var import_zod = require("zod");
 var import_dsh_client_ui_primitives2 = require("@deepseek-ai/dsh-client-ui-primitives");
 var referenceSchema = import_zod.z.object({
@@ -4509,7 +4509,7 @@ function copyReference(reference) {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/stores.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/stores.ts
 var CONVERSATION_STORE_KEY = "dsh.conversation";
 function createConversationStore() {
   return (0, import_dsh_client_store5.defineStore)({
@@ -4558,7 +4558,7 @@ function readConversationViewPreference(sessionId) {
   }
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-file-refer_fad60dd8f8e1af6765d65ad8ab8e490f/node_modules/@deepseek-ai/dsh-file-reference/lib/types/grammar.js
+// node_modules/.pnpm/@deepseek-ai+dsh-file-refer_fad60dd8f8e1af6765d65ad8ab8e490f/node_modules/@deepseek-ai/dsh-file-reference/lib/types/grammar.js
 function formatFileMention(candidate, preserveQuote) {
   const path = candidate.kind === "directory" ? `${candidate.path}/` : candidate.path;
   if (/[\u0000-\u001f\u007f-\u009f"]/u.test(path))
@@ -4571,7 +4571,7 @@ function formatFileMention(candidate, preserveQuote) {
   return `@"${path}"`;
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-util-works_b11d01d5744ea259086ff4f66c615a61/node_modules/@deepseek-ai/dsh-util-workspace-path/lib/index.js
+// node_modules/.pnpm/@deepseek-ai+dsh-util-works_b11d01d5744ea259086ff4f66c615a61/node_modules/@deepseek-ai/dsh-util-workspace-path/lib/index.js
 function workspaceTitleOf(path) {
   const trimmed = path.replace(/[/\\]+$/, "");
   const separator = Math.max(trimmed.lastIndexOf("/"), trimmed.lastIndexOf("\\"));
@@ -4584,7 +4584,7 @@ function relativizeToCwd(text, cwd) {
   return text;
 }
 
-// .tools/sidebar-build/src-conversation/client/service.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/service.ts
 var import_cordis3 = require("@deepseek-ai/cordis");
 var import_dsh_client_store6 = require("@deepseek-ai/dsh-client-store");
 function browserDraftAttachment(file) {
@@ -5074,7 +5074,7 @@ function revokePreview(url) {
   if (url.startsWith("blob:")) URL.revokeObjectURL(url);
 }
 
-// .tools/sidebar-build/src-conversation/client/input/blocks.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/blocks.ts
 var import_dsh_client_store7 = require("@deepseek-ai/dsh-client-store");
 var ComposerBlockRegistry = class {
   stores = /* @__PURE__ */ new Map();
@@ -5099,10 +5099,10 @@ var ComposerBlockRegistry = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/input/facade.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/facade.ts
 var import_dsh_client_store8 = require("@deepseek-ai/dsh-client-store");
 
-// .tools/sidebar-build/src-conversation/client/input/prompt.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/prompt.ts
 var import_dsh_client_ui_primitives3 = require("@deepseek-ai/dsh-client-ui-primitives");
 var QUOTE_SEPARATOR = "\n\n";
 function pushText(tokens, text) {
@@ -5173,7 +5173,7 @@ function serializeDraftPrompt(draft, serializeReference) {
   }))).then(build);
 }
 
-// .tools/sidebar-build/src-conversation/client/input/machine.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/machine.ts
 function unreachable(value) {
   throw new Error(`unreachable input event: ${JSON.stringify(value)}`);
 }
@@ -5358,7 +5358,7 @@ var SubmitMachine = class {
   }
 };
 
-// .tools/sidebar-build/node_modules/.pnpm/lexical@0.49.0/node_modules/lexical/dist/Lexical.dev.mjs
+// node_modules/.pnpm/lexical@0.49.0/node_modules/lexical/dist/Lexical.dev.mjs
 var Lexical_dev_exports = {};
 __export(Lexical_dev_exports, {
   $addUpdateTag: () => $addUpdateTag,
@@ -20215,7 +20215,7 @@ function registerEventListeners(target, listeners, options) {
   return mergeRegister(...entries.map(([type, listener]) => registerEventListener(target, type, listener, options)));
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/lexical@0.49.0/node_modules/lexical/dist/Lexical.mjs
+// node_modules/.pnpm/lexical@0.49.0/node_modules/lexical/dist/Lexical.mjs
 var mod = true ? Lexical_dev_exports : Lexical_prod_exports;
 var $addUpdateTag2 = mod.$addUpdateTag;
 var $applyNodeReplacement2 = mod.$applyNodeReplacement;
@@ -20521,14 +20521,14 @@ var toggleTextFormatType2 = mod.toggleTextFormatType;
 var tokenizeRawText2 = mod.tokenizeRawText;
 var unmountSlotContainer2 = mod.unmountSlotContainer;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.dev.mjs
+// node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.dev.mjs
 var LexicalPlainText_dev_exports = {};
 __export(LexicalPlainText_dev_exports, {
   PlainTextExtension: () => PlainTextExtension,
   registerPlainText: () => registerPlainText
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.dev.mjs
+// node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.dev.mjs
 var LexicalClipboard_dev_exports = {};
 __export(LexicalClipboard_dev_exports, {
   $exportMimeTypeFromSelection: () => $exportMimeTypeFromSelection,
@@ -20553,7 +20553,7 @@ __export(LexicalClipboard_dev_exports, {
   setLexicalClipboardDataTransfer: () => setLexicalClipboardDataTransfer
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.dev.mjs
+// node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.dev.mjs
 var LexicalExtension_dev_exports = {};
 __export(LexicalExtension_dev_exports, {
   $applyFormatToDom: () => $applyFormatToDom,
@@ -20610,7 +20610,7 @@ __export(LexicalExtension_dev_exports, {
   watchedSignal: () => watchedSignal
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.dev.mjs
+// node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.dev.mjs
 var LexicalUtils_dev_exports = {};
 __export(LexicalUtils_dev_exports, {
   $descendantsMatching: () => $descendantsMatching,
@@ -20680,7 +20680,7 @@ __export(LexicalUtils_dev_exports, {
   selectionAlwaysOnDisplay: () => selectionAlwaysOnDisplay
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+selection@0.49.0/node_modules/@lexical/selection/dist/LexicalSelection.dev.mjs
+// node_modules/.pnpm/@lexical+selection@0.49.0/node_modules/@lexical/selection/dist/LexicalSelection.dev.mjs
 var LexicalSelection_dev_exports = {};
 __export(LexicalSelection_dev_exports, {
   $addNodeStyle: () => $addNodeStyle,
@@ -21452,7 +21452,7 @@ function $getSelectionStyleValueForProperty(selection, styleProperty, defaultVal
 var getStyleObjectFromCSS3 = getStyleObjectFromCSS2;
 var trimTextContentFromAnchor = $trimTextContentFromAnchor;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+selection@0.49.0/node_modules/@lexical/selection/dist/LexicalSelection.mjs
+// node_modules/.pnpm/@lexical+selection@0.49.0/node_modules/@lexical/selection/dist/LexicalSelection.mjs
 var mod2 = true ? LexicalSelection_dev_exports : LexicalSelection_prod_exports;
 var $addNodeStyle2 = mod2.$addNodeStyle;
 var $cloneWithProperties3 = mod2.$cloneWithProperties;
@@ -21481,7 +21481,7 @@ var getCSSFromStyleObject2 = mod2.getCSSFromStyleObject;
 var getStyleObjectFromCSS4 = mod2.getStyleObjectFromCSS;
 var trimTextContentFromAnchor2 = mod2.trimTextContentFromAnchor;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.dev.mjs
+// node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.dev.mjs
 function formatDevErrorMessage3(message) {
   throw new Error(message);
 }
@@ -22328,7 +22328,7 @@ function $isAtEndOfNode(point, node) {
   return $isAtEdgeOfElement2(point, node, "next");
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.mjs
+// node_modules/.pnpm/@lexical+utils@0.49.0/node_modules/@lexical/utils/dist/LexicalUtils.mjs
 var mod3 = true ? LexicalUtils_dev_exports : LexicalUtils_prod_exports;
 var $descendantsMatching2 = mod3.$descendantsMatching;
 var $dfs2 = mod3.$dfs;
@@ -22396,7 +22396,7 @@ var registerNestedElementResolver2 = mod3.registerNestedElementResolver;
 var removeClassNamesFromElement3 = mod3.removeClassNamesFromElement;
 var selectionAlwaysOnDisplay2 = mod3.selectionAlwaysOnDisplay;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.dev.mjs
+// node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.dev.mjs
 var i = /* @__PURE__ */ Symbol.for("preact-signals");
 function t() {
   if (e > 1) {
@@ -24504,7 +24504,7 @@ var WatchEditableExtension = /* @__PURE__ */ defineExtension2({
   name: "@lexical/extension/WatchEditable"
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.mjs
+// node_modules/.pnpm/@lexical+extension@0.49.0/node_modules/@lexical/extension/dist/LexicalExtension.mjs
 var mod4 = true ? LexicalExtension_dev_exports : LexicalExtension_prod_exports;
 var $applyFormatToDom2 = mod4.$applyFormatToDom;
 var $createHorizontalRuleNode2 = mod4.$createHorizontalRuleNode;
@@ -24559,7 +24559,7 @@ var signal = mod4.signal;
 var untracked = mod4.untracked;
 var watchedSignal2 = mod4.watchedSignal;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+html@0.49.0/node_modules/@lexical/html/dist/LexicalHtml.dev.mjs
+// node_modules/.pnpm/@lexical+html@0.49.0/node_modules/@lexical/html/dist/LexicalHtml.dev.mjs
 var LexicalHtml_dev_exports = {};
 __export(LexicalHtml_dev_exports, {
   $appendNodeToHTML: () => $appendNodeToHTML,
@@ -26645,7 +26645,7 @@ function isDomNodeBetweenTwoInlineNodes(node) {
   return isInlineDomNode2(node.nextSibling) && isInlineDomNode2(node.previousSibling);
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+html@0.49.0/node_modules/@lexical/html/dist/LexicalHtml.mjs
+// node_modules/.pnpm/@lexical+html@0.49.0/node_modules/@lexical/html/dist/LexicalHtml.mjs
 var mod5 = true ? LexicalHtml_dev_exports : LexicalHtml_prod_exports;
 var $appendNodeToHTML2 = mod5.$appendNodeToHTML;
 var $distributeInlineWrapper2 = mod5.$distributeInlineWrapper;
@@ -26695,7 +26695,7 @@ var isElementOfTag2 = mod5.isElementOfTag;
 var parseSelector2 = mod5.parseSelector;
 var sel2 = mod5.sel;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.dev.mjs
+// node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.dev.mjs
 function isWithinComposedTree(node, rootElement) {
   for (let current = node; current !== null; ) {
     if (current === rootElement) {
@@ -27397,7 +27397,7 @@ var GetClipboardDataExtension = /* @__PURE__ */ defineExtension2({
   name: "@lexical/clipboard/GetClipboardData"
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.mjs
+// node_modules/.pnpm/@lexical+clipboard@0.49.0/node_modules/@lexical/clipboard/dist/LexicalClipboard.mjs
 var mod6 = true ? LexicalClipboard_dev_exports : LexicalClipboard_prod_exports;
 var $exportMimeTypeFromSelection2 = mod6.$exportMimeTypeFromSelection;
 var $generateJSONFromSelectedNodes2 = mod6.$generateJSONFromSelectedNodes;
@@ -27420,7 +27420,7 @@ var caretFromPoint2 = mod6.caretFromPoint;
 var copyToClipboard2 = mod6.copyToClipboard;
 var setLexicalClipboardDataTransfer2 = mod6.setLexicalClipboardDataTransfer;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+dragon@0.49.0/node_modules/@lexical/dragon/dist/LexicalDragon.dev.mjs
+// node_modules/.pnpm/@lexical+dragon@0.49.0/node_modules/@lexical/dragon/dist/LexicalDragon.dev.mjs
 var LexicalDragon_dev_exports = {};
 __export(LexicalDragon_dev_exports, {
   DragonExtension: () => DragonExtension,
@@ -27580,13 +27580,13 @@ var DragonExtension = /* @__PURE__ */ defineExtension2({
   register: (editor, config, state) => effect(() => state.getOutput().disabled.value ? void 0 : registerDragonSupport(editor))
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+dragon@0.49.0/node_modules/@lexical/dragon/dist/LexicalDragon.mjs
+// node_modules/.pnpm/@lexical+dragon@0.49.0/node_modules/@lexical/dragon/dist/LexicalDragon.mjs
 var mod7 = true ? LexicalDragon_dev_exports : LexicalDragon_prod_exports;
 var DragonExtension2 = mod7.DragonExtension;
 var installDragonSupport2 = mod7.installDragonSupport;
 var registerDragonSupport2 = mod7.registerDragonSupport;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.dev.mjs
+// node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.dev.mjs
 function onCopyForPlainText(event, editor) {
   editor.update(() => {
     if (event !== null) {
@@ -27793,12 +27793,12 @@ var PlainTextExtension = /* @__PURE__ */ defineExtension2({
   register: registerPlainText
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.mjs
+// node_modules/.pnpm/@lexical+plain-text@0.49.0/node_modules/@lexical/plain-text/dist/LexicalPlainText.mjs
 var mod8 = true ? LexicalPlainText_dev_exports : LexicalPlainText_prod_exports;
 var PlainTextExtension2 = mod8.PlainTextExtension;
 var registerPlainText2 = mod8.registerPlainText;
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+history@0.49.0/node_modules/@lexical/history/dist/LexicalHistory.dev.mjs
+// node_modules/.pnpm/@lexical+history@0.49.0/node_modules/@lexical/history/dist/LexicalHistory.dev.mjs
 var LexicalHistory_dev_exports = {};
 __export(LexicalHistory_dev_exports, {
   HistoryExtension: () => HistoryExtension,
@@ -28185,14 +28185,14 @@ var SharedHistoryExtension = /* @__PURE__ */ defineExtension2({
   }
 });
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+history@0.49.0/node_modules/@lexical/history/dist/LexicalHistory.mjs
+// node_modules/.pnpm/@lexical+history@0.49.0/node_modules/@lexical/history/dist/LexicalHistory.mjs
 var mod9 = true ? LexicalHistory_dev_exports : LexicalHistory_prod_exports;
 var HistoryExtension2 = mod9.HistoryExtension;
 var SharedHistoryExtension2 = mod9.SharedHistoryExtension;
 var createEmptyHistoryState2 = mod9.createEmptyHistoryState;
 var registerHistory2 = mod9.registerHistory;
 
-// .tools/sidebar-build/src-conversation/client/input/editor/QuoteNode.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/QuoteNode.tsx
 var import_dsh_client_ui_primitives4 = require("@deepseek-ai/dsh-client-ui-primitives");
 var import_dsh_client_ui_primitives5 = require("@deepseek-ai/dsh-client-ui-primitives");
 var import_jsx_runtime2 = require("react/jsx-runtime");
@@ -28312,7 +28312,7 @@ function $isQuoteNode(node) {
   return node instanceof QuoteNode;
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
+// node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r2(e2) {
   var t2, f, n2 = "";
   if ("string" == typeof e2 || "number" == typeof e2) n2 += e2;
@@ -28328,10 +28328,10 @@ function clsx() {
 }
 var clsx_default = clsx;
 
-// .tools/sidebar-build/src-conversation/client/input/editor/ReferenceChip.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/ReferenceChip.tsx
 var import_dsh_client_ui_primitives6 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/input/editor/ReferenceChip.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/ReferenceChip.module.css
 var ReferenceChip_default = {
   chip: "ReferenceChip_chip",
   marker: "ReferenceChip_marker",
@@ -28340,14 +28340,14 @@ var ReferenceChip_default = {
   invalid: "ReferenceChip_invalid"
 };
 
-// .tools/sidebar-build/src-conversation/client/input/editor/composer-editor.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/composer-editor.module.css
 var composer_editor_default = {
   reference: "composer_editor_reference",
   openable: "composer_editor_openable",
   textRef: "composer_editor_textRef"
 };
 
-// .tools/sidebar-build/src-conversation/client/input/editor/ReferenceChip.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/ReferenceChip.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 function ReferenceChip2({ label, appearance, invalid }) {
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: clsx_default(composer_editor_default.reference, ReferenceChip_default.chip, appearance === "file" && !invalid && composer_editor_default.openable, invalid && ReferenceChip_default.invalid), title: label, children: [
@@ -28356,7 +28356,7 @@ function ReferenceChip2({ label, appearance, invalid }) {
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/chip-node.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/chip-node.tsx
 var import_jsx_runtime4 = require("react/jsx-runtime");
 var ReferenceChipNode = class _ReferenceChipNode extends DecoratorNode2 {
   /** Owning source name (serializer routing key). */
@@ -28517,7 +28517,7 @@ function $isReferenceChipNode(node) {
   return node instanceof ReferenceChipNode;
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+text@0.49.0/node_modules/@lexical/text/dist/LexicalText.dev.mjs
+// node_modules/.pnpm/@lexical+text@0.49.0/node_modules/@lexical/text/dist/LexicalText.dev.mjs
 var LexicalText_dev_exports = {};
 __export(LexicalText_dev_exports, {
   $canShowPlaceholder: () => $canShowPlaceholder,
@@ -28748,7 +28748,7 @@ function registerLexicalTextEntity(editor, getMatch, targetNode, createNode) {
   return [removePlainTextTransform, removeReverseNodeTransform];
 }
 
-// .tools/sidebar-build/node_modules/.pnpm/@lexical+text@0.49.0/node_modules/@lexical/text/dist/LexicalText.mjs
+// node_modules/.pnpm/@lexical+text@0.49.0/node_modules/@lexical/text/dist/LexicalText.mjs
 var mod10 = true ? LexicalText_dev_exports : LexicalText_prod_exports;
 var $canShowPlaceholder2 = mod10.$canShowPlaceholder;
 var $canShowPlaceholderCurry2 = mod10.$canShowPlaceholderCurry;
@@ -28758,7 +28758,7 @@ var $isRootTextContentEmptyCurry2 = mod10.$isRootTextContentEmptyCurry;
 var $rootTextContent2 = mod10.$rootTextContent;
 var registerLexicalTextEntity2 = mod10.registerLexicalTextEntity;
 
-// .tools/sidebar-build/src-conversation/client/input/decorations.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/decorations.ts
 var TEXT_REF_RE = /(^|\s)([/@])([\w-]+)/g;
 var PATH_TOKEN_RE = /(^|\s)(@(?:"[^"\n]*"?|[^\s"]\S*))/g;
 var TRAILING_PUNCTUATION = new Set(".,;:!?\uFF0C\u3002\uFF1B\uFF1A\uFF01\uFF1F");
@@ -28803,7 +28803,7 @@ function scanTextRefs(draft, lexicon) {
   return out.sort((left, right) => left.start - right.start);
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/text-ref.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/text-ref.ts
 var TextRefNode = class _TextRefNode extends TextNode2 {
   /** Lexical node registry type tag. */
   static getType() {
@@ -28874,7 +28874,7 @@ function rescanTextRefs(editor) {
   }, { tag: HISTORY_MERGE_TAG2 });
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/reference-activation.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/reference-activation.ts
 function registerReferenceActivation(editor, open) {
   return editor.registerCommand(CLICK_COMMAND2, (event) => {
     if (event.target === null || event.button !== 0 || event.detail > 1) return false;
@@ -28890,13 +28890,13 @@ function registerReferenceActivation(editor, open) {
   }, COMMAND_PRIORITY_LOW2);
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/CommandChip.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/CommandChip.tsx
 var import_jsx_runtime5 = require("react/jsx-runtime");
 function CommandChip({ token }) {
   return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: clsx_default(composer_editor_default.reference, ReferenceChip_default.chip), children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: ReferenceChip_default.label, children: token }) });
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/command-chip-node.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/command-chip-node.tsx
 var import_jsx_runtime6 = require("react/jsx-runtime");
 var CommandChipNode = class _CommandChipNode extends DecoratorNode2 {
   /** The claim this chip anchors; its submit closure has no JSON form. */
@@ -28999,7 +28999,7 @@ function registerCommandChipSeat(editor) {
   );
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/command-chip-selection.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/command-chip-selection.ts
 var PASSIVE_KEYS = /* @__PURE__ */ new Set(["Shift", "Control", "Alt", "Meta", "Unidentified", "Process"]);
 function $commandChipBesideCaret(isBackward) {
   const selection = $getSelection2();
@@ -29067,7 +29067,7 @@ function registerCommandChipSelection(editor) {
   );
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/projection.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/projection.ts
 var ATOMIC_CHAR = "\uFFFC";
 function $composerLayout() {
   const segments = [];
@@ -29217,7 +29217,7 @@ function $projectComposer(idOf) {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/span-map.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/span-map.ts
 function resolvePoint(layout, offset) {
   if (offset < 0 || offset > layout.detectLength) return null;
   for (const segment of layout.segments) {
@@ -29264,7 +29264,7 @@ function $replaceDetectSpanWithNodes(span, nodes) {
   return true;
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/runtime.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/runtime.ts
 var REFERENCE_PLACEHOLDER_RE = /[\uE100-\uE11D\uFFFC]/gu;
 function $appendParagraphs(text) {
   const root = $getRoot2();
@@ -29675,7 +29675,7 @@ var DraftEditorRuntime = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/input/facade.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/facade.ts
 function guardOf(phase) {
   switch (phase) {
     case "plain":
@@ -30423,7 +30423,7 @@ var SessionInputShell = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/input/submission-analytics.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/submission-analytics.ts
 function analyticsPreset(id) {
   switch (id) {
     case "cordis":
@@ -30452,7 +30452,7 @@ function reportMessageSubmission(ctx, submission) {
   }, timestamp);
 }
 
-// .tools/sidebar-build/src-conversation/client/input/hub.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/hub.ts
 var InputHub = class {
   /**
    * @param ctx - client root context (services resolved lazily per call — boot order stays free).
@@ -30700,7 +30700,7 @@ var InputHub = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/input/file-intake.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/file-intake.ts
 var import_dsh_client_ui_primitives7 = require("@deepseek-ai/dsh-client-ui-primitives");
 var EDITABLE = 'input, textarea, select, [contenteditable]:not([contenteditable="false"])';
 function clipboardFiles(transfer) {
@@ -30769,10 +30769,10 @@ function createComposerFileIntake() {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/input/submission-policy.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/submission-policy.ts
 var import_dsh_client_store9 = require("@deepseek-ai/dsh-client-store");
 
-// .tools/sidebar-build/src-conversation/submission-settings.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/submission-settings.ts
 var CONVERSATION_SETTINGS_NAMESPACE = "ui-conversation";
 var BUSY_ENTER_FIELD = "busyEnter";
 var BUSY_ENTER_BEHAVIORS = ["queue", "steer"];
@@ -30782,7 +30782,7 @@ var ConversationSettingsFields = {
 };
 var ConversationSettingsSchema = Schema.object(ConversationSettingsFields);
 
-// .tools/sidebar-build/src-conversation/client/input/submission-policy.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/submission-policy.ts
 function resolveSubmitMode(preferred, running, gesture, steeringAvailable) {
   if (!running || !steeringAvailable) return "queue";
   if (gesture === "enter") return preferred;
@@ -30830,11 +30830,11 @@ var ComposerSubmissionPolicy = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/queue/QueueDock.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/queue/QueueDock.tsx
 var import_react2 = require("react");
 var import_dsh_client_ui_primitives8 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/locales.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/locales.ts
 var NS = "conversation";
 var PLAN_NEXT_ACTION_ZH = "\u63CF\u8FF0\u4F60\u7684\u4EFB\u52A1\u4EE5\u751F\u6210\u8BA1\u5212";
 var PLAN_NEXT_ACTION_EN = "describe your task to generate plan";
@@ -34003,7 +34003,7 @@ var pt = {
   "detail.schedule.ended": "Conclu\xEDda"
 };
 
-// .tools/sidebar-build/src-conversation/client/queue/QueueDock.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/queue/QueueDock.module.css
 var QueueDock_default = {
   dock: "QueueDock_dock",
   panel: "QueueDock_panel",
@@ -34026,7 +34026,7 @@ var QueueDock_default = {
   action: "QueueDock_action"
 };
 
-// .tools/sidebar-build/src-conversation/client/queue/QueueDock.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/queue/QueueDock.tsx
 var import_jsx_runtime7 = require("react/jsx-runtime");
 var EMPTY_QUEUE2 = [];
 var QUEUE_TEXT_FACTS = {
@@ -34359,11 +34359,11 @@ var queueDockEntry = {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/settings/EnterBehaviorRow.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/settings/EnterBehaviorRow.tsx
 var import_react3 = require("react");
 var import_dsh_client_ui_primitives9 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/settings/EnterBehaviorRow.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/settings/EnterBehaviorRow.module.css
 var EnterBehaviorRow_default = {
   row: "EnterBehaviorRow_row",
   rowText: "EnterBehaviorRow_rowText",
@@ -34373,7 +34373,7 @@ var EnterBehaviorRow_default = {
   chevron: "EnterBehaviorRow_chevron"
 };
 
-// .tools/sidebar-build/src-conversation/client/settings/EnterBehaviorRow.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/settings/EnterBehaviorRow.tsx
 var import_jsx_runtime8 = require("react/jsx-runtime");
 var OPTIONS = [
   { id: "queue", label: "settings.enter.queue" },
@@ -34424,7 +34424,7 @@ function EnterBehaviorRow({ useBusyEnter, setBusyEnter, t: t2 }) {
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/contract/snapshot.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/contract/snapshot.ts
 var EMPTY_CONVERSATION_SNAPSHOT = {
   views: { get: () => void 0, grouped: () => void 0 },
   activeTargets: /* @__PURE__ */ new Set()
@@ -34434,10 +34434,10 @@ function conversationPhase(session, conversation) {
   return active ? "active" : session.promptAttempted ? "engaging" : "blank";
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationWidthControls.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationWidthControls.tsx
 var import_react4 = require("react");
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationRoot.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationRoot.module.css
 var ConversationRoot_default = {
   root: "ConversationRoot_root",
   header: "ConversationRoot_header",
@@ -34477,7 +34477,7 @@ var ConversationRoot_default = {
   heroOptions: "ConversationRoot_heroOptions"
 };
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationWidthControls.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationWidthControls.tsx
 var import_jsx_runtime9 = require("react/jsx-runtime");
 var WIDTH_PREF_KEY = "dsh.conversation.contentWidth";
 var CONTENT_MIN = 640;
@@ -34635,7 +34635,7 @@ function ConversationWidthControls({ container, phase }) {
   ));
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationMainPanel.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationMainPanel.tsx
 var import_jsx_runtime10 = require("react/jsx-runtime");
 var CONTENT_SLOTS = { widthControls: ConversationWidthControls };
 function ConversationMainPanel(props) {
@@ -34660,26 +34660,26 @@ function ConversationMainPanel(props) {
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationRoot.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationRoot.tsx
 var import_jsx_runtime11 = require("react/jsx-runtime");
 function ConversationRoot(props) {
   return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(ConversationMainPanel, { ...props });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationContent.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationContent.tsx
 var import_react6 = require("react");
 
-// .tools/sidebar-build/node_modules/.pnpm/@deepseek-ai+dsh-api-worksp_ede7f4862f1200efcd3606997325fa63/node_modules/@deepseek-ai/dsh-api-workspace-controller/lib/types/default-workspace.js
+// node_modules/.pnpm/@deepseek-ai+dsh-api-worksp_ede7f4862f1200efcd3606997325fa63/node_modules/@deepseek-ai/dsh-api-workspace-controller/lib/types/default-workspace.js
 var DEFAULT_WORKSPACE_DIRECTORY = "default-workspace";
 function workspaceDisplayTitle(title, localizedDefault) {
   return title === DEFAULT_WORKSPACE_DIRECTORY ? localizedDefault : title;
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/EmptyHero.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/EmptyHero.tsx
 var import_react5 = require("react");
 var import_dsh_client_ui_primitives10 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/skeleton/HeroShell.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/HeroShell.module.css
 var HeroShell_default = {
   root: "HeroShell_root",
   stack: "HeroShell_stack",
@@ -34700,7 +34700,7 @@ var HeroShell_default = {
   modalError: "HeroShell_modalError"
 };
 
-// .tools/sidebar-build/src-conversation/client/skeleton/EmptyHero.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/EmptyHero.tsx
 var import_jsx_runtime12 = require("react/jsx-runtime");
 function workspaceLabel(cwd) {
   const base = workspaceTitleOf(cwd);
@@ -34785,7 +34785,7 @@ function HeroShell({ t: t2, renderSlot, children }) {
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationContent.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationContent.tsx
 var import_jsx_runtime13 = require("react/jsx-runtime");
 function ConversationSessionView({ renderSlot }) {
   return renderSlot("conversation.session", {});
@@ -34930,12 +34930,12 @@ function ConversationContent(props) {
   );
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationPanel.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationPanel.tsx
 function ConversationPanel({ renderSlot }) {
   return renderSlot("main.conversation", {});
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationHeader.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationHeader.tsx
 var import_jsx_runtime14 = require("react/jsx-runtime");
 function ConversationHeader({ sessionId, useSession, useConversation, renderSlot }) {
   const session = useSession((s2) => s2);
@@ -34947,11 +34947,11 @@ function ConversationHeader({ sessionId, useSession, useConversation, renderSlot
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationSession.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationSession.tsx
 var import_react8 = require("react");
 var import_dsh_client_ui_primitives11 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/view-selection.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/view-selection.ts
 var DEFAULT_VIEW_ID = "chat";
 var TRAJECTORY_VIEW_ID = "trajectory";
 function resolveActiveView(tabs, selectedId) {
@@ -34959,7 +34959,7 @@ function resolveActiveView(tabs, selectedId) {
   return selected ?? tabs.find((view) => view.id === DEFAULT_VIEW_ID);
 }
 
-// .tools/sidebar-build/src-conversation/client/view-pins.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/view-pins.ts
 var import_dsh_client_store10 = require("@deepseek-ai/dsh-client-store");
 var FIXED_VIEW_ID = "chat";
 var NO_VIEWS = [];
@@ -34975,7 +34975,7 @@ function createViewPins() {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/DefaultConversationViews.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/DefaultConversationViews.tsx
 var import_react7 = require("react");
 var import_jsx_runtime15 = require("react/jsx-runtime");
 function DefaultConversationViews({
@@ -35015,7 +35015,7 @@ function DefaultConversationViews({
   }, { only: viewId }) });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ConversationSession.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ConversationSession.tsx
 var import_jsx_runtime16 = require("react/jsx-runtime");
 function ViewsMoreMenu({ label, current, entries, onOpen, onPinnedChange, renderSlot }) {
   const [open, setOpen] = (0, import_react8.useState)(false);
@@ -35246,14 +35246,14 @@ function ConversationSession(props) {
   return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DefaultConversationViews, { ...props });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/InputBar.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/InputBar.tsx
 var import_react11 = require("react");
 var import_dsh_client_ui_primitives15 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/input/editor/DraftEditor.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/DraftEditor.tsx
 var import_dsh_client_ui_primitives12 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/input/editor/ComposerContentEditable.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/ComposerContentEditable.tsx
 var import_react9 = require("react");
 var import_jsx_runtime17 = require("react/jsx-runtime");
 function ComposerContentEditable({ editor, editable, ...rest }) {
@@ -35283,7 +35283,7 @@ function ComposerContentEditable({ editor, editable, ...rest }) {
   );
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/DecoratorPortals.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/DecoratorPortals.tsx
 var React = __toESM(require("react"), 1);
 var import_react_dom = require("react-dom");
 var import_jsx_runtime18 = require("react/jsx-runtime");
@@ -35305,7 +35305,7 @@ function DecoratorPortals({ editor }) {
   }) });
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/DraftEditor.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/DraftEditor.tsx
 var import_jsx_runtime19 = require("react/jsx-runtime");
 function DraftEditor({
   classNames: css,
@@ -35345,10 +35345,10 @@ function DraftEditor({
   ] }) });
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/view-binding.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/view-binding.ts
 var import_dsh_client_ui_primitives13 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/input/editor/keymap.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/keymap.ts
 function isComposingEvent(event, recentlyComposing) {
   return event.isComposing || event.keyCode === 229 || recentlyComposing();
 }
@@ -35560,7 +35560,7 @@ function registerComposerKeymap(editor, handlers) {
   );
 }
 
-// .tools/sidebar-build/src-conversation/client/input/editor/view-binding.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/input/editor/view-binding.ts
 function installDraftKeyboardDismissal(editor, destination) {
   return editor.registerUpdateListener(({ editorState, tags }) => {
     if (!tags.has(DRAFT_SUBMITTED_TAG) || !(0, import_dsh_client_ui_primitives13.isMobileDevice)()) return;
@@ -35661,7 +35661,7 @@ function keepDraftFocus(event, editor) {
   editor?.getRootElement()?.focus({ preventScroll: true });
 }
 
-// .tools/sidebar-build/src-conversation/client/image-labels.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/image-labels.ts
 function imageSizeText(bytes) {
   const mb = bytes / (1024 * 1024);
   return `${Number.isInteger(mb) ? String(mb) : mb.toFixed(1)}MB`;
@@ -35699,12 +35699,12 @@ function attachmentErrorText(t2, reason, limits) {
   return t2("image.sendFailed", { reason });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ContextMeter.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ContextMeter.tsx
 var import_react10 = require("react");
 var import_react_dom2 = require("react-dom");
 var import_dsh_client_ui_primitives14 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/context-occupancy.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/context-occupancy.ts
 function contextOccupancy(pressure) {
   const usedTokens = pressure?.projectedTokens ?? pressure?.pressureTokens;
   if (usedTokens === void 0 || pressure?.contextWindow === void 0) return null;
@@ -35715,7 +35715,7 @@ function contextOccupancy(pressure) {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ContextMeter.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ContextMeter.module.css
 var ContextMeter_default = {
   root: "ContextMeter_root",
   trigger: "ContextMeter_trigger",
@@ -35736,7 +35736,7 @@ var ContextMeter_default = {
   row: "ContextMeter_row"
 };
 
-// .tools/sidebar-build/src-conversation/client/skeleton/ContextMeter.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/ContextMeter.tsx
 var import_jsx_runtime20 = require("react/jsx-runtime");
 var RADIUS = 5.5;
 var CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -35852,7 +35852,7 @@ function ContextMeter({ useProjection, t: t2 }) {
   ] });
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/control-row-layout.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/control-row-layout.ts
 function observeControlRow(row) {
   const measure = () => {
     row.removeAttribute("data-model-compact");
@@ -35883,7 +35883,7 @@ function observeControlRow(row) {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/skeleton/InputBar.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/InputBar.module.css
 var InputBar_default = {
   root: "InputBar_root",
   dock: "InputBar_dock",
@@ -35917,7 +35917,7 @@ var InputBar_default = {
   activityExpanded: "InputBar_activityExpanded"
 };
 
-// .tools/sidebar-build/src-conversation/client/skeleton/InputBar.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/InputBar.tsx
 var import_jsx_runtime21 = require("react/jsx-runtime");
 var InputBar = (0, import_react11.memo)(function InputBar2({
   useSession,
@@ -36342,11 +36342,11 @@ var InputBar = (0, import_react11.memo)(function InputBar2({
   ] });
 });
 
-// .tools/sidebar-build/src-conversation/client/skeleton/TodoPanel.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/TodoPanel.tsx
 var import_react12 = require("react");
 var import_dsh_client_ui_primitives16 = require("@deepseek-ai/dsh-client-ui-primitives");
 
-// .tools/sidebar-build/src-conversation/client/skeleton/TodoPanel.module.css
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/TodoPanel.module.css
 var TodoPanel_default = {
   root: "TodoPanel_root",
   body: "TodoPanel_body",
@@ -36361,7 +36361,7 @@ var TodoPanel_default = {
   content: "TodoPanel_content"
 };
 
-// .tools/sidebar-build/src-conversation/client/skeleton/TodoPanel.tsx
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/skeleton/TodoPanel.tsx
 var import_jsx_runtime22 = require("react/jsx-runtime");
 function assertNever2(value) {
   throw new Error(`unreachable todo status: ${String(value)}`);
@@ -36441,7 +36441,7 @@ var todoDockEntry = {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/stop-sequence.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/stop-sequence.ts
 var StopSequence = class {
   /**
    * @param intervalMs - validated maximum time between independent presses.
@@ -36482,7 +36482,7 @@ var StopSequence = class {
   }
 };
 
-// .tools/sidebar-build/src-conversation/client/stop-shortcut.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/stop-shortcut.ts
 function installStopShortcut(shortcuts, sessions, openTurn, uiSession, cancel) {
   let unwatch = () => {
   };
@@ -36547,7 +36547,7 @@ function installStopShortcut(shortcuts, sessions, openTurn, uiSession, cancel) {
   };
 }
 
-// .tools/sidebar-build/src-conversation/client/apply.ts
+// bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/src/client/apply.ts
 var inject = [
   "slots",
   "sessions",

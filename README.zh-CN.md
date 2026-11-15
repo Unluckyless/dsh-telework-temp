@@ -67,9 +67,13 @@ dsh-telework/
     dsh-telework-sidebar/       活动栏 + 工作区面板
     dsh-telework-topbar/        顶栏与窗口按钮区
     dsh-telework-conversation/  单行对话顶栏
+  dev/                 UI bundle 构建脚本（pnpm run build:ui）
   docs/design.zh-CN.md 架构备忘与待定问题
   README.zh-CN.md      本文件
 ```
+
+三个 UI vendor bundle 可以从已提交的源码用 `pnpm run build:ui` 重建，说明见
+`dev/README.md`。从 GitHub clone 后不再需要同级的 `.tools` 目录。
 
 `bundles/` 下的三个 UI 子 bundle 是独立安装的 DSH bundle，放在主目录里是为了
 整个项目只上传一个仓库目录；开发时从各自的 `bundles/...` 路径安装。发布时可以

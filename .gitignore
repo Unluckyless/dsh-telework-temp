@@ -7,6 +7,9 @@ lib/
 build/
 *.tsbuildinfo
 
+# Dev build scratch (dev/build-ui.mjs)
+dev/.build/
+
 # Logs and local tooling
 *.log
 npm-debug.log*
