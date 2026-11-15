@@ -750,10 +750,9 @@ function parseSshCommand(input) {
   }
   return result;
 }
-function RemoteConnectionPanel({ t, onConnectionChange, onNewSession, onOpenSession }) {
+function RemoteConnectionPanel({ t, onConnectionChange, onNewSession, onOpenSession, workspaces }) {
   const remoteStore = (0, import_react.useMemo)(ensureRemoteStore, []);
   const connections = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.get);
-  const workspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const [command, setCommand] = (0, import_react.useState)("");
   const [host, setHost] = (0, import_react.useState)("");
   const [username, setUsername] = (0, import_react.useState)("");
@@ -1520,6 +1519,7 @@ function SidebarRoot({
   setPinned,
   trackEntryClick,
   currentSession = EMPTY_SESSION_STORE,
+  workspaceList,
   useRemoteAccess,
   usePanels,
   useEntryPins,
@@ -1539,29 +1539,16 @@ function SidebarRoot({
   const [workspaceHeader, setWorkspaceHeader] = (0, import_react.useState)(null);
   const remoteStore = (0, import_react.useMemo)(ensureRemoteStore, []);
   const remoteConnections = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.get);
-  const remoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
+  const storedRemoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const remoteConnected = remoteConnections.some((connection) => connection.status === "connected");
-  const [pendingRemoteWorkspaceId, setPendingRemoteWorkspaceId] = (0, import_react.useState)(null);
-  const previousSessionIdRef = (0, import_react.useRef)(void 0);
+  const workspaceListSnapshot = (0, import_react.useSyncExternalStore)(workspaceList.subscribe, workspaceList.getSnapshot);
+  const remoteWorkspaces = (0, import_react.useMemo)(() => storedRemoteWorkspaces.map((workspace) => {
+    const local = workspace.localWorkspaceId === void 0 ? void 0 : workspaceListSnapshot.items.find((item) => item.workspaceId === workspace.localWorkspaceId);
+    return { ...workspace, sessions: local?.sessionIds ?? [] };
+  }), [storedRemoteWorkspaces, workspaceListSnapshot]);
   (0, import_react.useEffect)(() => {
     remoteStore.relinkWorkspaces();
-  }, [remoteStore, remoteConnections, remoteWorkspaces]);
-  (0, import_react.useEffect)(() => {
-    if (pendingRemoteWorkspaceId === null) return;
-    const timer = window.setTimeout(() => {
-      const sessionId = currentSession.getSnapshot().sessionId;
-      const previousSessionId = previousSessionIdRef.current;
-      if (sessionId !== void 0 && sessionId !== previousSessionId) {
-        const added = remoteStore.addSession(pendingRemoteWorkspaceId, sessionId);
-        if (added) setRemoteWorkspaceToast(t("remote.sessionCreated"));
-      }
-      previousSessionIdRef.current = void 0;
-      setPendingRemoteWorkspaceId(null);
-    }, 500);
-    return () => {
-      window.clearTimeout(timer);
-    };
-  }, [pendingRemoteWorkspaceId, currentSession, remoteStore, t]);
+  }, [remoteStore, remoteConnections, storedRemoteWorkspaces]);
   const hasEntryActions = useEntryActions((registered) => registered);
   const shortcut = useShortcuts((rows) => rows.find((row) => row.id === "sidebar.left.toggle"));
   const newShortcut = useShortcuts((rows) => rows.find((row) => row.id === "session.new"));
@@ -1698,8 +1685,6 @@ function SidebarRoot({
       const localWorkspaceId = String(view.workspaceId);
       remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
       await waitForWorkspace(localWorkspaceId);
-      previousSessionIdRef.current = currentSession.getSnapshot().sessionId;
-      setPendingRemoteWorkspaceId(workspace.id);
       startSession(localWorkspaceId);
     } catch (error) {
       setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error));
@@ -1828,7 +1813,7 @@ function SidebarRoot({
         wide && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: clsx_default(SidebarRoot_default.panelColumn, remoteMode && SidebarRoot_default.panelColumnRemote), children: [
           remoteMode && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RemoteConnectionPanel, { t, onConnectionChange: handleRemoteConnection, onNewSession: startRemoteSession, onOpenSession: (sessionId) => {
             openSession(sessionId);
-          } }),
+          }, workspaces: remoteWorkspaces }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.logoRow, "data-window-drag": true, children: wide && (() => {
             const identity = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: SidebarRoot_default.brandIdentity, "aria-hidden": "true", children: [
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.brandMark, children: renderSlot("sidebar.brand.mark", { size: 24 }, {
@@ -2241,6 +2226,7 @@ function apply(ctx) {
     },
     setPinned: panelPins.setPinned,
     currentSession: selection,
+    workspaceList: workspaceRegistry.list,
     waitForWorkspace: (workspaceId) => new Promise((resolve) => {
       const deadline = Date.now() + 4e3;
       const check = () => {

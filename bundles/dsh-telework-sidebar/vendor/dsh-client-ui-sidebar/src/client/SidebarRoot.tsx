@@ -577,15 +577,15 @@ function parseSshCommand(input: string): { host: string, username: string, port:
   return result
 }
 
-function RemoteConnectionPanel({ t, onConnectionChange, onNewSession, onOpenSession }: {
+function RemoteConnectionPanel({ t, onConnectionChange, onNewSession, onOpenSession, workspaces }: {
   t: (key: string) => string
   onConnectionChange: (connection: RemoteConnectionSummary | null) => void
   onNewSession: (workspace: SharedRemoteWorkspace) => void
   onOpenSession: (sessionId: string) => void
+  workspaces: readonly SharedRemoteWorkspace[]
 }) {
   const remoteStore = useMemo(ensureRemoteStore, [])
   const connections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
-  const workspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const [command, setCommand] = useState('')
   const [host, setHost] = useState('')
   const [username, setUsername] = useState('')
@@ -1474,6 +1474,7 @@ export function SidebarRoot({
   setPinned,
   trackEntryClick,
   currentSession = EMPTY_SESSION_STORE,
+  workspaceList,
   useRemoteAccess,
   usePanels,
   useEntryPins,
@@ -1496,30 +1497,23 @@ export function SidebarRoot({
   const [workspaceHeader, setWorkspaceHeader] = useState<HTMLElement | null>(null)
   const remoteStore = useMemo(ensureRemoteStore, [])
   const remoteConnections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
-  const remoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
+  const storedRemoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
-  const [pendingRemoteWorkspaceId, setPendingRemoteWorkspaceId] = useState<string | null>(null)
-  const previousSessionIdRef = useRef<string | undefined>(undefined)
+  const workspaceListSnapshot = useSyncExternalStore(workspaceList.subscribe, workspaceList.getSnapshot)
+  // Mirror the official Workspace browser: a remote Workspace's rows are the
+  // local placeholder Workspace's own Session ids, so blank reuse, new rows and
+  // the automatic disappearance of an unused blank all come from DSH itself.
+  const remoteWorkspaces = useMemo(() => storedRemoteWorkspaces.map((workspace) => {
+    const local = workspace.localWorkspaceId === undefined
+      ? undefined
+      : workspaceListSnapshot.items.find(item => item.workspaceId === workspace.localWorkspaceId)
+    return { ...workspace, sessions: local?.sessionIds ?? [] }
+  }), [storedRemoteWorkspaces, workspaceListSnapshot])
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
   useEffect(() => {
     remoteStore.relinkWorkspaces()
-  }, [remoteStore, remoteConnections, remoteWorkspaces])
-
-  useEffect(() => {
-    if (pendingRemoteWorkspaceId === null) return
-    const timer = window.setTimeout(() => {
-      const sessionId = currentSession.getSnapshot().sessionId
-      const previousSessionId = previousSessionIdRef.current
-      if (sessionId !== undefined && sessionId !== previousSessionId) {
-        const added = remoteStore.addSession(pendingRemoteWorkspaceId, sessionId)
-        if (added) setRemoteWorkspaceToast(t('remote.sessionCreated'))
-      }
-      previousSessionIdRef.current = undefined
-      setPendingRemoteWorkspaceId(null)
-    }, 500)
-    return () => { window.clearTimeout(timer) }
-  }, [pendingRemoteWorkspaceId, currentSession, remoteStore, t])
+  }, [remoteStore, remoteConnections, storedRemoteWorkspaces])
   const hasEntryActions = useEntryActions(registered => registered)
   const shortcut = useShortcuts(rows => rows.find(row => row.id === 'sidebar.left.toggle'))
   const newShortcut = useShortcuts(rows => rows.find(row => row.id === 'session.new'))
@@ -1695,8 +1689,6 @@ export function SidebarRoot({
       const localWorkspaceId = String(view.workspaceId)
       remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
       await waitForWorkspace(localWorkspaceId)
-      previousSessionIdRef.current = currentSession.getSnapshot().sessionId
-      setPendingRemoteWorkspaceId(workspace.id)
       startSession(localWorkspaceId as Parameters<typeof startSession>[0])
     } catch (error) {
       setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error))
@@ -1833,7 +1825,7 @@ export function SidebarRoot({
       })}
       {wide && (
         <div className={clsx(css.panelColumn, remoteMode && css.panelColumnRemote)}>
-          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} onNewSession={startRemoteSession} onOpenSession={(sessionId) => { openSession(sessionId) }} />}
+          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} onNewSession={startRemoteSession} onOpenSession={(sessionId) => { openSession(sessionId) }} workspaces={remoteWorkspaces} />}
           <div className={css.logoRow} data-window-drag>
         {/* Expanded, the brand doubles as a New Session shortcut while the
             access snapshot allows `session/create` — except on
