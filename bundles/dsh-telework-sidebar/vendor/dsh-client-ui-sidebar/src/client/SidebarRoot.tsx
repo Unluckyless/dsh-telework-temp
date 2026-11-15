@@ -20,9 +20,10 @@
  */
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from 'react'
+import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import {
-  FishLogo, IconAppsAddOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
+  FishLogo, IconAppsAddOutlineRegular, IconEllipsisOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
   IconPanelLeftOutlineRegular, IconPinFillRegular, focusWithoutRing, isBehindModal, isDarwinDesktop, Menu, ShortcutKeys, Toast,
   Tooltip, useModalLayer, writeClipboard,
 } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -272,6 +273,1031 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }: {
 }
 
 /**
+ * Sidebar-local Remote surface: connection form plus recent server history.
+ * The SSH backend is not wired yet; connecting records the server so the UI
+ * flow and persistence can be exercised without storing a password.
+ */
+interface RemoteHistoryEntry {
+  host: string
+  username: string
+  port: string
+  at: number
+  remember?: boolean
+}
+
+interface RemoteConnectionSummary {
+  id: string
+  host: string
+  username: string
+  port: string
+}
+
+type SharedRemoteStatus = 'connecting' | 'connected' | 'error'
+
+interface SharedRemoteConnection {
+  id: string
+  host: string
+  username: string
+  port: string
+  status: SharedRemoteStatus
+  error?: string
+  at: number
+}
+
+interface SharedRemoteWorkspace {
+  id: string
+  connectionId: string
+  path: string
+  at: number
+  host?: string
+  username?: string
+  port?: string
+}
+
+interface SharedRemoteStore {
+  get: () => readonly SharedRemoteConnection[]
+  subscribe: (listener: () => void) => () => void
+  add: (input: { host: string, username: string, port: string, status?: SharedRemoteStatus, id?: string }) => SharedRemoteConnection
+  update: (id: string, patch: Partial<Omit<SharedRemoteConnection, 'id'>>) => void
+  remove: (id: string) => void
+  getWorkspaces: () => readonly SharedRemoteWorkspace[]
+  addWorkspace: (connectionId: string, path: string) => SharedRemoteWorkspace
+  removeWorkspace: (id: string) => void
+  relinkWorkspaces: () => void
+}
+
+declare global {
+  interface Window {
+    __DSH_TELEWORK_REMOTE__?: SharedRemoteStore
+  }
+}
+
+/**
+ * One in-page connection registry shared by the sidebar, the shell status bar,
+ * and the rail badge. The Host-backed registry will replace this projection
+ * once SSH connects for real; consumers already read through this narrow API.
+ */
+function ensureRemoteStore(): SharedRemoteStore {
+  if (window.__DSH_TELEWORK_REMOTE__ !== undefined) return window.__DSH_TELEWORK_REMOTE__
+  const listeners = new Set<() => void>()
+  let connections: SharedRemoteConnection[] = []
+  let workspaces: SharedRemoteWorkspace[] = readStoredWorkspaces()
+  const emit = (): void => {
+    for (const listener of listeners) listener()
+  }
+  const store: SharedRemoteStore = {
+    get: () => connections,
+    subscribe: (listener) => {
+      listeners.add(listener)
+      return () => { listeners.delete(listener) }
+    },
+    add: (input) => {
+      const existing = connections.find(item => (
+        item.host === input.host && item.username === input.username && item.port === input.port
+      ))
+      if (existing !== undefined) {
+        const id = input.id ?? existing.id
+        const status = input.status ?? existing.status
+        if (existing.status !== status || existing.id !== id) {
+          connections = connections.map(item => item.id === existing.id ? { ...item, id, status } : item)
+          emit()
+          return { ...existing, id, status }
+        }
+        return existing
+      }
+      const connection: SharedRemoteConnection = {
+        id: input.id ?? `remote-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        host: input.host,
+        username: input.username,
+        port: input.port,
+        status: input.status ?? 'connecting',
+        at: Date.now(),
+      }
+      connections = [...connections, connection]
+      emit()
+      return connection
+    },
+    update: (id, patch) => {
+      connections = connections.map(item => item.id === id ? { ...item, ...patch } : item)
+      emit()
+    },
+    remove: (id) => {
+      connections = connections.filter(item => item.id !== id)
+      // A disconnect must not take the remote workspaces with it. The persisted
+      // list is authoritative here, so an in-memory reset cannot hide them.
+      const persisted = readStoredWorkspaces()
+      if (persisted.length > 0) workspaces = persisted
+      emit()
+    },
+    getWorkspaces: () => workspaces,
+    addWorkspace: (connectionId, path) => {
+      const existing = workspaces.find(item => item.connectionId === connectionId && item.path === path)
+      if (existing !== undefined) return existing
+      const connection = connections.find(item => item.id === connectionId)
+      const workspace: SharedRemoteWorkspace = {
+        id: `workspace-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        connectionId,
+        path,
+        at: Date.now(),
+        host: connection?.host,
+        username: connection?.username,
+        port: connection?.port,
+      }
+      workspaces = [...workspaces, workspace]
+      writeStoredWorkspaces(workspaces)
+      emit()
+      return workspace
+    },
+    removeWorkspace: (id) => {
+      workspaces = workspaces.filter(item => item.id !== id)
+      writeStoredWorkspaces(workspaces)
+      emit()
+    },
+    relinkWorkspaces: () => {
+      const active = connections.filter(item => item.status === 'connected')
+      let changed = false
+      workspaces = workspaces.map((workspace) => {
+        if (active.some(item => item.id === workspace.connectionId)) return workspace
+        const match = active.find(item => (
+          item.host === workspace.host
+          && item.username === workspace.username
+          && (workspace.port === undefined || workspace.port === '' || String(item.port) === String(workspace.port))
+        ))
+        if (match === undefined) return workspace
+        changed = true
+        return { ...workspace, connectionId: match.id, port: workspace.port ?? match.port }
+      })
+      if (!changed) return
+      writeStoredWorkspaces(workspaces)
+      emit()
+    },
+  }
+  window.__DSH_TELEWORK_REMOTE__ = store
+  return store
+}
+
+const REMOTE_HISTORY_KEY = 'dsh-telework.remote.history'
+const REMOTE_PASSWORDS_KEY = 'dsh-telework.remote.passwords'
+const REMOTE_WORKSPACES_KEY = 'dsh-telework.remote.workspaces'
+
+function remoteHistoryKey(entry: Pick<RemoteHistoryEntry, 'host' | 'username' | 'port'>): string {
+  return `${entry.username}@${entry.host}:${entry.port}`
+}
+
+function readRemoteHistory(): RemoteHistoryEntry[] {
+  try {
+    const raw = localStorage.getItem(REMOTE_HISTORY_KEY)
+    if (raw === null) return []
+    const parsed = JSON.parse(raw) as unknown
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((entry): entry is RemoteHistoryEntry => (
+      typeof entry === 'object' && entry !== null
+      && typeof (entry as RemoteHistoryEntry).host === 'string'
+      && typeof (entry as RemoteHistoryEntry).username === 'string'
+      && typeof (entry as RemoteHistoryEntry).port === 'string'
+      && typeof (entry as RemoteHistoryEntry).at === 'number'
+    )).slice(0, 20)
+  } catch {
+    return []
+  }
+}
+
+function writeRemoteHistory(entries: RemoteHistoryEntry[]): void {
+  try {
+    localStorage.setItem(REMOTE_HISTORY_KEY, JSON.stringify(entries))
+  } catch {
+    // History is a convenience; a denied store leaves the current list in memory.
+  }
+}
+
+function readRemotePasswords(): Record<string, string> {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(REMOTE_PASSWORDS_KEY) ?? '{}') as unknown
+    if (typeof parsed !== 'object' || parsed === null) return {}
+    const result: Record<string, string> = {}
+    for (const [key, value] of Object.entries(parsed)) {
+      if (typeof value === 'string') result[key] = value
+    }
+    return result
+  } catch {
+    return {}
+  }
+}
+
+function writeRemotePasswords(passwords: Record<string, string>): void {
+  try {
+    localStorage.setItem(REMOTE_PASSWORDS_KEY, JSON.stringify(passwords))
+  } catch {
+    // The remembered password is a convenience; a denied store drops it.
+  }
+}
+
+function saveRemotePassword(key: string, password: string | null): void {
+  const passwords = readRemotePasswords()
+  if (password === null || password === '') delete passwords[key]
+  else passwords[key] = password
+  writeRemotePasswords(passwords)
+}
+
+function readStoredWorkspaces(): SharedRemoteWorkspace[] {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(REMOTE_WORKSPACES_KEY) ?? '[]') as unknown
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((entry): entry is SharedRemoteWorkspace => (
+      typeof entry === 'object' && entry !== null
+      && typeof (entry as SharedRemoteWorkspace).id === 'string'
+      && typeof (entry as SharedRemoteWorkspace).connectionId === 'string'
+      && typeof (entry as SharedRemoteWorkspace).path === 'string'
+      && typeof (entry as SharedRemoteWorkspace).at === 'number'
+    ))
+  } catch {
+    return []
+  }
+}
+
+function writeStoredWorkspaces(workspaces: readonly SharedRemoteWorkspace[]): void {
+  try {
+    localStorage.setItem(REMOTE_WORKSPACES_KEY, JSON.stringify(workspaces))
+  } catch {
+    // The list stays in memory when storage is unavailable.
+  }
+}
+
+/** Parse `ssh user@host`, `ssh -p 2222 user@host`, or a bare `user@host`. */
+function parseSshCommand(input: string): { host: string, username: string, port: string } {
+  const result = { host: '', username: '', port: '' }
+  const tokens = input.trim().split(/\s+/).filter(Boolean)
+  if (tokens[0] === 'ssh') tokens.shift()
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index]
+    if (token === '-p' || token === '-P') {
+      result.port = tokens[index + 1] ?? ''
+      index += 1
+      continue
+    }
+    if (token === '-l') {
+      result.username = tokens[index + 1] ?? ''
+      index += 1
+      continue
+    }
+    if (token.startsWith('-')) continue
+    const at = token.lastIndexOf('@')
+    if (at > 0) {
+      result.username = token.slice(0, at)
+      result.host = token.slice(at + 1)
+      continue
+    }
+    if (result.host === '') result.host = token
+  }
+  return result
+}
+
+function RemoteConnectionPanel({ t, onConnectionChange }: {
+  t: (key: string) => string
+  onConnectionChange: (connection: RemoteConnectionSummary | null) => void
+}) {
+  const remoteStore = useMemo(ensureRemoteStore, [])
+  const connections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
+  const workspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
+  const [command, setCommand] = useState('')
+  const [host, setHost] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [port, setPort] = useState('22')
+  const [rememberPassword, setRememberPassword] = useState(false)
+  const [status, setStatus] = useState<string | null>(null)
+  const [statusTone, setStatusTone] = useState<'info' | 'error' | 'success'>('info')
+  const [connecting, setConnecting] = useState(false)
+  const [history, setHistory] = useState<RemoteHistoryEntry[]>(() => readRemoteHistory())
+
+  const parseCommand = (): void => {
+    const parsed = parseSshCommand(command)
+    if (parsed.host === '') {
+      setStatus(t('remote.invalid'))
+      setStatusTone('error')
+      return
+    }
+    setHost(parsed.host)
+    if (parsed.username !== '') setUsername(parsed.username)
+    if (parsed.port !== '') setPort(parsed.port)
+    setStatus(null)
+  }
+
+  const rememberConnection = (entry: RemoteHistoryEntry): void => {
+    const next = [entry, ...history.filter(item => !(
+      item.host === entry.host && item.username === entry.username && item.port === entry.port
+    ))].slice(0, 20)
+    setHistory(next)
+    writeRemoteHistory(next)
+  }
+
+  const connect = async (): Promise<void> => {
+    if (connecting) return
+    const nextHost = host.trim()
+    const nextUsername = username.trim()
+    if (nextHost === '' || nextUsername === '') {
+      setStatus(t('remote.required'))
+      setStatusTone('error')
+      return
+    }
+    const entry: RemoteHistoryEntry = {
+      host: nextHost,
+      username: nextUsername,
+      port: port.trim() === '' ? '22' : port.trim(),
+      at: Date.now(),
+      remember: rememberPassword,
+    }
+    const key = remoteHistoryKey(entry)
+    setConnecting(true)
+    setStatus(t('remote.connecting'))
+    setStatusTone('info')
+    try {
+      const response = await fetch('/telework/remote/connect', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          host: entry.host,
+          port: Number(entry.port),
+          username: entry.username,
+          password,
+        }),
+      })
+      const text = await response.text()
+      let body: { id?: string, host?: string, username?: string, port?: number, error?: string } = {}
+      if (text !== '') {
+        try {
+          body = JSON.parse(text) as typeof body
+        } catch {
+          throw new Error(`SSH endpoint returned an unexpected response (HTTP ${response.status})`)
+        }
+      }
+      if (!response.ok || typeof body.id !== 'string') {
+        throw new Error(body.error ?? (text === ''
+          ? `SSH connection failed (HTTP ${response.status})`
+          : text.slice(0, 300)))
+      }
+      rememberConnection(entry)
+      saveRemotePassword(key, rememberPassword ? password : null)
+      setPassword('')
+      onConnectionChange({
+        id: body.id,
+        host: body.host ?? entry.host,
+        username: body.username ?? entry.username,
+        port: String(body.port ?? entry.port),
+      })
+      setStatus(t('remote.connectSuccess'))
+      setStatusTone('success')
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : String(error))
+      setStatusTone('error')
+    } finally {
+      setConnecting(false)
+    }
+  }
+
+  const useEntry = (entry: RemoteHistoryEntry): void => {
+    setHost(entry.host)
+    setUsername(entry.username)
+    setPort(entry.port)
+    setRememberPassword(entry.remember === true)
+    setPassword(entry.remember === true ? (readRemotePasswords()[remoteHistoryKey(entry)] ?? '') : '')
+    setStatus(null)
+  }
+
+  const removeEntry = (entry: RemoteHistoryEntry): void => {
+    const key = remoteHistoryKey(entry)
+    saveRemotePassword(key, null)
+    const next = history.filter(item => remoteHistoryKey(item) !== key)
+    setHistory(next)
+    writeRemoteHistory(next)
+  }
+
+  return (
+    <div className={css.remotePanel}>
+      <div className={css.remoteForm}>
+        <div className={css.remoteSectionTitle}>{t('remote.title')}</div>
+
+        <label className={css.remoteField}>
+          <span className={css.remoteLabel}>{t('remote.command')}</span>
+          <span className={css.remoteCommandRow}>
+            <input
+              className={css.remoteInput}
+              value={command}
+              placeholder={t('remote.commandPlaceholder')}
+              spellCheck={false}
+              autoComplete="off"
+              onChange={(event) => { setCommand(event.target.value); setStatus(null) }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault()
+                  parseCommand()
+                }
+              }}
+            />
+            <button type="button" className={css.remoteParseButton} onClick={parseCommand}>
+              {t('remote.parse')}
+            </button>
+          </span>
+        </label>
+
+        <div className={css.remoteRow}>
+          <label className={clsx(css.remoteField, css.remoteFieldGrow)}>
+            <span className={css.remoteLabel}>{t('remote.host')}</span>
+            <input
+              className={css.remoteInput}
+              value={host}
+              placeholder={t('remote.hostPlaceholder')}
+              spellCheck={false}
+              autoComplete="off"
+              onChange={(event) => { setHost(event.target.value); setStatus(null) }}
+            />
+          </label>
+          <label className={clsx(css.remoteField, css.remoteFieldPort)}>
+            <span className={css.remoteLabel}>{t('remote.port')}</span>
+            <input
+              className={css.remoteInput}
+              value={port}
+              inputMode="numeric"
+              placeholder="22"
+              autoComplete="off"
+              onChange={(event) => { setPort(event.target.value); setStatus(null) }}
+            />
+          </label>
+        </div>
+
+        <label className={css.remoteField}>
+          <span className={css.remoteLabel}>{t('remote.username')}</span>
+          <input
+            className={css.remoteInput}
+            value={username}
+            placeholder={t('remote.usernamePlaceholder')}
+            spellCheck={false}
+            autoComplete="off"
+            onChange={(event) => { setUsername(event.target.value); setStatus(null) }}
+          />
+        </label>
+
+        <label className={css.remoteField}>
+          <span className={css.remoteLabel}>
+            {t('remote.password')}
+            <span className={css.remotePasswordHint}>
+              {rememberPassword ? t('remote.passwordSaved') : t('remote.passwordNotSaved')}
+            </span>
+          </span>
+          <input
+            className={css.remoteInput}
+            type="password"
+            value={password}
+            placeholder={t('remote.passwordPlaceholder')}
+            autoComplete="new-password"
+            onChange={(event) => { setPassword(event.target.value); setStatus(null) }}
+          />
+        </label>
+
+        <label className={css.remoteRemember}>
+          <input
+            type="checkbox"
+            checked={rememberPassword}
+            onChange={(event) => { setRememberPassword(event.target.checked); setStatus(null) }}
+          />
+          <span>{t('remote.rememberPassword')}</span>
+        </label>
+
+        {status !== null && (
+          <p
+            className={clsx(
+              css.remoteStatus,
+              statusTone === 'success' && css.remoteStatusSuccess,
+              statusTone === 'error' && css.remoteStatusError,
+            )}
+            role="status"
+          >
+            {status}
+          </p>
+        )}
+
+        <button type="button" className={css.remoteConnectButton} onClick={connect} disabled={connecting}>
+          <svg width={14} height={14} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 2.5h10v11H3v-11Z" stroke="currentColor" strokeWidth="1.2" />
+            <path d="M6 5.5h4M6 8h4M6 10.5h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+          {connecting ? t('remote.connecting') : t('remote.connect')}
+        </button>
+      </div>
+
+      <div className={css.remoteHistory}>
+        <div className={css.remoteHistoryHeader}>
+          <span>{t('remote.history')}</span>
+          <span className={css.remoteHistoryCount}>{history.length}</span>
+        </div>
+        <div className={css.remoteHistoryList}>
+          {history.length === 0 && <p className={css.remoteEmpty}>{t('remote.empty')}</p>}
+          {history.map(entry => {
+            const key = remoteHistoryKey(entry)
+            const connected = connections.some(item => item.status === 'connected' && remoteHistoryKey(item) === key)
+            return (
+              <div key={key} className={clsx(css.remoteHistoryRow, connected && css.remoteHistoryRowConnected)}>
+                <button
+                  type="button"
+                  className={css.remoteHistoryMain}
+                  onClick={() => { useEntry(entry) }}
+                  title={`${entry.username}@${entry.host}:${entry.port}`}
+                >
+                  <svg width={16} height={16} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect
+                      className={clsx(css.remoteHistoryScreen, connected && css.remoteHistoryScreenConnected)}
+                      x="2.5" y="3" width="11" height="7" rx="1.2" stroke="currentColor" strokeWidth="1.2"
+                    />
+                    <path d="M6 13h4M8 10v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                  </svg>
+                  <span className={css.remoteHistoryText}>
+                    <span className={css.remoteHistoryHost}>{entry.username}@{entry.host}</span>
+                    <span className={css.remoteHistoryMeta}>:{entry.port}</span>
+                    {connected && <span className={css.remoteConnectedBadge}>{t('remote.connected')}</span>}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className={css.remoteDelete}
+                  aria-label={t('remote.remove')}
+                  title={t('remote.remove')}
+                  onClick={() => { removeEntry(entry) }}
+                >
+                  <svg width={14} height={14} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3.5 4.5h9M6.5 4.5v-1h3v1M5 4.5l.5 8h5l.5-8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {workspaces.length > 0 && (
+        <div className={css.remoteWorkspacesPanel}>
+          <RemoteWorkspaceList
+            workspaces={workspaces}
+            connections={connections}
+            t={t}
+            onOpen={() => { setStatus(t('remote.workspaceOpenSoon')); setStatusTone('info') }}
+            onRemove={(id) => { remoteStore.removeWorkspace(id) }}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+interface MockRemoteEntry {
+  name: string
+  kind: 'dir' | 'file'
+}
+
+const DEFAULT_REMOTE_HOME: readonly MockRemoteEntry[] = [
+  { name: 'projects', kind: 'dir' },
+  { name: 'scripts', kind: 'dir' },
+  { name: '.ssh', kind: 'dir' },
+  { name: 'notes.txt', kind: 'file' },
+]
+
+const MOCK_REMOTE_TREE: Readonly<Record<string, readonly MockRemoteEntry[]>> = {
+  '/': [
+    { name: 'home', kind: 'dir' },
+    { name: 'srv', kind: 'dir' },
+    { name: 'var', kind: 'dir' },
+    { name: 'opt', kind: 'dir' },
+    { name: 'tmp', kind: 'dir' },
+  ],
+  '/home': [{ name: 'inno', kind: 'dir' }, { name: 'ubuntu', kind: 'dir' }],
+  '/home/inno': DEFAULT_REMOTE_HOME,
+  '/home/inno/projects': [
+    { name: 'web-app', kind: 'dir' },
+    { name: 'api', kind: 'dir' },
+    { name: 'README.md', kind: 'file' },
+  ],
+  '/home/inno/projects/web-app': [
+    { name: 'src', kind: 'dir' },
+    { name: 'public', kind: 'dir' },
+    { name: 'package.json', kind: 'file' },
+    { name: 'README.md', kind: 'file' },
+  ],
+  '/srv': [{ name: 'app', kind: 'dir' }, { name: 'data', kind: 'dir' }, { name: 'www', kind: 'dir' }],
+  '/srv/app': [
+    { name: 'src', kind: 'dir' },
+    { name: 'public', kind: 'dir' },
+    { name: 'package.json', kind: 'file' },
+    { name: 'README.md', kind: 'file' },
+  ],
+  '/srv/app/src': [
+    { name: 'main.ts', kind: 'file' },
+    { name: 'lib', kind: 'dir' },
+    { name: 'styles.css', kind: 'file' },
+  ],
+  '/srv/data': [{ name: 'logs', kind: 'dir' }, { name: 'cache', kind: 'dir' }],
+  '/srv/www': [{ name: 'index.html', kind: 'file' }, { name: 'assets', kind: 'dir' }],
+  '/opt': [{ name: 'tools', kind: 'dir' }],
+  '/tmp': [],
+}
+
+function normalizeRemotePath(path: string): string {
+  const trimmed = path.trim()
+  if (trimmed === '') return '/'
+  const withRoot = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return withRoot.replace(/\/+$/, '') || '/'
+}
+
+function parentRemotePath(path: string): string {
+  if (path === '/') return '/'
+  const index = path.lastIndexOf('/')
+  return index <= 0 ? '/' : path.slice(0, index)
+}
+
+function childRemotePath(path: string, name: string): string {
+  return path === '/' ? `/${name}` : `${path}/${name}`
+}
+
+/** Non-root users start at /home; root keeps the full filesystem root. */
+function defaultRemotePath(connection: SharedRemoteConnection | undefined): string {
+  return connection !== undefined && connection.username !== 'root' ? '/home' : '/'
+}
+
+/** Show the folder name like a local Workspace row; the full path stays in the title. */
+function remoteWorkspaceName(path: string): string {
+  const parts = path.split('/').filter(Boolean)
+  return parts.length === 0 ? '/' : parts[parts.length - 1]
+}
+
+function mockRemoteListing(connection: SharedRemoteConnection, path: string): readonly MockRemoteEntry[] {
+  const normalized = normalizeRemotePath(path)
+  const fixed = MOCK_REMOTE_TREE[normalized]
+  if (fixed !== undefined) return fixed
+  if (normalized === `/home/${connection.username}`) return DEFAULT_REMOTE_HOME
+  return []
+}
+
+function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, onRemove }: {
+  workspace: SharedRemoteWorkspace
+  connection: SharedRemoteConnection | undefined
+  target: string
+  online: boolean
+  t: (key: string) => string
+  onOpen: (workspace: SharedRemoteWorkspace) => void
+  onRemove: (id: string) => void
+}) {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const closeMenu = (): void => { setMenuOpen(false) }
+  return (
+    <div className={css.remoteWorkspaceItem}>
+      <button
+        type="button"
+        className={css.remoteWorkspaceMain}
+        title={workspace.path}
+        onClick={() => { onOpen(workspace) }}
+      >
+        <svg width={16} height={16} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1l1.2 1.5H13A1.5 1.5 0 0 1 14.5 5.5v6A1.5 1.5 0 0 1 13 13H3a1.5 1.5 0 0 1-1.5-1.5V4Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+        </svg>
+        <span className={css.remoteWorkspaceText}>
+          <span className={css.remoteWorkspacePath}>{remoteWorkspaceName(workspace.path)}</span>
+          <span className={css.remoteWorkspaceHost}>
+            <span className={css.remoteWorkspaceStatus} data-online={online || undefined}>
+              <span className={css.remoteWorkspaceStatusDot} aria-hidden="true" />
+              {online ? t('remote.connected') : t('remote.workspaceOfflineShort')}
+            </span>
+            <span className={css.remoteWorkspaceTarget}>{target}</span>
+          </span>
+        </span>
+      </button>
+      <div className={css.remoteWorkspaceActions}>
+        <Menu
+          open={menuOpen}
+          onClose={closeMenu}
+          portal
+          className={css.remoteWorkspaceMenuAnchor}
+          listClassName={css.remoteWorkspaceMenu}
+          anchor={(
+            <Tooltip label={t('remote.workspaceMore')} side="bottom" delayMs={500} portal>
+              <button
+                type="button"
+                className={css.remoteWorkspaceAction}
+                aria-label={t('remote.workspaceMore')}
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
+                onClick={() => { setMenuOpen(value => !value) }}
+              >
+                <IconEllipsisOutlineRegular size={14} />
+              </button>
+            </Tooltip>
+          )}
+        >
+          <button
+            type="button"
+            className={css.remoteWorkspaceMenuItem}
+            onClick={() => { closeMenu(); onRemove(workspace.id) }}
+          >
+            <svg width={14} height={14} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3.5 4.5h9M6.5 4.5v-1h3v1M5 4.5l.5 8h5l.5-8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {t('remote.workspaceRemove')}
+          </button>
+        </Menu>
+        <Tooltip label={t('remote.newSession')} side="bottom" delayMs={500} portal>
+          <button
+            type="button"
+            className={css.remoteWorkspaceAction}
+            aria-label={t('remote.newSession')}
+            onClick={() => { onOpen(workspace) }}
+          >
+            <IconNewChatOutlineRegular size={14} />
+          </button>
+        </Tooltip>
+      </div>
+    </div>
+  )
+}
+
+function RemoteWorkspaceList({ workspaces, connections, t, onOpen, onRemove }: {
+  workspaces: readonly SharedRemoteWorkspace[]
+  connections: readonly SharedRemoteConnection[]
+  t: (key: string) => string
+  onOpen: (workspace: SharedRemoteWorkspace) => void
+  onRemove: (id: string) => void
+}) {
+  if (workspaces.length === 0) return null
+  return (
+    <div className={css.remoteWorkspaceList}>
+      <div className={css.remoteWorkspaceHeader}>
+        <span>{t('remote.workspacesTitle')}</span>
+      </div>
+      {workspaces.map(workspace => {
+        const connection = connections.find(item => item.id === workspace.connectionId)
+        const online = connection !== undefined && connection.status === 'connected'
+        const target = connection !== undefined
+          ? `${connection.username}@${connection.host}`
+          : workspace.username !== undefined && workspace.host !== undefined
+            ? `${workspace.username}@${workspace.host}`
+            : t('remote.workspaceOffline')
+        return (
+          <RemoteWorkspaceRow
+            key={workspace.id}
+            workspace={workspace}
+            connection={connection}
+            target={target}
+            online={online}
+            t={t}
+            onOpen={onOpen}
+            onRemove={onRemove}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
+function RemoteWorkspacePicker({ connections, t, onClose, onSelect }: {
+  connections: readonly SharedRemoteConnection[]
+  t: (key: string) => string
+  onClose: () => void
+  onSelect: (connectionId: string, path: string) => void
+}) {
+  const connected = connections.filter(connection => connection.status === 'connected')
+  const [connectionId, setConnectionId] = useState(connected[0]?.id ?? connections[0]?.id ?? '')
+  const connection = connections.find(item => item.id === connectionId) ?? connections[0]
+  const initialPath = defaultRemotePath(connection)
+  const [path, setPath] = useState(initialPath)
+  const [pathInput, setPathInput] = useState(initialPath)
+  const [entries, setEntries] = useState<readonly MockRemoteEntry[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [creating, setCreating] = useState(false)
+  const [newName, setNewName] = useState('')
+  const [createError, setCreateError] = useState<string | null>(null)
+  const [revision, setRevision] = useState(0)
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => { window.removeEventListener('keydown', onKey) }
+  }, [onClose])
+
+  useEffect(() => {
+    if (connection === undefined) {
+      setEntries([])
+      return
+    }
+    const controller = new AbortController()
+    setEntries([])
+    setLoading(true)
+    setError(null)
+    fetch(`/telework/remote/list?connection=${encodeURIComponent(connection.id)}&path=${encodeURIComponent(path)}`, {
+      signal: controller.signal,
+      cache: 'no-store',
+    })
+      .then(async (response) => {
+        const body = await response.json() as { entries?: MockRemoteEntry[], error?: string }
+        if (!response.ok) throw new Error(body.error ?? `HTTP ${response.status}`)
+        setEntries(Array.isArray(body.entries) ? body.entries : [])
+      })
+      .catch((caught: unknown) => {
+        if (controller.signal.aborted) return
+        setEntries([])
+        setError(caught instanceof Error ? caught.message : String(caught))
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false)
+      })
+    return () => { controller.abort() }
+  }, [connection?.id, path, revision])
+
+  const navigate = (next: string): void => {
+    const normalized = normalizeRemotePath(next)
+    setPath(normalized)
+    setPathInput(normalized)
+    setCreating(false)
+    setCreateError(null)
+  }
+
+  const createFolder = async (): Promise<void> => {
+    if (connection === undefined) return
+    const name = newName.trim()
+    if (name === '') {
+      setCreateError(t('remote.pickFolderNameRequired'))
+      return
+    }
+    try {
+      const response = await fetch('/telework/remote/mkdir', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ connection: connection.id, path, name }),
+      })
+      const text = await response.text()
+      let body: { error?: string } = {}
+      if (text !== '') {
+        try {
+          body = JSON.parse(text) as typeof body
+        } catch {
+          throw new Error(`Remote folder endpoint returned an unexpected response (HTTP ${response.status})`)
+        }
+      }
+      if (!response.ok) throw new Error(body.error ?? `Cannot create folder (HTTP ${response.status})`)
+      setCreating(false)
+      setNewName('')
+      setCreateError(null)
+      setRevision(value => value + 1)
+    } catch (caught) {
+      setCreateError(caught instanceof Error ? caught.message : String(caught))
+    }
+  }
+
+  if (connection === undefined) return null
+
+  return createPortal(
+    <div
+      className={css.remotePickerOverlay}
+      onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}
+    >
+      <div className={css.remotePickerDialog} role="dialog" aria-modal="true" aria-label={t('remote.pickTitle')}>
+        <div className={css.remotePickerHeader}>
+          <div>
+            <div className={css.remotePickerTitle}>{t('remote.pickTitle')}</div>
+            <div className={css.remotePickerSub}>{connection.username}@{connection.host}:{connection.port}</div>
+          </div>
+          {connected.length > 1 && (
+            <select
+              className={css.remotePickerSelectConnection}
+              value={connectionId}
+              aria-label={t('remote.pickConnection')}
+              onChange={(event) => {
+                const next = connected.find(item => item.id === event.target.value)
+                if (next === undefined) return
+                setConnectionId(next.id)
+                navigate(defaultRemotePath(next))
+              }}
+            >
+              {connected.map(item => (
+                <option key={item.id} value={item.id}>{item.username}@{item.host}</option>
+              ))}
+            </select>
+          )}
+        </div>
+
+        <div className={css.remotePickerToolbar}>
+          <button type="button" className={css.remotePickerTool} disabled={path === '/'} onClick={() => { navigate(parentRemotePath(path)) }}>
+            {t('remote.pickUp')}
+          </button>
+          <input
+            className={clsx(css.remoteInput, css.remotePickerPath)}
+            value={pathInput}
+            spellCheck={false}
+            autoComplete="off"
+            onChange={(event) => { setPathInput(event.target.value) }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault()
+                navigate(pathInput)
+              }
+            }}
+          />
+          <button type="button" className={css.remotePickerTool} onClick={() => { navigate(pathInput) }}>
+            {t('remote.pickGo')}
+          </button>
+          <button
+            type="button"
+            className={css.remotePickerTool}
+            onClick={() => { setCreating(true); setNewName(''); setCreateError(null) }}
+          >
+            {t('remote.pickNewFolder')}
+          </button>
+        </div>
+
+        <div className={css.remotePickerList}>
+          {creating && (
+            <div className={css.remotePickerCreateRow}>
+              <input
+                className={clsx(css.remoteInput, css.remotePickerCreateInput)}
+                value={newName}
+                autoFocus
+                spellCheck={false}
+                autoComplete="off"
+                placeholder={t('remote.pickFolderName')}
+                onChange={(event) => { setNewName(event.target.value); setCreateError(null) }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault()
+                    void createFolder()
+                  }
+                  if (event.key === 'Escape') {
+                    event.preventDefault()
+                    setCreating(false)
+                    setCreateError(null)
+                  }
+                }}
+              />
+              <button type="button" className={css.remotePickerCreate} onClick={() => { void createFolder() }}>
+                {t('remote.pickCreate')}
+              </button>
+              <button
+                type="button"
+                className={css.remotePickerTool}
+                onClick={() => { setCreating(false); setCreateError(null) }}
+              >
+                {t('remote.pickCancel')}
+              </button>
+            </div>
+          )}
+          {createError !== null && <p className={css.remotePickerError}>{createError}</p>}
+          {path !== '/' && (
+            <button type="button" className={css.remotePickerRow} onClick={() => { navigate(parentRemotePath(path)) }}>
+              <span className={css.remotePickerGlyph}>↰</span>
+              <span>..</span>
+            </button>
+          )}
+          {entries.length === 0 && !loading && error === null && <p className={css.remotePickerEmpty}>{t('remote.pickEmpty')}</p>}
+          {loading && <p className={css.remotePickerEmpty}>{t('remote.pickLoading')}</p>}
+          {error !== null && <p className={css.remotePickerError}>{error}</p>}
+          {!loading && error === null && entries.map(entry => entry.kind === 'dir' ? (
+            <button
+              key={entry.name}
+              type="button"
+              className={css.remotePickerRow}
+              onClick={() => { navigate(childRemotePath(path, entry.name)) }}
+            >
+              <svg className={css.remotePickerGlyph} width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1l1.2 1.5H13A1.5 1.5 0 0 1 14.5 5.5v6A1.5 1.5 0 0 1 13 13H3a1.5 1.5 0 0 1-1.5-1.5V4Z" />
+              </svg>
+              <span>{entry.name}</span>
+            </button>
+          ) : (
+            <div key={entry.name} className={clsx(css.remotePickerRow, css.remotePickerFile)}>
+              <svg className={css.remotePickerGlyph} width={16} height={16} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.2} aria-hidden="true">
+                <path d="M3.5 2.5h5l4 4v7h-9v-11Z" strokeLinejoin="round" />
+                <path d="M8.5 2.5v4h4" strokeLinejoin="round" />
+              </svg>
+              <span>{entry.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className={css.remotePickerFooter}>
+          <span className={css.remotePickerHint}>{t('remote.pickSftp')}</span>
+          <button type="button" className={css.remotePickerCancel} onClick={onClose}>{t('remote.pickCancel')}</button>
+          <button
+            type="button"
+            className={css.remotePickerSelect}
+            onClick={() => { onSelect(connection.id, path) }}
+          >
+            {t('remote.pickSelect')}
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
+}
+
+/**
  * How long the column's scrollbars stay drawn after the pointer leaves it.
  * The bar is a pointer affordance here, and hiding it on the leave event
  * itself makes it blink out while the pointer is only crossing the column's
@@ -405,6 +1431,22 @@ export function SidebarRoot({
   const panels = usePanels(snapshot => snapshot)
   const unpinned = useEntryPins(ids => ids)
   const activePanelId = usePanelInfo(info => info.activePanelId)
+  // Remote mode is a sidebar-local surface: it keeps the conversation in the
+  // center and swaps only the sidebar body. The Main panel stays registered for
+  // direct navigation, but the rail button never selects it.
+  const [remoteMode, setRemoteMode] = useState(false)
+  const [remoteWorkspaceToast, setRemoteWorkspaceToast] = useState<string | null>(null)
+  const [remotePickerOpen, setRemotePickerOpen] = useState(false)
+  const [workspaceHeader, setWorkspaceHeader] = useState<HTMLElement | null>(null)
+  const remoteStore = useMemo(ensureRemoteStore, [])
+  const remoteConnections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
+  const remoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
+  const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
+  // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
+  // at the matching username@host:port so their status returns to connected.
+  useEffect(() => {
+    remoteStore.relinkWorkspaces()
+  }, [remoteStore, remoteConnections, remoteWorkspaces])
   const hasEntryActions = useEntryActions(registered => registered)
   const shortcut = useShortcuts(rows => rows.find(row => row.id === 'sidebar.left.toggle'))
   const newShortcut = useShortcuts(rows => rows.find(row => row.id === 'session.new'))
@@ -450,6 +1492,21 @@ export function SidebarRoot({
   // leaves. A pointer that returns within that window cancels the pending
   // hide rather than restarting from a hidden bar.
   const column = useRef<HTMLDivElement>(null)
+  // The Workspaces header is owned by ui-workspace, but it publishes a stable
+  // marker. Portal the remote-workspace action into that row so it sits beside
+  // the shipped add-workspace button instead of taking a new row above it.
+  useEffect(() => {
+    const root = column.current
+    if (root === null) return
+    const find = (): void => {
+      const next = root.querySelector<HTMLElement>('[data-sidebar-workspace-header]')
+      setWorkspaceHeader(current => current === next ? current : next)
+    }
+    find()
+    const observer = new MutationObserver(find)
+    observer.observe(root, { childList: true, subtree: true })
+    return () => { observer.disconnect() }
+  }, [])
   const sidebarFocus = useRef<Element | null>(null)
   useModalLayer(column, drawer && !collapsed, toggleSidebar)
   useLayoutEffect(() => {
@@ -513,6 +1570,24 @@ export function SidebarRoot({
   }
 
   const darwinDesktop = isDarwinDesktop()
+  // The shell status bar's Manage action asks the sidebar to reveal this
+  // surface without touching the center conversation.
+  useEffect(() => {
+    const openRemote = (): void => {
+      setRemoteMode(true)
+      selectPanel(null)
+      if (collapsed) toggleSidebar()
+    }
+    window.addEventListener('dsh-telework:open-remote', openRemote)
+    return () => { window.removeEventListener('dsh-telework:open-remote', openRemote) }
+  }, [collapsed, selectPanel, toggleSidebar])
+
+  // Broadcast a successful connect into the shared store. The Remote panel and
+  // the shell status bar both derive their connected state from this store, so
+  // a status-bar disconnect also clears the "connected" badge in the panel.
+  const handleRemoteConnection = (summary: RemoteConnectionSummary | null): void => {
+    if (summary !== null) remoteStore.add({ ...summary, status: 'connected' })
+  }
   // Rail resting state is the whale mark; hovering swaps in the panel icon
   // (the expand affordance, figma sidebar-hover flow). Expanded it is a plain
   // panel icon.
@@ -566,10 +1641,11 @@ export function SidebarRoot({
         <Tooltip label={t('rail.workspaces')} delayMs={500} side="right" portal={drawer}>
           <button
             type="button"
-            className={clsx(css.railButton, activePanelId === null && css.railActive)}
+            className={clsx(css.railButton, !remoteMode && activePanelId === null && css.railActive)}
             aria-label={t('rail.workspaces')}
-            aria-current={activePanelId === null ? 'page' : undefined}
+            aria-current={!remoteMode && activePanelId === null ? 'page' : undefined}
             onClick={() => {
+              setRemoteMode(false)
               selectPanel(null)
               if (collapsed) toggleSidebar()
             }}
@@ -579,23 +1655,45 @@ export function SidebarRoot({
             </svg>
           </button>
         </Tooltip>
-        {panels.map(panel => (
-          <Tooltip key={panel.id} label={panel.label} delayMs={500} side="right" portal={drawer}>
-            <button
-              type="button"
-              className={clsx(css.railButton, activePanelId === panel.id && css.railActive)}
-              aria-label={panel.label}
-              aria-current={activePanelId === panel.id ? 'page' : undefined}
-              onClick={() => {
-                const entry = officialEntry(panel.id)
-                if (entry !== undefined) trackEntryClick({ menu_name: entry, position: 'sidebar' })
-                selectPanel(panel.id)
-              }}
-            >
-              {renderFactorySlot('sidebar.panel.icon', { id: panel.id, size: 18, active: activePanelId === panel.id })}
-            </button>
-          </Tooltip>
-        ))}
+        {panels.map(panel => {
+          const isRemotePanel = panel.id === 'telework'
+          const active = isRemotePanel ? remoteMode : !remoteMode && activePanelId === panel.id
+          return (
+            <Tooltip key={panel.id} label={panel.label} delayMs={500} side="right" portal={drawer}>
+              <button
+                type="button"
+                className={clsx(css.railButton, active && css.railActive)}
+                aria-label={panel.label}
+                aria-current={active ? 'page' : undefined}
+                onClick={() => {
+                  if (isRemotePanel) {
+                    setRemoteMode(true)
+                    // Keep the conversation in the center: clearing the main
+                    // panel id prevents the Remote main page from replacing it.
+                    selectPanel(null)
+                    if (collapsed) toggleSidebar()
+                    return
+                  }
+                  setRemoteMode(false)
+                  const entry = officialEntry(panel.id)
+                  if (entry !== undefined) trackEntryClick({ menu_name: entry, position: 'sidebar' })
+                  selectPanel(panel.id)
+                }}
+              >
+                {renderFactorySlot('sidebar.panel.icon', { id: panel.id, size: 18, active })}
+                {isRemotePanel && remoteConnections.length > 0 && (
+                  <span
+                    className={css.railRemoteBadge}
+                    data-status={remoteConnections.some(connection => connection.status === 'connected') ? 'connected' : 'connecting'}
+                    aria-hidden="true"
+                  >
+                    {remoteConnections.length > 1 ? remoteConnections.length : ''}
+                  </span>
+                )}
+              </button>
+            </Tooltip>
+          )
+        })}
         <div className={css.railGrow} />
         <div className={css.railFoot}>
           {renderSlot('sidebar.settings', { wide: false })}
@@ -620,7 +1718,8 @@ export function SidebarRoot({
         ),
       })}
       {wide && (
-        <div className={css.panelColumn}>
+        <div className={clsx(css.panelColumn, remoteMode && css.panelColumnRemote)}>
+          {remoteMode && <RemoteConnectionPanel t={t} onConnectionChange={handleRemoteConnection} />}
           <div className={css.logoRow} data-window-drag>
         {/* Expanded, the brand doubles as a New Session shortcut while the
             access snapshot allows `session/create` — except on
@@ -711,6 +1810,13 @@ export function SidebarRoot({
               wide,
               expandSidebar: () => { if (collapsed) toggleSidebar() },
             }, { hookContext: sectionHookContext })}
+            <RemoteWorkspaceList
+              workspaces={remoteWorkspaces}
+              connections={remoteConnections}
+              t={t}
+              onOpen={() => { setRemoteWorkspaceToast(t('remote.workspaceOpenSoon')) }}
+              onRemove={(id) => { remoteStore.removeWorkspace(id) }}
+            />
           </div>
         </div>
         <span className={css.scrollFade} aria-hidden="true" />
@@ -722,7 +1828,47 @@ export function SidebarRoot({
         <Toast key={copiedToast} tone="success" text={t('version.copied')} onDone={() => { setCopiedToast(null) }} />
       )}
 
+      {remoteWorkspaceToast !== null && (
+        <Toast
+          key={`remote-workspace-${remoteWorkspaceToast}`}
+          tone="success"
+          text={remoteWorkspaceToast}
+          onDone={() => { setRemoteWorkspaceToast(null) }}
+        />
+      )}
+
+      {remotePickerOpen && remoteConnected && (
+        <RemoteWorkspacePicker
+          connections={remoteConnections}
+          t={t}
+          onClose={() => { setRemotePickerOpen(false) }}
+          onSelect={(connectionId, path) => {
+            remoteStore.addWorkspace(connectionId, path)
+            setRemotePickerOpen(false)
+            setRemoteWorkspaceToast(`${t('remote.workspaceAdded')} ${path}`)
+          }}
+        />
+      )}
+
         </div>
+      )}
+
+      {workspaceHeader !== null && remoteConnected && createPortal(
+        <Tooltip label={t('remote.addWorkspace')} side="bottom" delayMs={500} portal>
+          <button
+            type="button"
+            className={css.remoteHeaderButton}
+            aria-label={t('remote.addWorkspace')}
+            onClick={() => { setRemotePickerOpen(true) }}
+          >
+            <svg width={16} height={16} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="2.5" y="3" width="11" height="7" rx="1.2" stroke="currentColor" strokeWidth="1.2" />
+              <path d="M6 13h4M8 10v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M11.5 1.5v4M9.5 3.5h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </Tooltip>,
+        workspaceHeader,
       )}
     </div>
   )

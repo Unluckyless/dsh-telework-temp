@@ -28,6 +28,14 @@ window.__ModuleLoader__.load({
       statusError: 'OpenSSH configuration failed',
       notImplemented: 'Remote file and shell execution is not implemented yet.',
       noHost: 'Not resolved',
+      statusCount: '{n} remote connections',
+      statusTitle: 'Remote connections',
+      statusConnected: 'Connected',
+      statusConnecting: 'Connecting',
+      statusError: 'Error',
+      statusDisconnect: 'Disconnect',
+      statusManage: 'Manage remote connections',
+      statusWorkspaces: '{n} workspaces',
     }
 
     const ZH = {
@@ -53,6 +61,14 @@ window.__ModuleLoader__.load({
       statusError: 'OpenSSH 配置解析失败',
       notImplemented: '远端文件与 shell 执行尚未实现。',
       noHost: '未解析',
+      statusCount: '{n} 个远程连接',
+      statusTitle: '远程连接',
+      statusConnected: '已连接',
+      statusConnecting: '连接中',
+      statusError: '错误',
+      statusDisconnect: '断开',
+      statusManage: '管理远程连接',
+      statusWorkspaces: '{n} 工作区',
     }
 
     const CONFIG_SAMPLE = [
@@ -262,6 +278,339 @@ window.__ModuleLoader__.load({
       }
     `
 
+    const STATUS_CSS = `
+      .telework-statusbar {
+        height: 28px;
+        display: flex;
+        align-items: center;
+        padding: 2px 8px;
+        box-sizing: border-box;
+        background: var(--dsw-alias-bg-base);
+        border-top: 0.5px solid var(--dsw-alias-border-l1);
+        box-shadow: 0 -2px 0 var(--dsw-alias-bg-base);
+        font-size: 11px;
+        color: var(--dsw-alias-label-secondary);
+        position: relative;
+        z-index: 30;
+      }
+      .telework-status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 20px;
+        padding: 0 6px;
+        border: none;
+        border-radius: 4px;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+      }
+      .telework-status-chip:hover {
+        background: var(--dsw-alias-interactive-bg-hover);
+        color: var(--dsw-alias-label-primary);
+      }
+      .telework-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--dsw-alias-state-success-primary, #1a7f37);
+        flex: none;
+      }
+      .telework-status-dot[data-status='connecting'] {
+        background: var(--dsw-alias-state-warning-primary, #d97706);
+      }
+      .telework-status-dot[data-status='error'] {
+        background: var(--dsw-alias-state-danger-primary, #d1242f);
+      }
+      .telework-status-popover {
+        position: fixed;
+        left: 8px;
+        bottom: 30px;
+        z-index: 100;
+        width: 300px;
+        max-width: calc(100vw - 16px);
+        box-sizing: border-box;
+        padding: 6px;
+        border: 1px solid var(--dsw-alias-border-l1);
+        border-radius: 8px;
+        background: var(--dsw-alias-bg-layer-1);
+        color: var(--dsw-alias-label-primary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      }
+      .telework-status-title {
+        padding: 4px 6px 6px;
+        font-size: 11px;
+        color: var(--dsw-alias-label-tertiary);
+      }
+      .telework-status-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 30px;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+      .telework-status-row:hover {
+        background: var(--dsw-alias-interactive-bg-hover);
+      }
+      .telework-status-host {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+      }
+      .telework-status-state {
+        flex: none;
+        font-size: 10px;
+        color: var(--dsw-alias-label-tertiary);
+      }
+      .telework-status-remove {
+        flex: none;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        border: none;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--dsw-alias-label-tertiary);
+        cursor: pointer;
+        font: inherit;
+        font-size: 14px;
+        line-height: 1;
+      }
+      .telework-status-remove:hover {
+        background: var(--dsw-alias-interactive-bg-hover);
+        color: var(--dsw-alias-label-primary);
+      }
+      .telework-status-manage {
+        width: 100%;
+        height: 28px;
+        margin-top: 4px;
+        padding: 0 6px;
+        border: none;
+        border-top: 1px solid var(--dsw-alias-border-l1);
+        background: transparent;
+        color: var(--dsw-alias-label-secondary);
+        font: inherit;
+        font-size: 11px;
+        text-align: left;
+        cursor: pointer;
+      }
+      .telework-status-manage:hover {
+        color: var(--dsw-alias-label-primary);
+      }
+    `
+
+    /**
+     * One in-page connection registry shared with the sidebar's Remote panel.
+     * The sidebar usually creates it first; this side recreates the same narrow
+     * API only when the status bar mounts before the sidebar.
+     */
+    function readStoredRemoteWorkspaces() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem('dsh-telework.remote.workspaces') ?? '[]')
+        if (!Array.isArray(parsed)) return []
+        return parsed.filter(entry => (
+          typeof entry === 'object' && entry !== null
+          && typeof entry.id === 'string'
+          && typeof entry.connectionId === 'string'
+          && typeof entry.path === 'string'
+          && typeof entry.at === 'number'
+        ))
+      } catch {
+        return []
+      }
+    }
+
+    function writeStoredRemoteWorkspaces(workspaces) {
+      try {
+        localStorage.setItem('dsh-telework.remote.workspaces', JSON.stringify(workspaces))
+      } catch {
+        // Storage is a convenience; the in-memory list still works.
+      }
+    }
+
+    function ensureRemoteStore() {
+      if (window.__DSH_TELEWORK_REMOTE__ !== undefined) return window.__DSH_TELEWORK_REMOTE__
+      const listeners = new Set()
+      let connections = []
+      let workspaces = readStoredRemoteWorkspaces()
+      const emit = () => {
+        for (const listener of listeners) listener()
+      }
+      const store = {
+        get: () => connections,
+        subscribe: (listener) => {
+          listeners.add(listener)
+          return () => { listeners.delete(listener) }
+        },
+        add: (input) => {
+          const existing = connections.find(item => (
+            item.host === input.host && item.username === input.username && item.port === input.port
+          ))
+          if (existing !== undefined) {
+            const id = input.id ?? existing.id
+            const status = input.status ?? existing.status
+            if (existing.status !== status || existing.id !== id) {
+              connections = connections.map(item => item.id === existing.id ? { ...item, id, status } : item)
+              emit()
+              return { ...existing, id, status }
+            }
+            return existing
+          }
+          const connection = {
+            id: input.id ?? `remote-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            host: input.host,
+            username: input.username,
+            port: input.port,
+            status: input.status ?? 'connecting',
+            at: Date.now(),
+          }
+          connections = [...connections, connection]
+          emit()
+          return connection
+        },
+        update: (id, patch) => {
+          connections = connections.map(item => item.id === id ? { ...item, ...patch } : item)
+          emit()
+        },
+        remove: (id) => {
+          connections = connections.filter(item => item.id !== id)
+          const persisted = readStoredRemoteWorkspaces()
+          if (persisted.length > 0) workspaces = persisted
+          emit()
+        },
+        getWorkspaces: () => workspaces,
+        addWorkspace: (connectionId, path) => {
+          const existing = workspaces.find(item => item.connectionId === connectionId && item.path === path)
+          if (existing !== undefined) return existing
+          const connection = connections.find(item => item.id === connectionId)
+          const workspace = {
+            id: `workspace-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            connectionId,
+            path,
+            at: Date.now(),
+            host: connection?.host,
+            username: connection?.username,
+            port: connection?.port,
+          }
+          workspaces = [...workspaces, workspace]
+          writeStoredRemoteWorkspaces(workspaces)
+          emit()
+          return workspace
+        },
+        removeWorkspace: (id) => {
+          workspaces = workspaces.filter(item => item.id !== id)
+          writeStoredRemoteWorkspaces(workspaces)
+          emit()
+        },
+        relinkWorkspaces: () => {
+          const active = connections.filter(item => item.status === 'connected')
+          let changed = false
+          workspaces = workspaces.map((workspace) => {
+            if (active.some(item => item.id === workspace.connectionId)) return workspace
+            const match = active.find(item => (
+              item.host === workspace.host
+              && item.username === workspace.username
+              && (workspace.port === undefined || workspace.port === '' || String(item.port) === String(workspace.port))
+            ))
+            if (match === undefined) return workspace
+            changed = true
+            return { ...workspace, connectionId: match.id, port: workspace.port ?? match.port }
+          })
+          if (!changed) return
+          writeStoredRemoteWorkspaces(workspaces)
+          emit()
+        },
+      }
+      window.__DSH_TELEWORK_REMOTE__ = store
+      return store
+    }
+
+    /** Bottom-bar connection summary with a multi-connection popover. */
+    function RemoteStatusBar({ t }) {
+      const store = ensureRemoteStore()
+      const [connections, setConnections] = useState(() => store.get())
+      const [workspaces, setWorkspaces] = useState(() => store.getWorkspaces())
+      const [open, setOpen] = useState(false)
+      useEffect(() => store.subscribe(() => {
+        setConnections(store.get())
+        setWorkspaces(store.getWorkspaces())
+      }), [store])
+      useEffect(() => {
+        if (!open) return
+        const onPointerDown = (event) => {
+          const target = event.target
+          if (target instanceof Element && target.closest('.telework-statusbar') !== null) return
+          setOpen(false)
+        }
+        document.addEventListener('pointerdown', onPointerDown, true)
+        return () => { document.removeEventListener('pointerdown', onPointerDown, true) }
+      }, [open])
+
+      if (connections.length === 0) return null
+      const status = connections.some(item => item.status === 'error')
+        ? 'error'
+        : connections.some(item => item.status === 'connecting') ? 'connecting' : 'connected'
+      const connectedCount = connections.filter(item => item.status === 'connected').length
+      const label = connections.length === 1
+        ? `${connections[0].username}@${connections[0].host}`
+        : t('statusCount').replace('{n}', String(connections.length))
+      const stateLabel = (value) => value === 'connected'
+        ? t('statusConnected')
+        : value === 'connecting' ? t('statusConnecting') : t('statusError')
+
+      return h('div', { className: 'telework-statusbar' },
+        h('style', null, STATUS_CSS),
+        h('button', {
+          type: 'button',
+          className: 'telework-status-chip',
+          'aria-expanded': open,
+          'aria-label': t('statusTitle'),
+          onClick: () => { setOpen(value => !value) },
+        },
+          h('span', { className: 'telework-status-dot', 'data-status': status, 'aria-hidden': true }),
+          h('span', null, label),
+        ),
+        open && h('div', { className: 'telework-status-popover', onPointerDown: event => event.stopPropagation() },
+          h('div', { className: 'telework-status-title' }, t('statusTitle')),
+          connections.map(connection => h('div', { key: connection.id, className: 'telework-status-row' },
+            h('span', { className: 'telework-status-dot', 'data-status': connection.status, 'aria-hidden': true }),
+            h('span', { className: 'telework-status-host', title: `${connection.username}@${connection.host}:${connection.port}` },
+              `${connection.username}@${connection.host}:${connection.port}`),
+            h('span', { className: 'telework-status-state' }, stateLabel(connection.status)),
+            workspaces.filter(workspace => workspace.connectionId === connection.id).length > 0
+              && h('span', { className: 'telework-status-state' }, t('statusWorkspaces').replace('{n}', String(workspaces.filter(workspace => workspace.connectionId === connection.id).length))),
+            h('button', {
+              type: 'button',
+              className: 'telework-status-remove',
+              'aria-label': t('statusDisconnect'),
+              title: t('statusDisconnect'),
+              onClick: () => {
+                void fetch('/telework/remote/disconnect', {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ id: connection.id }),
+                }).catch(() => {})
+                store.remove(connection.id)
+              },
+            }, '×'),
+          )),
+          h('button', {
+            type: 'button',
+            className: 'telework-status-manage',
+            onClick: () => {
+              window.dispatchEvent(new CustomEvent('dsh-telework:open-remote'))
+              setOpen(false)
+            },
+          }, t('statusManage')),
+        ),
+      )
+    }
+
     function useLocaleRefresh(ctx) {
       const [, force] = useReducer((value) => value + 1, 0)
       useEffect(() => ctx.locale.subscribe(() => force()), [ctx])
@@ -403,6 +752,11 @@ window.__ModuleLoader__.load({
           return h(TeleworkPanel, { t, onBack: () => ctx.layout.selectPanel(null) })
         }
 
+        const RemoteStatusBarBound = () => {
+          useLocaleRefresh(ctx)
+          return h(RemoteStatusBar, { t })
+        }
+
         const SidebarToggle = () => h('button', {
           type: 'button',
           'aria-label': t('toggleSidebar'),
@@ -453,6 +807,12 @@ window.__ModuleLoader__.load({
         ctx.slots.inject('conversation.header.leading', () => ctx.slots.register({
           name: 'conversation.header.leading',
         }, SidebarToggle))
+
+        // Persistent bottom-left connection summary: the same in-page store the
+        // sidebar writes, so switching between Remote and Workspaces keeps it.
+        ctx.slots.inject('shell.bottom', () => ctx.slots.register({
+          name: 'shell.bottom',
+        }, RemoteStatusBarBound))
       },
     }
   },

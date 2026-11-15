@@ -47,6 +47,7 @@
 }
 
 .railButton {
+  position: relative;
   width: 36px;
   height: 36px;
   flex: none;
@@ -76,6 +77,38 @@
 .railActive {
   background: var(--dsw-alias-interactive-bg-hover);
   color: var(--dsw-alias-label-primary);
+}
+
+.railRemoteBadge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  min-width: 12px;
+  height: 12px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  border: 1px solid var(--dsw-specific-sidebar-fill, var(--dsw-alias-bg-base));
+  border-radius: 6px;
+  background: var(--dsw-alias-state-success-primary, #1a7f37);
+  color: var(--dsw-alias-label-on-business, #fff);
+  font-size: 9px;
+  line-height: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.railRemoteBadge[data-status='connecting'] {
+  background: var(--dsw-alias-state-warning-primary, #d97706);
+}
+
+.railRemoteBadge:empty {
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  min-width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 4px;
 }
 
 .railGrow {
@@ -1060,4 +1093,792 @@
     transition: none;
     animation: none;
   }
+}
+
+/* Sidebar-local Remote surface. The normal workspace/New Session/files body
+   stays mounted underneath so its state survives, but only the Remote panel
+   is painted while remote mode is active. */
+.panelColumnRemote > :not(.remotePanel) {
+  display: none;
+}
+
+.remotePanel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.remoteForm {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 2px 0 10px;
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+
+.remoteSectionTitle {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-primary);
+}
+
+.remoteField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.remoteFieldGrow {
+  flex: 1;
+}
+
+.remoteFieldPort {
+  flex: 0 0 64px;
+}
+
+.remoteRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.remoteLabel {
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remotePasswordHint {
+  margin-left: 6px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remoteRemember {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 18px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--dsw-alias-label-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remoteRemember input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--dsw-alias-state-business-primary);
+}
+
+.remoteInput {
+  width: 100%;
+  min-width: 0;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 0 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  background: var(--dsw-alias-bg-base);
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.remoteInput::placeholder {
+  color: var(--dsw-alias-label-caption);
+}
+
+.remoteInput:focus {
+  border-color: var(--dsw-alias-state-business-primary);
+}
+
+.remoteCommandRow {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+
+.remoteCommandRow .remoteInput {
+  flex: 1;
+}
+
+.remoteParseButton {
+  flex: none;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remoteParseButton:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.remoteStatus {
+  margin: 0;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteStatusSuccess {
+  color: var(--dsw-alias-state-success-primary, #1a7f37);
+}
+
+.remoteStatusError {
+  color: var(--dsw-alias-state-danger-primary, #d1242f);
+}
+
+.remoteConnectButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: var(--dsw-alias-state-business-primary);
+  color: var(--dsw-alias-label-on-business, #fff);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.remoteConnectButton:hover {
+  filter: brightness(1.06);
+}
+
+.remoteConnectButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+  filter: none;
+}
+
+.remoteHistory {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+}
+
+.remoteWorkspacesPanel {
+  flex: none;
+  max-height: 190px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.remoteHistoryHeader {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteHistoryCount {
+  font-size: 11px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remoteHistoryList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+
+.remoteEmpty {
+  margin: 4px 6px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remoteHistoryRow {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: var(--dsw-radius-md);
+}
+
+.remoteHistoryRow:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remoteHistoryMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--dsw-radius-md);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.remoteHistoryMain svg {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteHistoryScreen {
+  fill: transparent;
+  transition: fill 120ms var(--ds-ease-in-out);
+}
+
+.remoteHistoryScreenConnected {
+  fill: var(--dsw-alias-state-success-primary, #1a7f37);
+}
+
+.remoteHistoryRowConnected .remoteHistoryMain svg {
+  color: var(--dsw-alias-state-success-primary, #1a7f37);
+}
+
+.remoteHistoryText {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.remoteHistoryHost {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remoteHistoryMeta {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+}
+
+.remoteConnectedBadge {
+  flex: none;
+  height: 16px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--dsw-alias-state-success-primary, #1a7f37) 12%, transparent);
+  color: var(--dsw-alias-state-success-primary, #1a7f37);
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.remoteDelete {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-caption);
+  cursor: pointer;
+}
+
+.remoteDelete:hover {
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remoteHeaderButton {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  cursor: pointer;
+}
+
+.remoteHeaderButton svg {
+  flex: none;
+}
+
+.remoteHeaderButton:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.remoteWorkspaceList {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--dsw-alias-border-l1);
+}
+
+.remoteWorkspaceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 28px;
+  padding: 0 var(--dsh-sidebar-row-padding, 12px);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteWorkspaceHeaderStatus {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteWorkspaceStatusDot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dsw-alias-label-caption);
+}
+
+.remoteWorkspaceHeaderStatus[data-online='true'] .remoteWorkspaceStatusDot,
+.remoteWorkspaceStatus[data-online='true'] .remoteWorkspaceStatusDot {
+  background: var(--dsw-alias-state-success-primary, #1a7f37);
+}
+
+.remoteWorkspaceItem {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: var(--dsw-radius-md);
+}
+
+.remoteWorkspaceItem:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remoteWorkspaceMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--dsw-radius-md);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.remoteWorkspaceMain svg {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteWorkspaceText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.remoteWorkspacePath {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.remoteWorkspaceHost {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteWorkspaceStatus {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  line-height: 15px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remoteWorkspaceStatus[data-online='true'] {
+  color: var(--dsw-alias-state-success-primary, #1a7f37);
+}
+
+.remoteWorkspaceTarget {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remoteWorkspaceRemove {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-caption);
+  cursor: pointer;
+}
+
+.remoteWorkspaceRemove:hover {
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remoteWorkspaceActions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 2px;
+  opacity: 0;
+  transition: opacity 120ms var(--ds-ease-in-out);
+}
+
+.remoteWorkspaceItem:hover .remoteWorkspaceActions,
+.remoteWorkspaceItem:focus-within .remoteWorkspaceActions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .remoteWorkspaceActions {
+    opacity: 1;
+  }
+}
+
+.remoteWorkspaceAction {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  cursor: pointer;
+}
+
+.remoteWorkspaceAction:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.remoteWorkspaceMenuAnchor {
+  flex: none;
+}
+
+.remoteWorkspaceMenu {
+  min-width: 180px;
+  padding: 4px;
+}
+
+.remoteWorkspaceMenuItem {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.remoteWorkspaceMenuItem:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remotePickerOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.remotePickerDialog {
+  width: 520px;
+  max-width: calc(100vw - 40px);
+  max-height: min(620px, calc(100vh - 40px));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-layer-1);
+  color: var(--dsw-alias-label-primary);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+.remotePickerHeader {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 10px;
+}
+
+.remotePickerTitle {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.remotePickerSub {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.remotePickerSelectConnection {
+  max-width: 190px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  background: var(--dsw-alias-bg-base);
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 12px;
+}
+
+.remotePickerToolbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px 10px;
+}
+
+.remotePickerPath {
+  flex: 1;
+  min-width: 0;
+}
+
+.remotePickerTool {
+  flex: none;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remotePickerTool:hover:not(:disabled) {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.remotePickerTool:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.remotePickerList {
+  flex: 1;
+  min-height: 180px;
+  overflow-y: auto;
+  padding: 4px 10px 8px;
+  border-top: 1px solid var(--dsw-alias-border-l1);
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
+
+.remotePickerRow {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.remotePickerRow:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remotePickerFile {
+  color: var(--dsw-alias-label-secondary);
+  cursor: default;
+}
+
+.remotePickerFile:hover {
+  background: transparent;
+}
+
+.remotePickerGlyph {
+  flex: none;
+  width: 16px;
+  color: var(--dsw-alias-label-tertiary);
+  text-align: center;
+}
+
+.remotePickerEmpty {
+  margin: 12px 8px;
+  font-size: 12px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remotePickerError {
+  margin: 12px 8px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--dsw-alias-state-danger-primary, #d1242f);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.remotePickerCreateRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+}
+
+.remotePickerCreateInput {
+  flex: 1;
+  min-width: 0;
+}
+
+.remotePickerCreate {
+  flex: none;
+  height: 30px;
+  padding: 0 10px;
+  border: none;
+  border-radius: var(--dsw-radius-sm);
+  background: var(--dsw-alias-state-business-primary);
+  color: var(--dsw-alias-label-on-business, #fff);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.remotePickerCreate:hover {
+  filter: brightness(1.06);
+}
+
+.remotePickerFooter {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+}
+
+.remotePickerHint {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--dsw-alias-label-caption);
+}
+
+.remotePickerCancel,
+.remotePickerSelect {
+  flex: none;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--dsw-radius-sm);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remotePickerCancel {
+  border: 1px solid var(--dsw-alias-border-l2);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.remotePickerCancel:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+.remotePickerSelect {
+  border: none;
+  background: var(--dsw-alias-state-business-primary);
+  color: var(--dsw-alias-label-on-business, #fff);
+  font-weight: 500;
+}
+
+.remotePickerSelect:hover {
+  filter: brightness(1.06);
 }
