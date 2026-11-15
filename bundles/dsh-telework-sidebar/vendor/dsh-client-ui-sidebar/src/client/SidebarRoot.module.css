@@ -1496,29 +1496,55 @@
 }
 
 .remoteWorkspaceSessionRow {
-  height: 26px;
+  width: 100%;
+  height: 32px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 6px;
+  padding: 0 8px;
   border: none;
-  border-radius: var(--dsw-radius-sm);
+  border-radius: var(--dsw-radius-md);
   background: transparent;
-  color: var(--dsw-alias-label-secondary);
+  color: var(--dsw-alias-label-primary);
   font: inherit;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 20px;
   text-align: left;
   cursor: pointer;
 }
 
-.remoteWorkspaceSessionRow:hover {
-  background: var(--dsw-alias-interactive-bg-hover);
-  color: var(--dsw-alias-label-primary);
+.remoteWorkspaceSessionRow > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.remoteWorkspaceSessionRow svg {
-  flex: none;
-  color: var(--dsw-alias-label-tertiary);
+.remoteWorkspaceSessionRow:hover,
+.remoteWorkspaceSessionRow[data-current] {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.remoteSessionHover {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--dsw-alias-hovercard-label-primary);
+  overflow-wrap: break-word;
+}
+
+.remoteSessionHoverTitle {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.remoteSessionHoverPath {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dsw-alias-hovercard-label-secondary);
+  word-break: break-all;
 }
 
 .remoteWorkspaceItem:hover {

@@ -23,7 +23,7 @@ import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerE
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import {
-  FishLogo, IconAppsAddOutlineRegular, IconEllipsisOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
+  FishLogo, HoverCard, IconAppsAddOutlineRegular, IconEllipsisOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
   IconPanelLeftOutlineRegular, IconPinFillRegular, focusWithoutRing, isBehindModal, isDarwinDesktop, Menu, ShortcutKeys, Toast,
   Tooltip, useModalLayer, writeClipboard,
 } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -304,6 +304,13 @@ interface SharedRemoteConnection {
   at: number
 }
 
+interface RemoteSessionItem {
+  id: string
+  blank: boolean
+  current: boolean
+  title: string
+}
+
 interface SharedRemoteWorkspace {
   id: string
   connectionId: string
@@ -313,6 +320,7 @@ interface SharedRemoteWorkspace {
   username?: string
   port?: string
   sessions?: readonly string[]
+  sessionItems?: readonly RemoteSessionItem[]
   localWorkspaceId?: string
 }
 
@@ -1045,20 +1053,39 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
         </Tooltip>
       </div>
     </div>
-    {workspace.sessions !== undefined && workspace.sessions.length > 0 && (
+    {workspace.sessionItems !== undefined && workspace.sessionItems.length > 0 && (
       <div className={css.remoteWorkspaceSessions}>
-        {workspace.sessions.map((sessionId, index) => (
-          <button
-            key={sessionId}
-            type="button"
-            className={css.remoteWorkspaceSessionRow}
-            title={sessionId}
-            onClick={() => { onOpenSession(sessionId) }}
-          >
-            <IconNewChatOutlineRegular size={13} />
-            <span>{t('remote.sessionRow').replace('{n}', String(index + 1))}</span>
-          </button>
-        ))}
+        {workspace.sessionItems.map((item) => {
+          const label = item.blank
+            ? t('remote.sessionNew')
+            : item.title === '' ? t('remote.sessionUntitled') : item.title
+          return (
+            <HoverCard
+              key={item.id}
+              anchor={(
+                <button
+                  type="button"
+                  className={css.remoteWorkspaceSessionRow}
+                  data-current={item.current || undefined}
+                  onClick={() => { onOpenSession(item.id) }}
+                >
+                  <span>{label}</span>
+                </button>
+              )}
+              content={(
+                <div className={css.remoteSessionHover}>
+                  <div className={css.remoteSessionHoverTitle}>{label}</div>
+                  <div className={css.remoteSessionHoverPath}>{workspace.path}</div>
+                </div>
+              )}
+              openDelayMs={800}
+              grouped
+              copyText={item.blank ? undefined : label}
+              copyLabel={t('remote.copy')}
+              copiedLabel={t('remote.copied')}
+            />
+          )
+        })}
       </div>
     )}
     </div>
@@ -1529,7 +1556,16 @@ export function SidebarRoot({
       if (session === undefined) return false
       return !session.blank || sessionId === currentSessionId
     })
-    return { ...workspace, sessions: visible }
+    const sessionItems = visible.map((sessionId) => {
+      const session = sessionList.byId[sessionId]
+      return {
+        id: sessionId,
+        blank: session?.blank === true,
+        current: sessionId === currentSessionId,
+        title: typeof session?.title === 'string' ? session.title.trim() : '',
+      }
+    })
+    return { ...workspace, sessions: visible, sessionItems }
   }), [storedRemoteWorkspaces, workspaceItems, workspaceState.archivedSessionIds, sessionList, currentSessionId])
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
