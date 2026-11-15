@@ -1,0 +1,11 @@
+# Keep source and generated client artifacts LF on every platform. The UI
+# build embeds CSS/JS text into the committed client bundles; CRLF checkout
+# would make an otherwise reproducible clone build dirty.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
