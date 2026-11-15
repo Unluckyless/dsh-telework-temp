@@ -91,7 +91,13 @@ async function readOptional(file) {
   }
 }
 
+const only = process.argv[2]
+if (only !== undefined && !targets.some(target => target.name === only)) {
+  throw new Error(`unknown UI target "${only}"; expected one of: ${targets.map(target => target.name).join(', ')}`)
+}
+
 for (const target of targets) {
+  if (only !== undefined && target.name !== only) continue
   const packageRoot = path.join(root, target.packageDir)
   const entry = path.join(packageRoot, 'src', 'client', 'index.ts')
   const outdir = path.join(scratch, target.name)

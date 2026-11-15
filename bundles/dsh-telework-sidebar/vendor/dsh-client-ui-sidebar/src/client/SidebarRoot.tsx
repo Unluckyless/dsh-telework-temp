@@ -1547,6 +1547,11 @@ export function SidebarRoot({
   // direct navigation, but the rail button never selects it.
   const [remoteMode, setRemoteMode] = useState(false)
   const [remoteWorkspaceToast, setRemoteWorkspaceToast] = useState<string | null>(null)
+  const [remoteWorkspaceToastTone, setRemoteWorkspaceToastTone] = useState<'success' | 'warning' | 'plain'>('success')
+  const notifyRemoteWorkspace = (text: string, tone: 'success' | 'warning' | 'plain' = 'success'): void => {
+    setRemoteWorkspaceToastTone(tone)
+    setRemoteWorkspaceToast(text)
+  }
   const [remotePickerOpen, setRemotePickerOpen] = useState(false)
   const [workspaceHeader, setWorkspaceHeader] = useState<HTMLElement | null>(null)
   const remoteStore = useMemo(ensureRemoteStore, [])
@@ -1744,7 +1749,7 @@ export function SidebarRoot({
   // normal Workspace, then start the Session there. The Session log stays local.
   const startRemoteSession = async (workspace: SharedRemoteWorkspace): Promise<void> => {
     if (!remoteConnections.some(connection => connection.id === workspace.connectionId && connection.status === 'connected')) {
-      setRemoteWorkspaceToast(t('remote.workspaceDisconnected'))
+      notifyRemoteWorkspace(t('remote.workspaceDisconnected'), 'warning')
       return
     }
     try {
@@ -1775,7 +1780,7 @@ export function SidebarRoot({
       const sessionId = await createSession(localWorkspaceId)
       openSession(sessionId)
     } catch (error) {
-      setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error))
+      notifyRemoteWorkspace(error instanceof Error ? error.message : String(error), 'warning')
     }
   }
   // Rail resting state is the whale mark; hovering swaps in the panel icon
@@ -2004,7 +2009,7 @@ export function SidebarRoot({
               workspaces={remoteWorkspaces}
               connections={remoteConnections}
               t={t}
-              onOpen={() => { setRemoteWorkspaceToast(t('remote.workspaceOpenSoon')) }}
+              onOpen={() => { notifyRemoteWorkspace(t('remote.workspaceOpenSoon'), 'plain') }}
               onNewSession={startRemoteSession}
               onOpenSession={(sessionId) => { openSession(sessionId) }}
               onRemove={(id) => { remoteStore.removeWorkspace(id) }}
@@ -2022,8 +2027,8 @@ export function SidebarRoot({
 
       {remoteWorkspaceToast !== null && (
         <Toast
-          key={`remote-workspace-${remoteWorkspaceToast}`}
-          tone="success"
+          key={`remote-workspace-${remoteWorkspaceToast}-${remoteWorkspaceToastTone}`}
+          tone={remoteWorkspaceToastTone}
           text={remoteWorkspaceToast}
           onDone={() => { setRemoteWorkspaceToast(null) }}
         />
@@ -2037,7 +2042,7 @@ export function SidebarRoot({
           onSelect={(connectionId, path) => {
             remoteStore.addWorkspace(connectionId, path)
             setRemotePickerOpen(false)
-            setRemoteWorkspaceToast(`${t('remote.workspaceAdded')} ${path}`)
+            notifyRemoteWorkspace(`${t('remote.workspaceAdded')} ${path}`, 'success')
           }}
         />
       )}

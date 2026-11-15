@@ -1575,6 +1575,11 @@ function SidebarRoot({
   const activePanelId = usePanelInfo((info) => info.activePanelId);
   const [remoteMode, setRemoteMode] = (0, import_react.useState)(false);
   const [remoteWorkspaceToast, setRemoteWorkspaceToast] = (0, import_react.useState)(null);
+  const [remoteWorkspaceToastTone, setRemoteWorkspaceToastTone] = (0, import_react.useState)("success");
+  const notifyRemoteWorkspace = (text, tone = "success") => {
+    setRemoteWorkspaceToastTone(tone);
+    setRemoteWorkspaceToast(text);
+  };
   const [remotePickerOpen, setRemotePickerOpen] = (0, import_react.useState)(false);
   const [workspaceHeader, setWorkspaceHeader] = (0, import_react.useState)(null);
   const remoteStore = (0, import_react.useMemo)(ensureRemoteStore, []);
@@ -1725,7 +1730,7 @@ function SidebarRoot({
   };
   const startRemoteSession = async (workspace) => {
     if (!remoteConnections.some((connection) => connection.id === workspace.connectionId && connection.status === "connected")) {
-      setRemoteWorkspaceToast(t("remote.workspaceDisconnected"));
+      notifyRemoteWorkspace(t("remote.workspaceDisconnected"), "warning");
       return;
     }
     try {
@@ -1753,7 +1758,7 @@ function SidebarRoot({
       const sessionId = await createSession(localWorkspaceId);
       openSession(sessionId);
     } catch (error) {
-      setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error));
+      notifyRemoteWorkspace(error instanceof Error ? error.message : String(error), "warning");
     }
   };
   const toggle = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: toggleLabel, shortcutKeys: shortcut?.keys, delayMs: 500, side: captionTooltipSide, portal: drawer, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
@@ -1947,7 +1952,7 @@ function SidebarRoot({
                       connections: remoteConnections,
                       t,
                       onOpen: () => {
-                        setRemoteWorkspaceToast(t("remote.workspaceOpenSoon"));
+                        notifyRemoteWorkspace(t("remote.workspaceOpenSoon"), "plain");
                       },
                       onNewSession: startRemoteSession,
                       onOpenSession: (sessionId) => {
@@ -1970,13 +1975,13 @@ function SidebarRoot({
           remoteWorkspaceToast !== null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             import_dsh_client_ui_primitives2.Toast,
             {
-              tone: "success",
+              tone: remoteWorkspaceToastTone,
               text: remoteWorkspaceToast,
               onDone: () => {
                 setRemoteWorkspaceToast(null);
               }
             },
-            `remote-workspace-${remoteWorkspaceToast}`
+            `remote-workspace-${remoteWorkspaceToast}-${remoteWorkspaceToastTone}`
           ),
           remotePickerOpen && remoteConnected && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
             RemoteWorkspacePicker,
@@ -1989,7 +1994,7 @@ function SidebarRoot({
               onSelect: (connectionId, path) => {
                 remoteStore.addWorkspace(connectionId, path);
                 setRemotePickerOpen(false);
-                setRemoteWorkspaceToast(`${t("remote.workspaceAdded")} ${path}`);
+                notifyRemoteWorkspace(`${t("remote.workspaceAdded")} ${path}`, "success");
               }
             }
           )
