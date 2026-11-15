@@ -47,12 +47,24 @@ The row lives in the active profile's `cordis.patch.yml` (Desktop: `%USERPROFILE
 
 Validation is strict: target ids must be unique, aliases must not start with `-` or contain whitespace, and at most 20 targets are accepted. An invalid row fails plugin activation with a message naming the offending field.
 
-## Development
+## Getting started from a GitHub clone
 
-Plain JavaScript and no build step. The Host SSH/SFTP backend uses `ssh2`; run
-`pnpm install` (or `npm install`) in this directory before installing the
-plugin. `node_modules` is not committed, so a GitHub checkout needs that
-install step.
+Requires Node.js 24+ and DeepSeek Harness `0.2.2-rc.3` (the vendored Web UI is
+built from that version's sources).
+
+```powershell
+git clone https://github.com/Unluckyless/dsh-telework-temp.git
+cd dsh-telework-temp
+pnpm install
+```
+
+Then open **Plugins → Add plugin** in the DSH Web GUI and select this main
+directory. Refresh the Web GUI once after installation.
+
+> Install **only this main directory**. The folders under `bundles/` are
+> vendored UI packages consumed by the main bundle's `cordis.patch.yml`; adding
+> them as separate profile bundles would insert the same client module ids twice
+> and break the Web boot.
 
 ```
 dsh-telework/
@@ -61,26 +73,34 @@ dsh-telework/
   ssh-g.js             Pure parser for `ssh -G` output
   remote.js            Live SSH/SFTP connection manager for the Remote UI
   client.js            Web Client half (Remote sidebar entry + panel)
-  cordis.patch.yml     Loader patch that inserts the plugin row
+  cordis.patch.yml     Loader patch: Host row + all Web UI overrides
   locale/              Plugin Manager title and description
   icon.svg             Plugin icon
-  bundles/             UI sub-bundles installed alongside this one
-    dsh-telework-sidebar/       vendored activity rail and workspace panel
-    dsh-telework-topbar/        vendored top bar with the window controls
-    dsh-telework-conversation/  vendored single-line conversation header
+  bundles/             Vendored UI packages owned by this bundle
+    dsh-telework-sidebar/       activity rail + workspace panel + workspace vendor
+    dsh-telework-topbar/        top bar / window controls
+    dsh-telework-conversation/  single-line conversation header
+    dsh-telework-rightbar/      right Sidebar vendor (vertical-split experiment)
   dev/                 UI bundle build scripts (pnpm run build:ui)
   docs/design.zh-CN.md Architecture notes and open questions
   README.zh-CN.md      中文说明
 ```
 
-The vendored UI bundles are rebuilt from their committed sources with
-`pnpm run build:ui`; see `dev/README.md`. A GitHub checkout does not need the
-old sibling `.tools` workspace.
+The vendored client artifacts (`lib/client.js` under each vendor package) are
+committed, so a clone can install and run without a build step. To rebuild them
+from the committed sources:
 
-The three UI bundles under `bundles/` are separate DSH bundles used during
-development. They live inside this repository so a GitHub checkout is one
-directory; install each one from its `bundles/...` path. They can be merged into
-this main bundle for a single-package release.
+```powershell
+pnpm run build:ui              # all targets
+node dev/build-ui.mjs sidebar  # one target
+```
+
+See `dev/README.md`. Do not run the UI build while the Web page is open:
+client-modules keys artifacts by mtime/ctime/size and a running page can request
+a stale revision. Refresh or restart the page after building.
+
+The old sibling `.tools` workspace is not needed; all sources and build
+dependencies live inside this repository.
 
 Check the syntax with any Node.js 24+ executable:
 

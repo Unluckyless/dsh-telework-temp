@@ -47,11 +47,21 @@
 
 校验比较严格：目标 id 不能重复，别名不能以 `-` 开头或包含空白字符，最多 20 个目标。配置非法时插件激活失败，并在错误信息中点名字段。
 
-## 开发
+## 从 GitHub clone 后使用
 
-纯 JavaScript，无构建步骤。Host 的 SSH/SFTP 后端使用 `ssh2`；安装插件前请在
-本目录执行 `pnpm install`（或 `npm install`）。`node_modules` 不提交，因此从
-GitHub 拉取后需要先安装依赖。
+需要 Node.js 24+，以及 DeepSeek Harness `0.2.2-rc.3`（Web UI vendor 基于该版本源码构建）。
+
+```powershell
+git clone https://github.com/Unluckyless/dsh-telework-temp.git
+cd dsh-telework-temp
+pnpm install
+```
+
+然后在 DSH Web GUI 的 **Plugins → Add plugin** 中选择这个主目录，安装后刷新一次页面。
+
+> 只安装主目录。`bundles/` 下的目录是主 bundle 的 `cordis.patch.yml` 引用的
+> vendor 包，不是独立安装的 profile bundle；单独安装会把同一个 client module id
+> 插入两次，导致 Web boot 失败。
 
 ```
 dsh-telework/
@@ -60,24 +70,32 @@ dsh-telework/
   ssh-g.js             `ssh -G` 输出的纯解析模块
   remote.js            Remote UI 使用的 SSH/SFTP 连接管理器
   client.js            Web Client 半（Remote 左栏入口 + 中央面板）
-  cordis.patch.yml     插入插件行的 Loader 补丁
+  cordis.patch.yml     Loader 补丁：Host 行 + 所有 Web UI 覆盖
   locale/              插件管理器的标题与描述
   icon.svg             插件图标
-  bundles/             UI 子 bundle，和主插件一起安装
-    dsh-telework-sidebar/       活动栏 + 工作区面板
+  bundles/             主 bundle 自带的 UI vendor 包
+    dsh-telework-sidebar/       活动栏 + 工作区面板 + workspace vendor
     dsh-telework-topbar/        顶栏与窗口按钮区
     dsh-telework-conversation/  单行对话顶栏
+    dsh-telework-rightbar/      右侧栏 vendor（上下 split 实验）
   dev/                 UI bundle 构建脚本（pnpm run build:ui）
   docs/design.zh-CN.md 架构备忘与待定问题
   README.zh-CN.md      本文件
 ```
 
-三个 UI vendor bundle 可以从已提交的源码用 `pnpm run build:ui` 重建，说明见
-`dev/README.md`。从 GitHub clone 后不再需要同级的 `.tools` 目录。
+各 vendor 的 `lib/client.js` 已提交，clone 后即使不构建也能安装运行。需要修改
+UI 时再从已提交的源码重建：
 
-`bundles/` 下的三个 UI 子 bundle 是独立安装的 DSH bundle，放在主目录里是为了
-整个项目只上传一个仓库目录；开发时从各自的 `bundles/...` 路径安装。发布时可以
-把它们合并进主 bundle，做成单包安装。
+```powershell
+pnpm run build:ui              # 全部目标
+node dev/build-ui.mjs sidebar  # 单个目标
+```
+
+说明见 `dev/README.md`。**不要在 Web 页面打开时构建 UI**：client-modules 用
+mtime/ctime/size 作为 revision，运行中的页面可能请求旧 revision。构建后刷新或
+重启页面。
+
+同级的旧 `.tools` 目录不再需要；源码和构建依赖都在本仓库内。
 
 用任意 Node.js 24+ 可执行文件检查语法：
 
