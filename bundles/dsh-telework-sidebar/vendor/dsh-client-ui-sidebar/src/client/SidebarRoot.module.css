@@ -1570,7 +1570,20 @@
 
 .remoteWorkspaceMain svg {
   flex: none;
+}
+
+.remoteWorkspaceFolder {
+  flex: none;
+  width: 16px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--dsw-alias-label-tertiary);
+}
+
+.remoteWorkspaceFolder[data-active] {
+  color: var(--dsw-alias-state-business-primary);
 }
 
 .remoteWorkspaceText {

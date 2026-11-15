@@ -23,7 +23,7 @@ import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerE
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import {
-  FishLogo, HoverCard, IconAppsAddOutlineRegular, IconEllipsisOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
+  FishLogo, HoverCard, IconAppsAddOutlineRegular, IconEllipsisOutlineRegular, IconFolderOpenRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
   IconPanelLeftOutlineRegular, IconPinFillRegular, focusWithoutRing, isBehindModal, isDarwinDesktop, Menu, ShortcutKeys, Toast,
   Tooltip, useModalLayer, writeClipboard,
 } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -985,6 +985,7 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = (): void => { setMenuOpen(false) }
+  const active = workspace.sessionItems?.some(item => item.current) === true
   return (
     <div className={css.remoteWorkspaceBlock}>
     <div className={css.remoteWorkspaceItem}>
@@ -994,9 +995,9 @@ function RemoteWorkspaceRow({ workspace, connection, target, online, t, onOpen, 
         title={workspace.path}
         onClick={() => { onOpen(workspace) }}
       >
-        <svg width={16} height={16} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1l1.2 1.5H13A1.5 1.5 0 0 1 14.5 5.5v6A1.5 1.5 0 0 1 13 13H3a1.5 1.5 0 0 1-1.5-1.5V4Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
-        </svg>
+        <span className={css.remoteWorkspaceFolder} data-active={active || undefined}>
+          <IconFolderOpenRegular />
+        </span>
         <span className={css.remoteWorkspaceText}>
           <span className={css.remoteWorkspacePath}>{remoteWorkspaceName(workspace.path)}</span>
           <span className={css.remoteWorkspaceHost}>
