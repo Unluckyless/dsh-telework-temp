@@ -36604,13 +36604,21 @@ function concreteConversation(ctx) {
   if (conversation === void 0) throw new Error("ui-conversation: conversation service unavailable");
   return conversation;
 }
+var TELEWORK_RELOAD_GUARD = "dsh-telework.ui-reload-at";
+function scheduleUiReload() {
+  if (typeof window === "undefined") return;
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0);
+    if (Number.isFinite(last) && Date.now() - last < 15e3) return;
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()));
+  } catch {
+  }
+  window.setTimeout(() => {
+    window.location.reload();
+  }, 250);
+}
 function apply(ctx, config = Config({})) {
-  ctx.effect(() => () => {
-    if (typeof window === "undefined") return;
-    window.setTimeout(() => {
-      window.location.reload();
-    }, 250);
-  }, "telework: reload after conversation unload");
+  ctx.effect(() => () => scheduleUiReload(), "telework: reload after conversation unload");
   const sessions = ctx.sessions;
   const slots = ctx.slots;
   const maxConcurrentFileUploads = config.maxConcurrentFileUploads;

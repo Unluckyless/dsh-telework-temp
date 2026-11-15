@@ -57,16 +57,28 @@ interface SessionController {
 /** Services required by the sidebar plugin. */
 export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'sessions', 'locale', 'shortcuts']
 
+const TELEWORK_RELOAD_GUARD = 'dsh-telework.ui-reload-at'
+
+/** Reload into a new client graph, at most once per 15 seconds per tab. */
+function scheduleUiReload(): void {
+  if (typeof window === 'undefined') return
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0)
+    if (Number.isFinite(last) && Date.now() - last < 15_000) return
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()))
+  } catch {
+    // Storage can be denied; still reload once from this stack.
+  }
+  window.setTimeout(() => { window.location.reload() }, 250)
+}
+
 /** Registers the sidebar shell and its service callbacks.
  * @param ctx - Client root context.
  */
 export function apply(ctx: ClientContext): void {
-  // A vendored shell package cannot be hot-swapped safely across a reinstall;
-  // reload instead of leaving the page without this module.
-  ctx.effect(() => () => {
-    if (typeof window === 'undefined') return
-    window.setTimeout(() => { window.location.reload() }, 250)
-  }, 'telework: reload after sidebar unload')
+  // One reload at most per 15s. Reinstall/HMR can dispose this vendor several
+  // times in a row; an unthrottled reload would loop the whole page.
+  ctx.effect(() => () => scheduleUiReload(), 'telework: reload after sidebar unload')
   const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation
   const workspaceRegistry = ctx.get('workspaces') as unknown as WorkspaceRegistry
   const sessionController = ctx.get('sessions') as unknown as SessionController

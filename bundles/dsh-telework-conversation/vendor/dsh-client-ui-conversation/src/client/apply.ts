@@ -155,13 +155,25 @@ function concreteConversation(ctx: Context): ConversationController {
  * Mount the Conversation core and target-neutral presentation.
  * @param ctx - Client root context.
  */
+const TELEWORK_RELOAD_GUARD = 'dsh-telework.ui-reload-at'
+
+/** Reload into a new client graph, at most once per 15 seconds per tab. */
+function scheduleUiReload(): void {
+  if (typeof window === 'undefined') return
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0)
+    if (Number.isFinite(last) && Date.now() - last < 15_000) return
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()))
+  } catch {
+    // Storage can be denied; still reload once from this stack.
+  }
+  window.setTimeout(() => { window.location.reload() }, 250)
+}
+
 export function apply(ctx: Context, config: Config = Config({})): void {
-  // A vendored shell package cannot be hot-swapped safely across a reinstall;
-  // reload instead of leaving the page without this module.
-  ctx.effect(() => () => {
-    if (typeof window === 'undefined') return
-    window.setTimeout(() => { window.location.reload() }, 250)
-  }, 'telework: reload after conversation unload')
+  // One reload at most per 15s. Reinstall/HMR can dispose this vendor several
+  // times in a row; an unthrottled reload would loop the whole page.
+  ctx.effect(() => () => scheduleUiReload(), 'telework: reload after conversation unload')
   const sessions = ctx.sessions
   const slots = ctx.slots
   // Schemastery's field default is materialized before Cordis calls apply.

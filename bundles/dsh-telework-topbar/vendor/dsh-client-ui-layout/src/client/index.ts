@@ -153,6 +153,21 @@ export interface RightbarOwnerProps {
 /** Required services (cordis fiber inject — the loader passes all module exports as an object plugin). */
 export const inject = ['slots', 'theme', 'locale', 'shortcuts']
 
+const TELEWORK_RELOAD_GUARD = 'dsh-telework.ui-reload-at'
+
+/** Reload into a new client graph, at most once per 15 seconds per tab. */
+function scheduleUiReload(): void {
+  if (typeof window === 'undefined') return
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0)
+    if (Number.isFinite(last) && Date.now() - last < 15_000) return
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()))
+  } catch {
+    // Storage can be denied; still reload once from this stack.
+  }
+  window.setTimeout(() => { window.location.reload() }, 250)
+}
+
 /**
  * Client plugin body: provide ctx.layout, then one register() call — AppFrame
  * into 'root' with its child-slot declarations, the layout store seat,
@@ -160,14 +175,10 @@ export const inject = ['slots', 'theme', 'locale', 'shortcuts']
  * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
-  // This module owns the whole application shell. The client module graph has
-  // no failure rollback, and reconciling a same-package-name vendor swap can
-  // briefly leave the page without a shell. Reload into the next graph instead
-  // of leaving a blank page after a Telework UI update/reinstall.
-  ctx.effect(() => () => {
-    if (typeof window === 'undefined') return
-    window.setTimeout(() => { window.location.reload() }, 250)
-  }, 'telework: reload after shell unload')
+  // A vendored shell cannot be hot-swapped reliably. Reload into the next
+  // graph after unload, but never more than once per 15s: a reinstall can
+  // dispose the same module repeatedly and otherwise loops the page forever.
+  ctx.effect(() => () => scheduleUiReload(), 'telework: reload after shell unload')
   ctx.effect(() => ctx.locale.register('shortcuts.layout', { zh, en, ja, es, fr, de, ru, pt }), 'layout: command labels')
   const t = ctx.locale.bind('shortcuts.layout')
 

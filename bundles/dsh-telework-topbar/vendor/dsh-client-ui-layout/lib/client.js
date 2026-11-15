@@ -622,13 +622,21 @@ var ThemePresenter = class {
 
 // bundles/dsh-telework-topbar/vendor/dsh-client-ui-layout/src/client/index.ts
 var inject = ["slots", "theme", "locale", "shortcuts"];
+var TELEWORK_RELOAD_GUARD = "dsh-telework.ui-reload-at";
+function scheduleUiReload() {
+  if (typeof window === "undefined") return;
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0);
+    if (Number.isFinite(last) && Date.now() - last < 15e3) return;
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()));
+  } catch {
+  }
+  window.setTimeout(() => {
+    window.location.reload();
+  }, 250);
+}
 function apply(ctx) {
-  ctx.effect(() => () => {
-    if (typeof window === "undefined") return;
-    window.setTimeout(() => {
-      window.location.reload();
-    }, 250);
-  }, "telework: reload after shell unload");
+  ctx.effect(() => () => scheduleUiReload(), "telework: reload after shell unload");
   ctx.effect(() => ctx.locale.register("shortcuts.layout", { zh, en, ja, es, fr, de, ru, pt }), "layout: command labels");
   const t = ctx.locale.bind("shortcuts.layout");
   ctx.effect(() => {

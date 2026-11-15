@@ -2343,13 +2343,21 @@ var SIDEBAR_SECTION_INJECT = {
 };
 var NS = "sidebar";
 var inject = ["slots", "layout", "uiWorkspace", "workspaces", "sessions", "locale", "shortcuts"];
+var TELEWORK_RELOAD_GUARD = "dsh-telework.ui-reload-at";
+function scheduleUiReload() {
+  if (typeof window === "undefined") return;
+  try {
+    const last = Number(window.sessionStorage.getItem(TELEWORK_RELOAD_GUARD) ?? 0);
+    if (Number.isFinite(last) && Date.now() - last < 15e3) return;
+    window.sessionStorage.setItem(TELEWORK_RELOAD_GUARD, String(Date.now()));
+  } catch {
+  }
+  window.setTimeout(() => {
+    window.location.reload();
+  }, 250);
+}
 function apply(ctx) {
-  ctx.effect(() => () => {
-    if (typeof window === "undefined") return;
-    window.setTimeout(() => {
-      window.location.reload();
-    }, 250);
-  }, "telework: reload after sidebar unload");
+  ctx.effect(() => () => scheduleUiReload(), "telework: reload after sidebar unload");
   const workspaceNavigation = ctx.get("uiWorkspace");
   const workspaceRegistry = ctx.get("workspaces");
   const sessionController = ctx.get("sessions");
