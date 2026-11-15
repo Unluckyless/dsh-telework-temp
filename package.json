@@ -12,6 +12,7 @@
   },
   "files": [
     "index.js",
+    "remote.js",
     "targets.js",
     "files.js",
     "ssh-g.js",
@@ -36,5 +37,8 @@
         "@deepseek-ai/dsh-client-ui-sidebar"
       ]
     }
+  },
+  "dependencies": {
+    "ssh2": "^1.17.0"
   }
 }

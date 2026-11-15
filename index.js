@@ -12,6 +12,7 @@
 
 import { inspectTargets, normalizeConfig } from './targets.js'
 import { listWorkspaceDirectory } from './files.js'
+import { RemoteConnections } from './remote.js'
 
 /** Cordis plugin name. */
 export const name = 'telework'
@@ -81,6 +82,40 @@ const outputSchema = {
   },
 }
 
+/** Read a small JSON request body from a Node HTTP request. */
+function readJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = []
+    let size = 0
+    req.on('data', (chunk) => {
+      size += chunk.length
+      if (size > 1_048_576) {
+        reject(new Error('request body is too large'))
+        req.destroy()
+        return
+      }
+      chunks.push(chunk)
+    })
+    req.on('end', () => {
+      try {
+        const text = Buffer.concat(chunks).toString('utf8')
+        resolve(text === '' ? {} : JSON.parse(text))
+      } catch {
+        reject(new Error('request body must be valid JSON'))
+      }
+    })
+    req.on('error', reject)
+  })
+}
+
+/** Send a JSON response from a Node HTTP handler route. */
+function sendJson(res, body, status = 200) {
+  res.statusCode = status
+  res.setHeader('content-type', 'application/json; charset=utf-8')
+  res.setHeader('cache-control', 'no-store')
+  res.end(JSON.stringify(body))
+}
+
 /**
  * Mount the plugin.
  * @param {import('@deepseek-ai/cordis').Context} ctx - the plugin context.
@@ -137,6 +172,85 @@ export function apply(ctx, config) {
       }
     },
   }), 'telework: files route')
+
+  // Live SSH/SFTP endpoints used by the Remote sidebar and the workspace
+  // picker. Passwords stay in this Host process and are never returned.
+  const remote = new RemoteConnections()
+  const respondJson = (body, status = 200) => new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      'cache-control': 'no-store',
+    },
+  })
+  ctx.effect(() => () => remote.dispose(), 'telework: remote connections cleanup')
+
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/connect',
+    handler: async (req, res) => {
+      if (req.method !== 'POST') return sendJson(res, { error: 'POST is required' }, 405)
+      try {
+        const body = await readJsonBody(req)
+        const connection = await remote.connect(body)
+        sendJson(res, connection)
+      } catch (error) {
+        sendJson(res, { error: error instanceof Error ? error.message : String(error) }, 400)
+      }
+    },
+  }), 'telework: SSH connect route')
+
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/list',
+    resource: async (request) => {
+      if (request.method !== 'GET') return respondJson({ error: 'GET is required' }, 405)
+      const url = new URL(request.url)
+      const connection = url.searchParams.get('connection')
+      const remotePath = url.searchParams.get('path')
+      if (connection === null || remotePath === null) {
+        return respondJson({ error: 'connection and path are required' }, 400)
+      }
+      try {
+        return respondJson(await remote.list(connection, remotePath))
+      } catch (error) {
+        return respondJson({ error: error instanceof Error ? error.message : String(error) }, 400)
+      }
+    },
+  }), 'telework: SSH directory route')
+
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/disconnect',
+    handler: async (req, res) => {
+      if (req.method !== 'POST') return sendJson(res, { error: 'POST is required' }, 405)
+      try {
+        const body = await readJsonBody(req)
+        if (typeof body?.id !== 'string') return sendJson(res, { error: 'id is required' }, 400)
+        remote.disconnect(body.id)
+        sendJson(res, { ok: true })
+      } catch (error) {
+        sendJson(res, { error: error instanceof Error ? error.message : String(error) }, 400)
+      }
+    },
+  }), 'telework: SSH disconnect route')
+
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/mkdir',
+    handler: async (req, res) => {
+      if (req.method !== 'POST') return sendJson(res, { error: 'POST is required' }, 405)
+      try {
+        const body = await readJsonBody(req)
+        if (typeof body?.connection !== 'string' || typeof body?.path !== 'string' || typeof body?.name !== 'string') {
+          return sendJson(res, { error: 'connection, path and name are required' }, 400)
+        }
+        sendJson(res, await remote.mkdir(body.connection, body.path, body.name))
+      } catch (error) {
+        sendJson(res, { error: error instanceof Error ? error.message : String(error) }, 400)
+      }
+    },
+  }), 'telework: SSH mkdir route')
 
   // An installed-but-unconfigured bundle adds no prompt tokens and no tool.
   if (settings.targets.length === 0) return

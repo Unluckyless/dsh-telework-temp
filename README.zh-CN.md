@@ -49,13 +49,16 @@
 
 ## 开发
 
-纯 JavaScript，无构建步骤、无依赖。早期实验可以把同一台机器上的 WSL 当作本地 SSH 目标。
+纯 JavaScript，无构建步骤。Host 的 SSH/SFTP 后端使用 `ssh2`；安装插件前请在
+本目录执行 `pnpm install`（或 `npm install`）。`node_modules` 不提交，因此从
+GitHub 拉取后需要先安装依赖。
 
 ```
 dsh-telework/
   index.js             Host 插件（配置、状态路由、telework_status 工具）
   targets.js           配置校验与 `ssh -G` 目标检查
   ssh-g.js             `ssh -G` 输出的纯解析模块
+  remote.js            Remote UI 使用的 SSH/SFTP 连接管理器
   client.js            Web Client 半（Remote 左栏入口 + 中央面板）
   cordis.patch.yml     插入插件行的 Loader 补丁
   locale/              插件管理器的标题与描述

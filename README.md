@@ -49,13 +49,17 @@ Validation is strict: target ids must be unique, aliases must not start with `-`
 
 ## Development
 
-Plain JavaScript, no build step and no dependencies. WSL on the same machine can act as a local SSH target for early experiments.
+Plain JavaScript and no build step. The Host SSH/SFTP backend uses `ssh2`; run
+`pnpm install` (or `npm install`) in this directory before installing the
+plugin. `node_modules` is not committed, so a GitHub checkout needs that
+install step.
 
 ```
 dsh-telework/
   index.js             Host plugin (config, status route, telework_status tool)
   targets.js           Config validation and `ssh -G` target inspection
   ssh-g.js             Pure parser for `ssh -G` output
+  remote.js            Live SSH/SFTP connection manager for the Remote UI
   client.js            Web Client half (Remote sidebar entry + panel)
   cordis.patch.yml     Loader patch that inserts the plugin row
   locale/              Plugin Manager title and description
