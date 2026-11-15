@@ -1513,6 +1513,7 @@ function SidebarRoot({
   startSession,
   openSession,
   createWorkspace,
+  waitForWorkspace,
   toggleSidebar,
   selectPanel,
   setPinned,
@@ -1540,6 +1541,7 @@ function SidebarRoot({
   const remoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const remoteConnected = remoteConnections.some((connection) => connection.status === "connected");
   const [pendingRemoteWorkspaceId, setPendingRemoteWorkspaceId] = (0, import_react.useState)(null);
+  const previousSessionIdRef = (0, import_react.useRef)(void 0);
   (0, import_react.useEffect)(() => {
     remoteStore.relinkWorkspaces();
   }, [remoteStore, remoteConnections, remoteWorkspaces]);
@@ -1547,12 +1549,14 @@ function SidebarRoot({
     if (pendingRemoteWorkspaceId === null) return;
     const timer = window.setTimeout(() => {
       const sessionId = currentSession.getSnapshot().sessionId;
-      if (sessionId !== void 0) {
+      const previousSessionId = previousSessionIdRef.current;
+      if (sessionId !== void 0 && sessionId !== previousSessionId) {
         remoteStore.addSession(pendingRemoteWorkspaceId, sessionId);
         setRemoteWorkspaceToast(t("remote.sessionCreated"));
       }
+      previousSessionIdRef.current = void 0;
       setPendingRemoteWorkspaceId(null);
-    }, 300);
+    }, 500);
     return () => {
       window.clearTimeout(timer);
     };
@@ -1691,6 +1695,8 @@ function SidebarRoot({
         localWorkspaceId = String(view.workspaceId);
         remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
       }
+      await waitForWorkspace(localWorkspaceId);
+      previousSessionIdRef.current = currentSession.getSnapshot().sessionId;
       setPendingRemoteWorkspaceId(workspace.id);
       startSession(localWorkspaceId);
     } catch (error) {
@@ -2231,6 +2237,18 @@ function apply(ctx) {
     },
     setPinned: panelPins.setPinned,
     currentSession: selection,
+    waitForWorkspace: (workspaceId) => new Promise((resolve) => {
+      const deadline = Date.now() + 4e3;
+      const check = () => {
+        const items = workspaceRegistry.list.getSnapshot().items;
+        if (items.some((item) => item.workspaceId === workspaceId) || Date.now() >= deadline) {
+          resolve();
+          return;
+        }
+        window.setTimeout(check, 50);
+      };
+      check();
+    }),
     trackEntryClick: (attributes) => {
       ctx.get("productAnalytics")?.track("sidebar_menu_click", attributes);
     },

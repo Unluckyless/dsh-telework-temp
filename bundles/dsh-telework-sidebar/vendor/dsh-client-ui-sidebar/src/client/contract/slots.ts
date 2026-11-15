@@ -219,6 +219,8 @@ export type SidebarRootInjected = {
   startSession: (workspaceId?: WorkspaceId) => void
   /** Open a Session by id through the Workspace UI. */
   openSession: (sessionId: string) => void
+  /** Wait until the client workspace snapshot contains a just-created Workspace. */
+  waitForWorkspace: (workspaceId: string) => Promise<void>
   /** Create a normal local DSH Workspace from an existing directory. */
   createWorkspace: (input: { path: string }) => Promise<{ workspaceId: WorkspaceId, path: string, title: string }>
   /** Toggle the sidebar column through the layout service. */

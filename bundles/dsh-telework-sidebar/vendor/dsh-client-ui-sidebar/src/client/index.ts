@@ -47,6 +47,7 @@ interface WorkspaceNavigation {
 
 interface WorkspaceRegistry {
   create(input: { path: string }): Promise<{ workspaceId: string, path: string, title: string }>
+  list: { getSnapshot(): { items: readonly { workspaceId: string }[] } }
 }
 
 /** Services required by the sidebar plugin. */
@@ -93,6 +94,18 @@ export function apply(ctx: ClientContext): void {
     toggleSidebar: () => { ctx.layout.toggleSidebar() },
     selectPanel: (id) => { ctx.layout.selectPanel(id) },    setPinned: panelPins.setPinned,
     currentSession: selection,
+    waitForWorkspace: (workspaceId) => new Promise<void>((resolve) => {
+      const deadline = Date.now() + 4000
+      const check = (): void => {
+        const items = workspaceRegistry.list.getSnapshot().items
+        if (items.some(item => item.workspaceId === workspaceId) || Date.now() >= deadline) {
+          resolve()
+          return
+        }
+        window.setTimeout(check, 50)
+      }
+      check()
+    }),
     trackEntryClick: (attributes) => { ctx.get('productAnalytics')?.track('sidebar_menu_click', attributes) },
     hooks: { panels, shortcuts: ctx.shortcuts.catalog, entryPins: panelPins.unpinned, entryActions },
   })

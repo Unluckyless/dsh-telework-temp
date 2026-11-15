@@ -1467,6 +1467,7 @@ export function SidebarRoot({
   startSession,
   openSession,
   createWorkspace,
+  waitForWorkspace,
   toggleSidebar,
   selectPanel,
   setPinned,
@@ -1497,6 +1498,7 @@ export function SidebarRoot({
   const remoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
   const [pendingRemoteWorkspaceId, setPendingRemoteWorkspaceId] = useState<string | null>(null)
+  const previousSessionIdRef = useRef<string | undefined>(undefined)
   // A reconnect gets a fresh Host connection id. Re-point persisted workspaces
   // at the matching username@host:port so their status returns to connected.
   useEffect(() => {
@@ -1507,12 +1509,14 @@ export function SidebarRoot({
     if (pendingRemoteWorkspaceId === null) return
     const timer = window.setTimeout(() => {
       const sessionId = currentSession.getSnapshot().sessionId
-      if (sessionId !== undefined) {
+      const previousSessionId = previousSessionIdRef.current
+      if (sessionId !== undefined && sessionId !== previousSessionId) {
         remoteStore.addSession(pendingRemoteWorkspaceId, sessionId)
         setRemoteWorkspaceToast(t('remote.sessionCreated'))
       }
+      previousSessionIdRef.current = undefined
       setPendingRemoteWorkspaceId(null)
-    }, 300)
+    }, 500)
     return () => { window.clearTimeout(timer) }
   }, [pendingRemoteWorkspaceId, currentSession, remoteStore, t])
   const hasEntryActions = useEntryActions(registered => registered)
@@ -1685,6 +1689,8 @@ export function SidebarRoot({
         localWorkspaceId = String(view.workspaceId)
         remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
       }
+      await waitForWorkspace(localWorkspaceId)
+      previousSessionIdRef.current = currentSession.getSnapshot().sessionId
       setPendingRemoteWorkspaceId(workspace.id)
       startSession(localWorkspaceId as Parameters<typeof startSession>[0])
     } catch (error) {

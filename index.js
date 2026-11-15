@@ -21,7 +21,13 @@ import path from 'node:path'
 export const name = 'telework'
 
 /** The Remote panel route and files route need the web server and live sessions. */
-export const inject = ['webServer', 'tools', 'agents', 'workingDirectory']
+export const inject = [
+  'webServer',
+  'tools',
+  'agents',
+  'workingDirectory',
+  'workspaceRegistry',
+]
 
 /**
  * @param {Record<string, unknown>} _args
@@ -117,6 +123,22 @@ function sendJson(res, body, status = 200) {
   res.setHeader('content-type', 'application/json; charset=utf-8')
   res.setHeader('cache-control', 'no-store')
   res.end(JSON.stringify(body))
+}
+
+/** Archive every Session held by a Telework placeholder Workspace. */
+async function archivePlaceholderSessions(workspaceRegistry, placeholderRoot) {
+  const root = path.resolve(placeholderRoot)
+  for (const workspace of workspaceRegistry.list()) {
+    const candidate = path.resolve(workspace.path)
+    if (candidate !== root && !candidate.startsWith(root + path.sep)) continue
+    for (const sessionId of workspace.sessionIds) {
+      try {
+        await workspaceRegistry.archiveSession(sessionId, { stopActivity: true })
+      } catch (error) {
+        console.warn(`telework: failed to archive Session ${sessionId}:`, error)
+      }
+    }
+  }
 }
 
 /**
@@ -283,6 +305,25 @@ export function apply(ctx, config) {
       }
     },
   }), 'telework: local workspace placeholder route')
+
+  // Uninstall safety: placeholder Workspaces are ordinary local DSH
+  // Workspaces, so the Sessions inside them survive plugin removal. On unload,
+  // archive those Sessions rather than deleting anything. A short grace period
+  // plus the instance generation keeps ordinary reloads/updates from archiving.
+  const placeholderRoot = path.join(
+    process.env.DSH_HOME ?? path.join(os.homedir(), '.dsh'),
+    'telework',
+    'placeholders',
+  )
+  const generation = (globalThis.__dshTeleworkGeneration ?? 0) + 1
+  globalThis.__dshTeleworkGeneration = generation
+  ctx.effect(() => () => {
+    const timer = setTimeout(() => {
+      if (globalThis.__dshTeleworkGeneration !== generation) return
+      void archivePlaceholderSessions(ctx.workspaceRegistry, placeholderRoot)
+    }, 4000)
+    timer.unref?.()
+  }, 'telework: archive remote Sessions on unload')
 
   // An installed-but-unconfigured bundle adds no prompt tokens and no tool.
   if (settings.targets.length === 0) return
