@@ -766,6 +766,48 @@ window.__ModuleLoader__.load({
       apply(ctx) {
         ctx.effect(() => ctx.locale.register('telework', 'en', EN), 'telework: English dictionary')
         ctx.effect(() => ctx.locale.register('telework', 'zh', ZH), 'telework: Chinese dictionary')
+
+        // Right Sidebar default posture: keep the top pane blank for the future
+        // file preview and seed a bottom terminal on the first expansion. The
+        // official guide cards stay out of the way; terminal.new still creates
+        // more terminals. This is optional: profiles without the right Sidebar
+        // simply keep the original guide.
+        ctx.inject(['sidebarRight'], (rightbarCtx) => {
+          const sidebarRight = rightbarCtx.sidebarRight
+          if (sidebarRight === undefined || typeof document === 'undefined') return
+          const style = document.createElement('style')
+          style.dataset.teleworkRightbar = ''
+          style.textContent = '[data-sidebar-right-guide]{display:none!important}'
+          document.head.appendChild(style)
+          let seeded = false
+          const seed = () => {
+            if (seeded) return
+            if (document.querySelector('[data-sidebar-right-open]') === null) return
+            const tabs = sidebarRight.openTabs.getSnapshot()
+            if (Array.isArray(tabs) && tabs.some(tab => tab.kind === 'terminal')) {
+              seeded = true
+              return
+            }
+            try {
+              sidebarRight.openTab('terminal', { preferNewPane: true })
+              seeded = true
+            } catch (error) {
+              console.warn('telework: cannot seed the right-sidebar terminal:', error)
+            }
+          }
+          const observer = new MutationObserver(seed)
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['data-sidebar-right-open'],
+          })
+          seed()
+          return () => {
+            observer.disconnect()
+            style.remove()
+          }
+        })
         const t = ctx.locale.bind('telework')
 
         const TeleworkPanelBound = () => {
