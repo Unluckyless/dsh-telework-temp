@@ -54,8 +54,22 @@ interface SessionController {
   create(request: { workspaceId: string }): Promise<string>
 }
 
+interface SidebarRightController {
+  openTabs: {
+    getSnapshot(): readonly { sessionId: string, tabId: string, kind: string }[]
+  }
+  openResource(address: string, options?: { replaceTab?: string }): void
+}
+
+/** Build the same dsh-resource file address the document-preview provider claims. */
+function sessionFileAddress(sessionId: string, path: string): string {
+  const encode = (segment: string): string => encodeURIComponent(segment).replace(/%3A/gi, ':')
+  const normalized = path.replace(/\\/g, '/').replace(/^(?:\.\/)+/u, '')
+  return `dsh-resource://file/session/${encode(sessionId)}/${normalized.split('/').map(encode).join('/')}`
+}
+
 /** Services required by the sidebar plugin. */
-export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'sessions', 'locale', 'shortcuts']
+export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'sessions', 'sidebarRight', 'locale', 'shortcuts']
 
 const TELEWORK_RELOAD_GUARD = 'dsh-telework.ui-reload-at'
 
@@ -82,6 +96,7 @@ export function apply(ctx: ClientContext): void {
   const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation
   const workspaceRegistry = ctx.get('workspaces') as unknown as WorkspaceRegistry
   const sessionController = ctx.get('sessions') as unknown as SessionController
+  const sidebarRight = ctx.get('sidebarRight') as unknown as SidebarRightController
   ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), 'ui-sidebar: dictionaries')
   const panels = createSnapshotStore<readonly SidebarPanelMetadata[]>([])
   const syncPanels = (): void => {
@@ -113,6 +128,20 @@ export function apply(ctx: ClientContext): void {
     // (current Session Workspace, then recent Workspace).
     startSession: (workspaceId) => { workspaceNavigation.startSession(workspaceId) },
     openSession: (sessionId) => { workspaceNavigation.openSession(sessionId) },
+    openFile: (path) => {
+      const sessionId = selection.getSnapshot().sessionId
+      if (sessionId === undefined) return
+      const tabs = sidebarRight.openTabs.getSnapshot()
+      // Prefer the top document; fall back to the guide tab, which occupies the
+      // top pane until the first file opens. Never replace the bottom terminal.
+      const document = tabs.find(tab => tab.sessionId === sessionId && tab.kind !== 'terminal' && tab.kind !== 'guide')
+      const guide = tabs.find(tab => tab.sessionId === sessionId && tab.kind === 'guide')
+      const target = document ?? guide
+      sidebarRight.openResource(
+        sessionFileAddress(sessionId, path),
+        target === undefined ? undefined : { replaceTab: target.tabId },
+      )
+    },
     createWorkspace: (input) => workspaceRegistry.create(input),
     createSession: (workspaceId) => sessionController.create({ workspaceId }),
     toggleSidebar: () => { ctx.layout.toggleSidebar() },

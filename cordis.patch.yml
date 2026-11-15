@@ -16,6 +16,8 @@
   disabled: true
 - id: ui-conversation
   disabled: true
+- id: ui-sidebar-right
+  disabled: true
 - insert:
     - id: telework
       name: dsh-telework
@@ -25,5 +27,7 @@
       name: './bundles/dsh-telework-sidebar/vendor/dsh-client-ui-sidebar/lib/index.js'
     - id: telework-workspace
       name: './bundles/dsh-telework-sidebar/vendor/dsh-client-ui-workspace/lib/index.js'
+    - id: telework-rightbar
+      name: './bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/lib/index.js'
     - id: telework-conversation
       name: './bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/lib/index.js'

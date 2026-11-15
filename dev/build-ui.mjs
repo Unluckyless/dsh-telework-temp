@@ -44,6 +44,21 @@ const targets = [
     ],
   },
   {
+    name: 'rightbar',
+    packageDir: 'bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right',
+    id: '@deepseek-ai/dsh-client-ui-sidebar-right',
+    external: [
+      '@deepseek-ai/dsh-client-ui-primitives',
+      '@deepseek-ai/dsh-client-store',
+      '@deepseek-ai/dsh-client-ui-dockkit',
+      'react',
+      'react/*',
+      'react-dom',
+      'react-dom/*',
+      'zod',
+    ],
+  },
+  {
     name: 'conversation',
     packageDir: 'bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation',
     id: '@deepseek-ai/dsh-client-ui-conversation',

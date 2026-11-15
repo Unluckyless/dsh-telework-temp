@@ -56,11 +56,12 @@ interface WorkspaceFileEntry {
  * One lazy file-tree row. Directories load their children on first expand;
  * files are display-only in this first version.
  */
-function FileTreeNode({ entry, sessionId, depth, t }: {
+function FileTreeNode({ entry, sessionId, depth, t, onOpenFile }: {
   entry: WorkspaceFileEntry
   sessionId: string
   depth: number
   t: (key: string) => string
+  onOpenFile: (path: string) => void
 }) {
   const [open, setOpen] = useState(false)
   const [children, setChildren] = useState<readonly WorkspaceFileEntry[] | undefined>(undefined)
@@ -89,8 +90,8 @@ function FileTreeNode({ entry, sessionId, depth, t }: {
         type="button"
         className={css.fileRow}
         style={{ paddingLeft: 8 + depth * 12 }}
-        onClick={toggle}
-        disabled={!directory}
+        onClick={() => { if (directory) toggle(); else onOpenFile(entry.path) }}
+        disabled={entry.type === 'other'}
         aria-expanded={directory ? open : undefined}
         title={entry.path}
       >
@@ -116,7 +117,7 @@ function FileTreeNode({ entry, sessionId, depth, t }: {
           {loading && <div className={css.fileHint} style={{ paddingLeft: 20 + depth * 12 }}>{t('files.loading')}</div>}
           {error !== undefined && <div className={css.fileError} style={{ paddingLeft: 20 + depth * 12 }}>{error}</div>}
           {(children ?? []).map(child => (
-            <FileTreeNode key={child.path} entry={child} sessionId={sessionId} depth={depth + 1} t={t} />
+            <FileTreeNode key={child.path} entry={child} sessionId={sessionId} depth={depth + 1} t={t} onOpenFile={onOpenFile} />
           ))}
           {children !== undefined && children.length === 0 && (
             <div className={css.fileHint} style={{ paddingLeft: 20 + depth * 12 }}>{t('files.emptyFolder')}</div>
@@ -131,9 +132,10 @@ function FileTreeNode({ entry, sessionId, depth, t }: {
  * The lower half of the Workspaces activity: a read-only tree for the current
  * Session's workspace, backed by the local `/telework/files` route.
  */
-function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }: {
+function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t, onOpenFile }: {
   currentSession?: { getSnapshot: () => { sessionId?: string }, subscribe: (listener: () => void) => () => void }
   t: (key: string) => string
+  onOpenFile: (path: string) => void
 }) {
   const store = currentSession
   const sessionId = useSyncExternalStore(
@@ -291,7 +293,7 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }: {
         )}
         {state.phase === 'ready' && state.entries.length === 0 && <div className={css.fileHint}>{t('files.empty')}</div>}
         {state.phase === 'ready' && state.entries.map(entry => (
-          <FileTreeNode key={entry.path} entry={entry} sessionId={sessionId as string} depth={0} t={t} />
+          <FileTreeNode key={entry.path} entry={entry} sessionId={sessionId as string} depth={0} t={t} onOpenFile={onOpenFile} />
         ))}
       </div>
     </section>
@@ -1521,6 +1523,7 @@ export function SidebarRoot({
   drawer,
   startSession,
   openSession,
+  openFile,
   createWorkspace,
   createSession,
   waitForWorkspace,
@@ -2101,7 +2104,7 @@ export function SidebarRoot({
         <span className={css.scrollFade} aria-hidden="true" />
       </div>
 
-      {activePanelId === null && <WorkspaceFiles currentSession={currentSession} t={t} />}
+      {activePanelId === null && <WorkspaceFiles currentSession={currentSession} t={t} onOpenFile={openFile} />}
 
       {copiedToast !== null && (
         <Toast key={copiedToast} tone="success" text={t('version.copied')} onDone={() => { setCopiedToast(null) }} />

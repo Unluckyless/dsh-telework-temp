@@ -221,6 +221,8 @@ export type SidebarRootInjected = {
   createSession: (workspaceId: string) => Promise<string>
   /** Open a Session by id through the Workspace UI. */
   openSession: (sessionId: string) => void
+  /** Open a file in the right Sidebar's document preview. */
+  openFile: (path: string) => void
   /** Wait until the client workspace snapshot contains a just-created Workspace. */
   waitForWorkspace: (workspaceId: string) => Promise<void>
   /** Create a normal local DSH Workspace from an existing directory. */

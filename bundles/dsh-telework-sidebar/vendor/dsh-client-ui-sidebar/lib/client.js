@@ -369,7 +369,7 @@ var EMPTY_SESSION_STORE = {
   }
 };
 var WORKSPACE_PANE_STORAGE_KEY = "dsh-telework.workspaces.height";
-function FileTreeNode({ entry, sessionId, depth, t }) {
+function FileTreeNode({ entry, sessionId, depth, t, onOpenFile }) {
   const [open, setOpen] = (0, import_react.useState)(false);
   const [children, setChildren] = (0, import_react.useState)(void 0);
   const [loading, setLoading] = (0, import_react.useState)(false);
@@ -402,8 +402,11 @@ function FileTreeNode({ entry, sessionId, depth, t }) {
         type: "button",
         className: SidebarRoot_default.fileRow,
         style: { paddingLeft: 8 + depth * 12 },
-        onClick: toggle,
-        disabled: !directory,
+        onClick: () => {
+          if (directory) toggle();
+          else onOpenFile(entry.path);
+        },
+        disabled: entry.type === "other",
         "aria-expanded": directory ? open : void 0,
         title: entry.path,
         children: [
@@ -419,12 +422,12 @@ function FileTreeNode({ entry, sessionId, depth, t }) {
     open && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
       loading && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, style: { paddingLeft: 20 + depth * 12 }, children: t("files.loading") }),
       error !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileError, style: { paddingLeft: 20 + depth * 12 }, children: error }),
-      (children ?? []).map((child) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry: child, sessionId, depth: depth + 1, t }, child.path)),
+      (children ?? []).map((child) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry: child, sessionId, depth: depth + 1, t, onOpenFile }, child.path)),
       children !== void 0 && children.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, style: { paddingLeft: 20 + depth * 12 }, children: t("files.emptyFolder") })
     ] })
   ] });
 }
-function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }) {
+function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t, onOpenFile }) {
   const store = currentSession;
   const sessionId = (0, import_react.useSyncExternalStore)(
     store.subscribe,
@@ -571,7 +574,7 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }) {
           state.phase === "loading" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, children: t("files.loading") }),
           state.phase === "error" && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: /session is not live/i.test(state.error ?? "") ? SidebarRoot_default.fileErrorMuted : SidebarRoot_default.fileError, children: state.error }),
           state.phase === "ready" && state.entries.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: SidebarRoot_default.fileHint, children: t("files.empty") }),
-          state.phase === "ready" && state.entries.map((entry) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry, sessionId, depth: 0, t }, entry.path))
+          state.phase === "ready" && state.entries.map((entry) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileTreeNode, { entry, sessionId, depth: 0, t, onOpenFile }, entry.path))
         ] })
       ]
     }
@@ -1555,6 +1558,7 @@ function SidebarRoot({
   drawer,
   startSession,
   openSession,
+  openFile,
   createWorkspace,
   createSession,
   waitForWorkspace,
@@ -2049,7 +2053,7 @@ function SidebarRoot({
             ),
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: SidebarRoot_default.scrollFade, "aria-hidden": "true" })
           ] }),
-          activePanelId === null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(WorkspaceFiles, { currentSession, t }),
+          activePanelId === null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(WorkspaceFiles, { currentSession, t, onOpenFile: openFile }),
           copiedToast !== null && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Toast, { tone: "success", text: t("version.copied"), onDone: () => {
             setCopiedToast(null);
           } }, copiedToast),
@@ -2342,7 +2346,12 @@ var SIDEBAR_SECTION_INJECT = {
   hooks: { sectionScroller: (_standard, { useSectionScroller }) => useSectionScroller }
 };
 var NS = "sidebar";
-var inject = ["slots", "layout", "uiWorkspace", "workspaces", "sessions", "locale", "shortcuts"];
+function sessionFileAddress(sessionId, path) {
+  const encode = (segment) => encodeURIComponent(segment).replace(/%3A/gi, ":");
+  const normalized = path.replace(/\\/g, "/").replace(/^(?:\.\/)+/u, "");
+  return `dsh-resource://file/session/${encode(sessionId)}/${normalized.split("/").map(encode).join("/")}`;
+}
+var inject = ["slots", "layout", "uiWorkspace", "workspaces", "sessions", "sidebarRight", "locale", "shortcuts"];
 var TELEWORK_RELOAD_GUARD = "dsh-telework.ui-reload-at";
 function scheduleUiReload() {
   if (typeof window === "undefined") return;
@@ -2361,6 +2370,7 @@ function apply(ctx) {
   const workspaceNavigation = ctx.get("uiWorkspace");
   const workspaceRegistry = ctx.get("workspaces");
   const sessionController = ctx.get("sessions");
+  const sidebarRight = ctx.get("sidebarRight");
   ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), "ui-sidebar: dictionaries");
   const panels = (0, import_dsh_client_store2.createSnapshotStore)([]);
   const syncPanels = () => {
@@ -2391,6 +2401,18 @@ function apply(ctx) {
     },
     openSession: (sessionId) => {
       workspaceNavigation.openSession(sessionId);
+    },
+    openFile: (path) => {
+      const sessionId = selection.getSnapshot().sessionId;
+      if (sessionId === void 0) return;
+      const tabs = sidebarRight.openTabs.getSnapshot();
+      const document2 = tabs.find((tab) => tab.sessionId === sessionId && tab.kind !== "terminal" && tab.kind !== "guide");
+      const guide = tabs.find((tab) => tab.sessionId === sessionId && tab.kind === "guide");
+      const target = document2 ?? guide;
+      sidebarRight.openResource(
+        sessionFileAddress(sessionId, path),
+        target === void 0 ? void 0 : { replaceTab: target.tabId }
+      );
     },
     createWorkspace: (input) => workspaceRegistry.create(input),
     createSession: (workspaceId) => sessionController.create({ workspaceId }),
