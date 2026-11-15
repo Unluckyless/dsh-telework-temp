@@ -13,6 +13,9 @@
 import { inspectTargets, normalizeConfig } from './targets.js'
 import { listWorkspaceDirectory } from './files.js'
 import { RemoteConnections } from './remote.js'
+import { promises as fs } from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 
 /** Cordis plugin name. */
 export const name = 'telework'
@@ -251,6 +254,35 @@ export function apply(ctx, config) {
       }
     },
   }), 'telework: SSH mkdir route')
+
+  // DSH sessions must be created inside a local Workspace. A remote Workspace
+  // therefore gets a local empty placeholder directory, which the client then
+  // registers as a normal DSH Workspace; Session logs remain local.
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/placeholder',
+    handler: async (req, res) => {
+      if (req.method !== 'POST') return sendJson(res, { error: 'POST is required' }, 405)
+      try {
+        const body = await readJsonBody(req)
+        const workspaceId = typeof body?.workspaceId === 'string' ? body.workspaceId : ''
+        const rawName = typeof body?.name === 'string' ? body.name.trim() : ''
+        if (!/^[A-Za-z0-9_-]{1,80}$/u.test(workspaceId)) {
+          return sendJson(res, { error: 'workspaceId is invalid' }, 400)
+        }
+        const name = rawName === '' || rawName === '.' || rawName === '..' || rawName === '/'
+          ? 'remote-workspace'
+          : rawName
+        if (/[/\\]/u.test(name)) return sendJson(res, { error: 'name is invalid' }, 400)
+        const home = process.env.DSH_HOME ?? path.join(os.homedir(), '.dsh')
+        const directory = path.join(home, 'telework', 'placeholders', workspaceId, name)
+        await fs.mkdir(directory, { recursive: true })
+        sendJson(res, { path: directory })
+      } catch (error) {
+        sendJson(res, { error: error instanceof Error ? error.message : String(error) }, 400)
+      }
+    },
+  }), 'telework: local workspace placeholder route')
 
   // An installed-but-unconfigured bundle adds no prompt tokens and no tool.
   if (settings.targets.length === 0) return

@@ -42,6 +42,7 @@ const NS = 'sidebar'
 
 interface WorkspaceNavigation {
   startSession(workspaceId?: Parameters<SidebarRootInjected['startSession']>[0]): void
+  createWorkspace(input: { path: string }): Promise<{ workspaceId: Parameters<SidebarRootInjected['startSession']>[0], path: string, title: string }>
 }
 
 /** Services required by the sidebar plugin. */
@@ -82,6 +83,7 @@ export function apply(ctx: ClientContext): void {
     // The shell's New Session button rides the Workspace UI's shared action
     // (current Session Workspace, then recent Workspace).
     startSession: (workspaceId) => { workspaceNavigation.startSession(workspaceId) },
+    createWorkspace: (input) => workspaceNavigation.createWorkspace(input),
     toggleSidebar: () => { ctx.layout.toggleSidebar() },
     selectPanel: (id) => { ctx.layout.selectPanel(id) },    setPinned: panelPins.setPinned,
     currentSession: selection,

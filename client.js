@@ -538,6 +538,13 @@ window.__ModuleLoader__.load({
           writeStoredRemoteWorkspaces(workspaces)
           emit()
         },
+        setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
+          workspaces = workspaces.map(workspace => (
+            workspace.id === workspaceId ? { ...workspace, localWorkspaceId } : workspace
+          ))
+          writeStoredRemoteWorkspaces(workspaces)
+          emit()
+        },
       }
       window.__DSH_TELEWORK_REMOTE__ = store
       return store

@@ -217,6 +217,8 @@ export type SidebarRootInjected = {
    * recent Workspace, or clear into the New Session pure view when none exist.
    */
   startSession: (workspaceId?: WorkspaceId) => void
+  /** Create a normal local DSH Workspace from an existing directory. */
+  createWorkspace: (input: { path: string }) => Promise<{ workspaceId: WorkspaceId, path: string, title: string }>
   /** Toggle the sidebar column through the layout service. */
   toggleSidebar: () => void
   /** Select the global panel addressed by a sidebar row; null returns to the Conversation. */

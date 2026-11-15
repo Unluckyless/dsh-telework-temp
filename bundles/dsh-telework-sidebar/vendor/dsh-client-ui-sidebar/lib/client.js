@@ -646,6 +646,11 @@ function ensureRemoteStore() {
       if (!changed) return;
       writeStoredWorkspaces(workspaces);
       emit();
+    },
+    setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
+      workspaces = workspaces.map((workspace) => workspace.id === workspaceId ? { ...workspace, localWorkspaceId } : workspace);
+      writeStoredWorkspaces(workspaces);
+      emit();
     }
   };
   window.__DSH_TELEWORK_REMOTE__ = store;
@@ -1484,6 +1489,7 @@ function SidebarRoot({
   width,
   drawer,
   startSession,
+  createWorkspace,
   toggleSidebar,
   selectPanel,
   setPinned,
@@ -1637,9 +1643,36 @@ function SidebarRoot({
   const handleRemoteConnection = (summary) => {
     if (summary !== null) remoteStore.add({ ...summary, status: "connected" });
   };
-  const startRemoteSession = (workspace) => {
-    setPendingRemoteWorkspaceId(workspace.id);
-    openNewSession();
+  const startRemoteSession = async (workspace) => {
+    try {
+      let localWorkspaceId = workspace.localWorkspaceId;
+      if (localWorkspaceId === void 0) {
+        const response = await fetch("/telework/remote/placeholder", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) })
+        });
+        const text = await response.text();
+        let body = {};
+        if (text !== "") {
+          try {
+            body = JSON.parse(text);
+          } catch {
+            throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`);
+          }
+        }
+        if (!response.ok || typeof body.path !== "string") {
+          throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`);
+        }
+        const view = await createWorkspace({ path: body.path });
+        localWorkspaceId = String(view.workspaceId);
+        remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
+      }
+      setPendingRemoteWorkspaceId(workspace.id);
+      startSession(localWorkspaceId);
+    } catch (error) {
+      setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error));
+    }
   };
   const toggle = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_dsh_client_ui_primitives2.Tooltip, { label: toggleLabel, shortcutKeys: shortcut?.keys, delayMs: 500, side: captionTooltipSide, portal: drawer, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
     "button",
@@ -2155,6 +2188,7 @@ function apply(ctx) {
     startSession: (workspaceId) => {
       workspaceNavigation.startSession(workspaceId);
     },
+    createWorkspace: (input) => workspaceNavigation.createWorkspace(input),
     toggleSidebar: () => {
       ctx.layout.toggleSidebar();
     },

@@ -313,6 +313,7 @@ interface SharedRemoteWorkspace {
   username?: string
   port?: string
   sessions?: readonly string[]
+  localWorkspaceId?: string
 }
 
 interface SharedRemoteStore {
@@ -326,6 +327,7 @@ interface SharedRemoteStore {
   removeWorkspace: (id: string) => void
   relinkWorkspaces: () => void
   addSession: (workspaceId: string, sessionId: string) => void
+  setLocalWorkspaceId: (workspaceId: string, localWorkspaceId: string) => void
 }
 
 declare global {
@@ -443,6 +445,13 @@ function ensureRemoteStore(): SharedRemoteStore {
         return { ...workspace, sessions: [...sessions, sessionId] }
       })
       if (!changed) return
+      writeStoredWorkspaces(workspaces)
+      emit()
+    },
+    setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
+      workspaces = workspaces.map(workspace => (
+        workspace.id === workspaceId ? { ...workspace, localWorkspaceId } : workspace
+      ))
       writeStoredWorkspaces(workspaces)
       emit()
     },
@@ -1438,6 +1447,7 @@ export function SidebarRoot({
   width,
   drawer,
   startSession,
+  createWorkspace,
   toggleSidebar,
   selectPanel,
   setPinned,
@@ -1628,11 +1638,39 @@ export function SidebarRoot({
     if (summary !== null) remoteStore.add({ ...summary, status: 'connected' })
   }
 
-  // Start a normal DSH Session and bind it to the remote workspace after the
-  // session selection advances. The Session log itself stays local.
-  const startRemoteSession = (workspace: SharedRemoteWorkspace): void => {
-    setPendingRemoteWorkspaceId(workspace.id)
-    openNewSession()
+  // DSH can only create a Session inside a local Workspace. For a remote
+  // Workspace, create an empty local placeholder directory, register it as a
+  // normal Workspace, then start the Session there. The Session log stays local.
+  const startRemoteSession = async (workspace: SharedRemoteWorkspace): Promise<void> => {
+    try {
+      let localWorkspaceId = workspace.localWorkspaceId
+      if (localWorkspaceId === undefined) {
+        const response = await fetch('/telework/remote/placeholder', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) }),
+        })
+        const text = await response.text()
+        let body: { path?: string, error?: string } = {}
+        if (text !== '') {
+          try {
+            body = JSON.parse(text) as typeof body
+          } catch {
+            throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`)
+          }
+        }
+        if (!response.ok || typeof body.path !== 'string') {
+          throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`)
+        }
+        const view = await createWorkspace({ path: body.path })
+        localWorkspaceId = String(view.workspaceId)
+        remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
+      }
+      setPendingRemoteWorkspaceId(workspace.id)
+      startSession(localWorkspaceId as Parameters<typeof startSession>[0])
+    } catch (error) {
+      setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error))
+    }
   }
   // Rail resting state is the whale mark; hovering swaps in the panel icon
   // (the expand affordance, figma sidebar-hover flow). Expanded it is a plain
