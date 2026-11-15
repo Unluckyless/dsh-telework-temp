@@ -28,6 +28,8 @@ import css from './AppFrame.module.css'
 /** Browser posture supplied by the root registration. */
 export interface AppFrameInjected {
   hooks: { foldedLandscape: HostObservable<boolean> }
+  /** Toggle the right Sidebar through its own controller, not just the frame track. */
+  toggleRightbar: () => void
 }
 
 /** Full composed props: runtime, child slots, store, locale, and injected posture. */
@@ -135,6 +137,7 @@ export function AppFrame({
   actions,
   renderSlot,
   t,
+  toggleRightbar,
 }: AppFrameProps) {
   const layoutInfo = useStore(state => state.layoutInfo)
   const frameRef = useRef<HTMLDivElement | null>(null)
@@ -310,10 +313,7 @@ export function AppFrame({
               type="button"
               className={css.topBarButton}
               aria-label={rightbarToggleLabel}
-              onClick={() => {
-                if (layoutInfo.rightbarShown) actions.closeRightbar()
-                else actions.openRightbar(true, false)
-              }}
+              onClick={() => { toggleRightbar() }}
             >
               <span className={css.topBarMirror}><IconPanelLeftOutlineRegular size={16} /></span>
             </button>

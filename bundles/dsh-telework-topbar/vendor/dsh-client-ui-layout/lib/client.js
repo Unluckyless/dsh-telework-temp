@@ -187,7 +187,8 @@ function AppFrame({
   useFoldedLandscape,
   actions,
   renderSlot,
-  t
+  t,
+  toggleRightbar
 }) {
   const layoutInfo = useStore((state) => state.layoutInfo);
   const frameRef = (0, import_react2.useRef)(null);
@@ -340,8 +341,7 @@ function AppFrame({
             className: AppFrame_default.topBarButton,
             "aria-label": rightbarToggleLabel,
             onClick: () => {
-              if (layoutInfo.rightbarShown) actions.closeRightbar();
-              else actions.openRightbar(true, false);
+              toggleRightbar();
             },
             children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: AppFrame_default.topBarMirror, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.IconPanelLeftOutlineRegular, { size: 16 }) })
           }
@@ -675,7 +675,18 @@ function apply(ctx) {
         "shell.leading": { kind: "single", scope: "root" }
       },
       store,
-      inject: () => ({ hooks: { foldedLandscape } })
+      inject: () => ({
+        hooks: { foldedLandscape },
+        toggleRightbar: () => {
+          const sidebarRight = ctx.get("sidebarRight");
+          if (typeof sidebarRight?.toggleExpanded === "function") {
+            sidebarRight.toggleExpanded();
+            return;
+          }
+          if (instance.getSnapshot().layoutInfo.rightbarShown) instance.actions.closeRightbar();
+          else instance.actions.openRightbar(true, false);
+        }
+      })
     }, AppFrame);
     const disposeShortcut = ctx.shortcuts.register({
       id: "sidebar.left.toggle",

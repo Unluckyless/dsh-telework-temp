@@ -220,7 +220,19 @@ export function apply(ctx: ClientContext): void {
         'shell.leading': { kind: 'single', scope: 'root' },
       },
       store,
-      inject: (): AppFrameInjected => ({ hooks: { foldedLandscape } }),
+      inject: (): AppFrameInjected => ({
+        hooks: { foldedLandscape },
+        toggleRightbar: () => {
+          const sidebarRight = ctx.get('sidebarRight') as { toggleExpanded?: () => void } | undefined
+          if (typeof sidebarRight?.toggleExpanded === 'function') {
+            sidebarRight.toggleExpanded()
+            return
+          }
+          // Profiles without the right Sidebar package keep the old track toggle.
+          if (instance.getSnapshot().layoutInfo.rightbarShown) instance.actions.closeRightbar()
+          else instance.actions.openRightbar(true, false)
+        },
+      }),
     }, AppFrame)
     const disposeShortcut = ctx.shortcuts.register({
       id: 'sidebar.left.toggle' as ShortcutCommandId, label: () => t('toggle'), aliases: ['sidebar', 'toggle left sidebar'],
