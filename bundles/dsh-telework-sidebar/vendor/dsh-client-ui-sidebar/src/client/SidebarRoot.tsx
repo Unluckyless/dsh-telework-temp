@@ -326,7 +326,7 @@ interface SharedRemoteStore {
   addWorkspace: (connectionId: string, path: string) => SharedRemoteWorkspace
   removeWorkspace: (id: string) => void
   relinkWorkspaces: () => void
-  addSession: (workspaceId: string, sessionId: string) => void
+  addSession: (workspaceId: string, sessionId: string) => boolean
   setLocalWorkspaceId: (workspaceId: string, localWorkspaceId: string) => void
 }
 
@@ -444,9 +444,10 @@ function ensureRemoteStore(): SharedRemoteStore {
         changed = true
         return { ...workspace, sessions: [...sessions, sessionId] }
       })
-      if (!changed) return
+      if (!changed) return false
       writeStoredWorkspaces(workspaces)
       emit()
+      return true
     },
     setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
       workspaces = workspaces.map(workspace => (
@@ -1511,8 +1512,8 @@ export function SidebarRoot({
       const sessionId = currentSession.getSnapshot().sessionId
       const previousSessionId = previousSessionIdRef.current
       if (sessionId !== undefined && sessionId !== previousSessionId) {
-        remoteStore.addSession(pendingRemoteWorkspaceId, sessionId)
-        setRemoteWorkspaceToast(t('remote.sessionCreated'))
+        const added = remoteStore.addSession(pendingRemoteWorkspaceId, sessionId)
+        if (added) setRemoteWorkspaceToast(t('remote.sessionCreated'))
       }
       previousSessionIdRef.current = undefined
       setPendingRemoteWorkspaceId(null)
@@ -1665,6 +1666,10 @@ export function SidebarRoot({
   // Workspace, create an empty local placeholder directory, register it as a
   // normal Workspace, then start the Session there. The Session log stays local.
   const startRemoteSession = async (workspace: SharedRemoteWorkspace): Promise<void> => {
+    if (!remoteConnections.some(connection => connection.id === workspace.connectionId && connection.status === 'connected')) {
+      setRemoteWorkspaceToast(t('remote.workspaceDisconnected'))
+      return
+    }
     try {
       // Resolve the local placeholder Workspace fresh on every click. A stored
       // id can outlive its registration; `create` returns the existing

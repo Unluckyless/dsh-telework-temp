@@ -534,9 +534,10 @@ window.__ModuleLoader__.load({
             changed = true
             return { ...workspace, sessions: [...sessions, sessionId] }
           })
-          if (!changed) return
+          if (!changed) return false
           writeStoredRemoteWorkspaces(workspaces)
           emit()
+          return true
         },
         setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
           workspaces = workspaces.map(workspace => (

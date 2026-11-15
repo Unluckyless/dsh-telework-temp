@@ -646,9 +646,10 @@ function ensureRemoteStore() {
         changed = true;
         return { ...workspace, sessions: [...sessions, sessionId] };
       });
-      if (!changed) return;
+      if (!changed) return false;
       writeStoredWorkspaces(workspaces);
       emit();
+      return true;
     },
     setLocalWorkspaceId: (workspaceId, localWorkspaceId) => {
       workspaces = workspaces.map((workspace) => workspace.id === workspaceId ? { ...workspace, localWorkspaceId } : workspace);
@@ -1551,8 +1552,8 @@ function SidebarRoot({
       const sessionId = currentSession.getSnapshot().sessionId;
       const previousSessionId = previousSessionIdRef.current;
       if (sessionId !== void 0 && sessionId !== previousSessionId) {
-        remoteStore.addSession(pendingRemoteWorkspaceId, sessionId);
-        setRemoteWorkspaceToast(t("remote.sessionCreated"));
+        const added = remoteStore.addSession(pendingRemoteWorkspaceId, sessionId);
+        if (added) setRemoteWorkspaceToast(t("remote.sessionCreated"));
       }
       previousSessionIdRef.current = void 0;
       setPendingRemoteWorkspaceId(null);
@@ -1671,6 +1672,10 @@ function SidebarRoot({
     if (summary !== null) remoteStore.add({ ...summary, status: "connected" });
   };
   const startRemoteSession = async (workspace) => {
+    if (!remoteConnections.some((connection) => connection.id === workspace.connectionId && connection.status === "connected")) {
+      setRemoteWorkspaceToast(t("remote.workspaceDisconnected"));
+      return;
+    }
     try {
       const response = await fetch("/telework/remote/placeholder", {
         method: "POST",
@@ -2011,6 +2016,7 @@ var zh = {
   "remote.sessionCreated": "\u5DF2\u521B\u5EFA\u8FDC\u7A0B\u4F1A\u8BDD",
   "remote.sessionCount": "{n} \u4F1A\u8BDD",
   "remote.sessionRow": "\u4F1A\u8BDD {n}",
+  "remote.workspaceDisconnected": "\u8FDC\u7A0B\u5DE5\u4F5C\u533A\u672A\u8FDE\u63A5",
   "remote.workspacesTitle": "\u8FDC\u7A0B\u5DE5\u4F5C\u533A",
   "remote.workspaceOpenSoon": "\u8FDC\u7A0B\u5DE5\u4F5C\u533A\u4F1A\u8BDD\u5373\u5C06\u63A5\u5165",
   "remote.workspaceOffline": "\u8FDE\u63A5\u4E0D\u53EF\u7528",
@@ -2083,6 +2089,7 @@ var en = {
   "remote.sessionCreated": "Remote session created",
   "remote.sessionCount": "{n} sessions",
   "remote.sessionRow": "Session {n}",
+  "remote.workspaceDisconnected": "Remote workspace is not connected",
   "remote.workspacesTitle": "Remote workspaces",
   "remote.workspaceOpenSoon": "Remote workspace sessions are coming soon",
   "remote.workspaceOffline": "Connection unavailable",
