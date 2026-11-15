@@ -2237,6 +2237,12 @@ var SIDEBAR_SECTION_INJECT = {
 var NS = "sidebar";
 var inject = ["slots", "layout", "uiWorkspace", "workspaces", "sessions", "locale", "shortcuts"];
 function apply(ctx) {
+  ctx.effect(() => () => {
+    if (typeof window === "undefined") return;
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 250);
+  }, "telework: reload after sidebar unload");
   const workspaceNavigation = ctx.get("uiWorkspace");
   const workspaceRegistry = ctx.get("workspaces");
   const sessionController = ctx.get("sessions");

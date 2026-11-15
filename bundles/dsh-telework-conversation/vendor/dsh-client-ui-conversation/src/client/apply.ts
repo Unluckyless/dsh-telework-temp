@@ -156,6 +156,12 @@ function concreteConversation(ctx: Context): ConversationController {
  * @param ctx - Client root context.
  */
 export function apply(ctx: Context, config: Config = Config({})): void {
+  // A vendored shell package cannot be hot-swapped safely across a reinstall;
+  // reload instead of leaving the page without this module.
+  ctx.effect(() => () => {
+    if (typeof window === 'undefined') return
+    window.setTimeout(() => { window.location.reload() }, 250)
+  }, 'telework: reload after conversation unload')
   const sessions = ctx.sessions
   const slots = ctx.slots
   // Schemastery's field default is materialized before Cordis calls apply.

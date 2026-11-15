@@ -61,6 +61,12 @@ export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'sessions
  * @param ctx - Client root context.
  */
 export function apply(ctx: ClientContext): void {
+  // A vendored shell package cannot be hot-swapped safely across a reinstall;
+  // reload instead of leaving the page without this module.
+  ctx.effect(() => () => {
+    if (typeof window === 'undefined') return
+    window.setTimeout(() => { window.location.reload() }, 250)
+  }, 'telework: reload after sidebar unload')
   const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation
   const workspaceRegistry = ctx.get('workspaces') as unknown as WorkspaceRegistry
   const sessionController = ctx.get('sessions') as unknown as SessionController

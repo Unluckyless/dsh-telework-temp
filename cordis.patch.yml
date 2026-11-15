@@ -1,5 +1,29 @@
-# dsh-telework bundle patch: inserts the plugin row. Configure targets in the
-# profile patch layer (see README), not here, so upgrades keep your values.
+# dsh-telework bundle patch.
+#
+# The UI overrides are deliberately part of this single bundle so installing,
+# updating, or removing Telework changes the whole shell atomically. Do not
+# enable the legacy bundles/dsh-telework-{topbar,sidebar,conversation} bundles
+# separately while this patch is active: they would insert the same client
+# module ids and the Client module graph rejects duplicate package sources.
+#
+# Configure SSH targets in the profile patch layer (see README), not here, so
+# upgrades keep your values.
+- id: ui-layout
+  disabled: true
+- id: ui-sidebar
+  disabled: true
+- id: ui-workspace
+  disabled: true
+- id: ui-conversation
+  disabled: true
 - insert:
     - id: telework
       name: dsh-telework
+    - id: telework-layout
+      name: './bundles/dsh-telework-topbar/vendor/dsh-client-ui-layout/lib/index.js'
+    - id: telework-sidebar
+      name: './bundles/dsh-telework-sidebar/vendor/dsh-client-ui-sidebar/lib/index.js'
+    - id: telework-workspace
+      name: './bundles/dsh-telework-sidebar/vendor/dsh-client-ui-workspace/lib/index.js'
+    - id: telework-conversation
+      name: './bundles/dsh-telework-conversation/vendor/dsh-client-ui-conversation/lib/index.js'

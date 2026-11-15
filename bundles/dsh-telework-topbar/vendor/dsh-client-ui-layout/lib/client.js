@@ -623,6 +623,12 @@ var ThemePresenter = class {
 // bundles/dsh-telework-topbar/vendor/dsh-client-ui-layout/src/client/index.ts
 var inject = ["slots", "theme", "locale", "shortcuts"];
 function apply(ctx) {
+  ctx.effect(() => () => {
+    if (typeof window === "undefined") return;
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 250);
+  }, "telework: reload after shell unload");
   ctx.effect(() => ctx.locale.register("shortcuts.layout", { zh, en, ja, es, fr, de, ru, pt }), "layout: command labels");
   const t = ctx.locale.bind("shortcuts.layout");
   ctx.effect(() => {

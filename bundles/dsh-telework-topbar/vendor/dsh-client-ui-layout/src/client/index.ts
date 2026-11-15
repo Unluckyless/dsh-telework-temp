@@ -160,6 +160,14 @@ export const inject = ['slots', 'theme', 'locale', 'shortcuts']
  * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
+  // This module owns the whole application shell. The client module graph has
+  // no failure rollback, and reconciling a same-package-name vendor swap can
+  // briefly leave the page without a shell. Reload into the next graph instead
+  // of leaving a blank page after a Telework UI update/reinstall.
+  ctx.effect(() => () => {
+    if (typeof window === 'undefined') return
+    window.setTimeout(() => { window.location.reload() }, 250)
+  }, 'telework: reload after shell unload')
   ctx.effect(() => ctx.locale.register('shortcuts.layout', { zh, en, ja, es, fr, de, ru, pt }), 'layout: command labels')
   const t = ctx.locale.bind('shortcuts.layout')
 

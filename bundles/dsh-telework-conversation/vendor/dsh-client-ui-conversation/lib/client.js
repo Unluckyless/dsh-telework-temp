@@ -36605,6 +36605,12 @@ function concreteConversation(ctx) {
   return conversation;
 }
 function apply(ctx, config = Config({})) {
+  ctx.effect(() => () => {
+    if (typeof window === "undefined") return;
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 250);
+  }, "telework: reload after conversation unload");
   const sessions = ctx.sessions;
   const slots = ctx.slots;
   const maxConcurrentFileUploads = config.maxConcurrentFileUploads;
