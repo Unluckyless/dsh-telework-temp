@@ -17,6 +17,7 @@
   background: var(--dsw-specific-sidebar-fill);
   border-bottom: 1px solid var(--dsw-alias-border-l1);
   color: var(--dsw-alias-label-primary);
+  -webkit-app-region: drag;
 }
 
 .topBarActions {
