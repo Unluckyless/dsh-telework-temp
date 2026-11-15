@@ -1521,6 +1521,7 @@ function SidebarRoot({
   trackEntryClick,
   currentSession = EMPTY_SESSION_STORE,
   useWorkspaces,
+  useSessions,
   useRemoteAccess,
   usePanels,
   useEntryPins,
@@ -1542,14 +1543,27 @@ function SidebarRoot({
   const remoteConnections = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.get);
   const storedRemoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const remoteConnected = remoteConnections.some((connection) => connection.status === "connected");
-  const workspaceItems = useWorkspaces((state) => state.items);
+  const workspaceState = useWorkspaces((state) => state);
+  const workspaceItems = workspaceState.items;
+  const sessionList = useSessions((state) => state);
+  const currentSessionId = (0, import_react.useSyncExternalStore)(
+    currentSession.subscribe,
+    () => currentSession.getSnapshot().sessionId
+  );
   const remoteWorkspaces = (0, import_react.useMemo)(() => storedRemoteWorkspaces.map((workspace) => {
     const marker = `placeholders/${workspace.id}/`;
     const markerWindows = `placeholders\\${workspace.id}\\`;
     const byPath = workspaceItems.find((item) => item.path.includes(marker) || item.path.includes(markerWindows));
     const local = workspace.localWorkspaceId === void 0 ? void 0 : workspaceItems.find((item) => item.workspaceId === workspace.localWorkspaceId);
-    return { ...workspace, sessions: (byPath ?? local)?.sessionIds ?? [] };
-  }), [storedRemoteWorkspaces, workspaceItems]);
+    const sessionIds = (byPath ?? local)?.sessionIds ?? [];
+    const visible = sessionIds.filter((sessionId) => {
+      if (workspaceState.archivedSessionIds.includes(sessionId)) return false;
+      const session = sessionList.byId[sessionId];
+      if (session === void 0) return false;
+      return !session.blank || sessionId === currentSessionId;
+    });
+    return { ...workspace, sessions: visible };
+  }), [storedRemoteWorkspaces, workspaceItems, workspaceState.archivedSessionIds, sessionList, currentSessionId]);
   (0, import_react.useEffect)(() => {
     remoteStore.relinkWorkspaces();
   }, [remoteStore, remoteConnections, storedRemoteWorkspaces]);
