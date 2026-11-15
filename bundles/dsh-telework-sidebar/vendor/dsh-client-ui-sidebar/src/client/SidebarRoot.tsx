@@ -1666,29 +1666,29 @@ export function SidebarRoot({
   // normal Workspace, then start the Session there. The Session log stays local.
   const startRemoteSession = async (workspace: SharedRemoteWorkspace): Promise<void> => {
     try {
-      let localWorkspaceId = workspace.localWorkspaceId
-      if (localWorkspaceId === undefined) {
-        const response = await fetch('/telework/remote/placeholder', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) }),
-        })
-        const text = await response.text()
-        let body: { path?: string, error?: string } = {}
-        if (text !== '') {
-          try {
-            body = JSON.parse(text) as typeof body
-          } catch {
-            throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`)
-          }
+      // Resolve the local placeholder Workspace fresh on every click. A stored
+      // id can outlive its registration; `create` returns the existing
+      // Workspace for the stable placeholder path, or creates it again.
+      const response = await fetch('/telework/remote/placeholder', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) }),
+      })
+      const text = await response.text()
+      let body: { path?: string, error?: string } = {}
+      if (text !== '') {
+        try {
+          body = JSON.parse(text) as typeof body
+        } catch {
+          throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`)
         }
-        if (!response.ok || typeof body.path !== 'string') {
-          throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`)
-        }
-        const view = await createWorkspace({ path: body.path })
-        localWorkspaceId = String(view.workspaceId)
-        remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
       }
+      if (!response.ok || typeof body.path !== 'string') {
+        throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`)
+      }
+      const view = await createWorkspace({ path: body.path })
+      const localWorkspaceId = String(view.workspaceId)
+      remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
       await waitForWorkspace(localWorkspaceId)
       previousSessionIdRef.current = currentSession.getSnapshot().sessionId
       setPendingRemoteWorkspaceId(workspace.id)

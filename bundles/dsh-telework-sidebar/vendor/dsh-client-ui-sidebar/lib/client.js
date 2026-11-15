@@ -1672,29 +1672,26 @@ function SidebarRoot({
   };
   const startRemoteSession = async (workspace) => {
     try {
-      let localWorkspaceId = workspace.localWorkspaceId;
-      if (localWorkspaceId === void 0) {
-        const response = await fetch("/telework/remote/placeholder", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) })
-        });
-        const text = await response.text();
-        let body = {};
-        if (text !== "") {
-          try {
-            body = JSON.parse(text);
-          } catch {
-            throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`);
-          }
+      const response = await fetch("/telework/remote/placeholder", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ workspaceId: workspace.id, name: remoteWorkspaceName(workspace.path) })
+      });
+      const text = await response.text();
+      let body = {};
+      if (text !== "") {
+        try {
+          body = JSON.parse(text);
+        } catch {
+          throw new Error(`Placeholder endpoint returned an unexpected response (HTTP ${response.status})`);
         }
-        if (!response.ok || typeof body.path !== "string") {
-          throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`);
-        }
-        const view = await createWorkspace({ path: body.path });
-        localWorkspaceId = String(view.workspaceId);
-        remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
       }
+      if (!response.ok || typeof body.path !== "string") {
+        throw new Error(body.error ?? `Cannot prepare local workspace (HTTP ${response.status})`);
+      }
+      const view = await createWorkspace({ path: body.path });
+      const localWorkspaceId = String(view.workspaceId);
+      remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
       await waitForWorkspace(localWorkspaceId);
       previousSessionIdRef.current = currentSession.getSnapshot().sessionId;
       setPendingRemoteWorkspaceId(workspace.id);

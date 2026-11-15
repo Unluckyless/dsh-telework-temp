@@ -306,6 +306,21 @@ export function apply(ctx, config) {
     },
   }), 'telework: local workspace placeholder route')
 
+  ctx.effect(() => ctx.webServer.register({
+    kind: 'exact',
+    path: '/telework/remote/workspaces',
+    handler: async (req, res) => {
+      if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, { error: 'GET is required' }, 405)
+      const workspaces = ctx.workspaceRegistry.list().map(workspace => ({
+        id: workspace.id,
+        path: workspace.path,
+        title: workspace.title,
+        sessionIds: workspace.sessionIds,
+      }))
+      sendJson(res, { workspaces })
+    },
+  }), 'telework: workspace diagnostics route')
+
   // Uninstall safety: placeholder Workspaces are ordinary local DSH
   // Workspaces, so the Sessions inside them survive plugin removal. On unload,
   // archive those Sessions rather than deleting anything. A short grace period
