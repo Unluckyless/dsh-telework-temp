@@ -1468,6 +1468,7 @@ export function SidebarRoot({
   startSession,
   openSession,
   createWorkspace,
+  createSession,
   waitForWorkspace,
   toggleSidebar,
   selectPanel,
@@ -1696,7 +1697,8 @@ export function SidebarRoot({
       const localWorkspaceId = String(view.workspaceId)
       remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId)
       await waitForWorkspace(localWorkspaceId)
-      startSession(localWorkspaceId as Parameters<typeof startSession>[0])
+      const sessionId = await createSession(localWorkspaceId)
+      openSession(sessionId)
     } catch (error) {
       setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error))
     }

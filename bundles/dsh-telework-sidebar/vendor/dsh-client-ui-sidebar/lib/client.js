@@ -1513,6 +1513,7 @@ function SidebarRoot({
   startSession,
   openSession,
   createWorkspace,
+  createSession,
   waitForWorkspace,
   toggleSidebar,
   selectPanel,
@@ -1688,7 +1689,8 @@ function SidebarRoot({
       const localWorkspaceId = String(view.workspaceId);
       remoteStore.setLocalWorkspaceId(workspace.id, localWorkspaceId);
       await waitForWorkspace(localWorkspaceId);
-      startSession(localWorkspaceId);
+      const sessionId = await createSession(localWorkspaceId);
+      openSession(sessionId);
     } catch (error) {
       setRemoteWorkspaceToast(error instanceof Error ? error.message : String(error));
     }
@@ -2185,10 +2187,11 @@ var SIDEBAR_SECTION_INJECT = {
   hooks: { sectionScroller: (_standard, { useSectionScroller }) => useSectionScroller }
 };
 var NS = "sidebar";
-var inject = ["slots", "layout", "uiWorkspace", "workspaces", "locale", "shortcuts"];
+var inject = ["slots", "layout", "uiWorkspace", "workspaces", "sessions", "locale", "shortcuts"];
 function apply(ctx) {
   const workspaceNavigation = ctx.get("uiWorkspace");
   const workspaceRegistry = ctx.get("workspaces");
+  const sessionController = ctx.get("sessions");
   ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), "ui-sidebar: dictionaries");
   const panels = (0, import_dsh_client_store2.createSnapshotStore)([]);
   const syncPanels = () => {
@@ -2221,6 +2224,7 @@ function apply(ctx) {
       workspaceNavigation.openSession(sessionId);
     },
     createWorkspace: (input) => workspaceRegistry.create(input),
+    createSession: (workspaceId) => sessionController.create({ workspaceId }),
     toggleSidebar: () => {
       ctx.layout.toggleSidebar();
     },

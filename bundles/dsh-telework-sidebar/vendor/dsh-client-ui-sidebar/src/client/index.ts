@@ -50,8 +50,12 @@ interface WorkspaceRegistry {
   list: { getSnapshot(): { items: readonly { workspaceId: string }[] } }
 }
 
+interface SessionController {
+  create(request: { workspaceId: string }): Promise<string>
+}
+
 /** Services required by the sidebar plugin. */
-export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'locale', 'shortcuts']
+export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'sessions', 'locale', 'shortcuts']
 
 /** Registers the sidebar shell and its service callbacks.
  * @param ctx - Client root context.
@@ -59,6 +63,7 @@ export const inject = ['slots', 'layout', 'uiWorkspace', 'workspaces', 'locale',
 export function apply(ctx: ClientContext): void {
   const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation
   const workspaceRegistry = ctx.get('workspaces') as unknown as WorkspaceRegistry
+  const sessionController = ctx.get('sessions') as unknown as SessionController
   ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), 'ui-sidebar: dictionaries')
   const panels = createSnapshotStore<readonly SidebarPanelMetadata[]>([])
   const syncPanels = (): void => {
@@ -91,6 +96,7 @@ export function apply(ctx: ClientContext): void {
     startSession: (workspaceId) => { workspaceNavigation.startSession(workspaceId) },
     openSession: (sessionId) => { workspaceNavigation.openSession(sessionId) },
     createWorkspace: (input) => workspaceRegistry.create(input),
+    createSession: (workspaceId) => sessionController.create({ workspaceId }),
     toggleSidebar: () => { ctx.layout.toggleSidebar() },
     selectPanel: (id) => { ctx.layout.selectPanel(id) },    setPinned: panelPins.setPinned,
     currentSession: selection,

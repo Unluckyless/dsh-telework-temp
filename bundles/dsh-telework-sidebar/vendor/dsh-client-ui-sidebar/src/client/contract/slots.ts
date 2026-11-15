@@ -217,6 +217,8 @@ export type SidebarRootInjected = {
    * recent Workspace, or clear into the New Session pure view when none exist.
    */
   startSession: (workspaceId?: WorkspaceId) => void
+  /** Create a new Session inside an explicit local Workspace. */
+  createSession: (workspaceId: string) => Promise<string>
   /** Open a Session by id through the Workspace UI. */
   openSession: (sessionId: string) => void
   /** Wait until the client workspace snapshot contains a just-created Workspace. */
