@@ -294,6 +294,8 @@ interface RemoteConnectionSummary {
 
 type SharedRemoteStatus = 'connecting' | 'connected' | 'error'
 
+const EMPTY_WORKSPACE_LIST = { items: [] as const }
+
 interface SharedRemoteConnection {
   id: string
   host: string
@@ -1499,7 +1501,16 @@ export function SidebarRoot({
   const remoteConnections = useSyncExternalStore(remoteStore.subscribe, remoteStore.get)
   const storedRemoteWorkspaces = useSyncExternalStore(remoteStore.subscribe, remoteStore.getWorkspaces)
   const remoteConnected = remoteConnections.some(connection => connection.status === 'connected')
-  const workspaceListSnapshot = useSyncExternalStore(workspaceList.subscribe, workspaceList.getSnapshot)
+  const workspaceListSnapshot = useSyncExternalStore(
+    useMemo(
+      () => (listener: () => void) => workspaceList?.subscribe(listener) ?? (() => {}),
+      [workspaceList],
+    ),
+    useMemo(
+      () => () => workspaceList?.getSnapshot() ?? EMPTY_WORKSPACE_LIST,
+      [workspaceList],
+    ),
+  )
   // Mirror the official Workspace browser: a remote Workspace's rows are the
   // local placeholder Workspace's own Session ids, so blank reuse, new rows and
   // the automatic disappearance of an unused blank all come from DSH itself.

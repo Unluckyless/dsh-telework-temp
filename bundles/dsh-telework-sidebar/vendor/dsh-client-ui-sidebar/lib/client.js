@@ -549,6 +549,7 @@ function WorkspaceFiles({ currentSession = EMPTY_SESSION_STORE, t }) {
     }
   );
 }
+var EMPTY_WORKSPACE_LIST = { items: [] };
 function ensureRemoteStore() {
   if (window.__DSH_TELEWORK_REMOTE__ !== void 0) return window.__DSH_TELEWORK_REMOTE__;
   const listeners = /* @__PURE__ */ new Set();
@@ -1541,7 +1542,17 @@ function SidebarRoot({
   const remoteConnections = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.get);
   const storedRemoteWorkspaces = (0, import_react.useSyncExternalStore)(remoteStore.subscribe, remoteStore.getWorkspaces);
   const remoteConnected = remoteConnections.some((connection) => connection.status === "connected");
-  const workspaceListSnapshot = (0, import_react.useSyncExternalStore)(workspaceList.subscribe, workspaceList.getSnapshot);
+  const workspaceListSnapshot = (0, import_react.useSyncExternalStore)(
+    (0, import_react.useMemo)(
+      () => (listener) => workspaceList?.subscribe(listener) ?? (() => {
+      }),
+      [workspaceList]
+    ),
+    (0, import_react.useMemo)(
+      () => () => workspaceList?.getSnapshot() ?? EMPTY_WORKSPACE_LIST,
+      [workspaceList]
+    )
+  );
   const remoteWorkspaces = (0, import_react.useMemo)(() => storedRemoteWorkspaces.map((workspace) => {
     const local = workspace.localWorkspaceId === void 0 ? void 0 : workspaceListSnapshot.items.find((item) => item.workspaceId === workspace.localWorkspaceId);
     return { ...workspace, sessions: local?.sessionIds ?? [] };
