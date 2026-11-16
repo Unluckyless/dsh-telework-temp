@@ -176,6 +176,12 @@
   border-left: 0.5px solid var(--dsw-alias-border-l4);
 }
 
+/* The vertical split has no column index; every stacked pane keeps the
+   right-Sidebar boundary against the conversation. */
+.tabCell[data-dockkit-host='dock'][data-dockkit-row] > .tabHost {
+  border-left: 0.5px solid var(--dsw-alias-border-l4);
+}
+
 .tabHostHeader {
   flex: none;
 }
