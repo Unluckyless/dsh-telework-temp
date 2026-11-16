@@ -34,8 +34,9 @@ import type {
 import {
   activeDockPaneId, createInitialState, dockPaneIds, EMPTY_HISTORY, findContentTab, findPaneContentTab, findTabPane, getPane,
   planDropTab, planDuplicateTab, planFloatTab, planOpenContent, planPlaceTab, planResizeSplit, planSetExpanded,
-  planSetMode, planSettle, planSplitPane, planUnfloatPane, record, replay, stepBack, stepForward,
+  planSetMode, planSettle, planUnfloatPane, record, replay, stepBack, stepForward,
 } from '@deepseek-ai/dsh-client-ui-dockkit'
+import { planSplitPaneColumn } from './split-column.ts'
 import { GUIDE_KIND, pageAddress, type SidebarRightSeed } from './contract/seed.ts'
 import type { SidebarRightDestination } from './contract/slots.ts'
 
@@ -349,7 +350,7 @@ export function createSidebarRightStore(
           const next = advance(s, (state, mint, makeTab) => dockPaneIds(state).length >= 2
             || getPane(state, paneId ?? activeDockPaneId(state)).tabs.length === 0
             ? []
-            : planSplitPane(state, mint, paneId, makeTab), seed)
+            : planSplitPaneColumn(state, mint, paneId, makeTab), seed)
           if (settled !== undefined && next !== s) {
             const before = new Set(dockPaneIds(s.layout))
             for (const id of dockPaneIds(next.layout)) {
@@ -408,7 +409,7 @@ export function createSidebarRightStore(
             : [...planSetExpanded(state, true)]
           let openedInNewPane: TabId | undefined
           const split = intent.preferNewPane === true && replace === undefined && revealed === undefined
-            ? planSplitPane(state, mint, paneId, (id) => {
+            ? planSplitPaneColumn(state, mint, paneId, (id) => {
               openedInNewPane = id
               return { id, kind, contentId, title }
             })

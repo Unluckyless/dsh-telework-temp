@@ -2,7 +2,7 @@ window.__ModuleLoader__.load({id:"@deepseek-ai/dsh-client-ui-sidebar-right",fact
 
 var process = { env: {} };
 var __teleworkPlugin = "@deepseek-ai/dsh-client-ui-sidebar-right";
-var __teleworkCss = "/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/tabs/guide/GuideBody.module.css */\n.GuideBody_guide {\n  --dsl-guide-entry-radius: var(--dsw-radius-xl);\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  min-height: 100%;\n  padding: 0 24px;\n}\n.GuideBody_guide::after {\n  content: \"\";\n  flex: 0 1 10%;\n}\n.GuideBody_hero {\n  display: flex;\n  margin-bottom: 16px;\n  color: var(--dsw-specific-guide-hero);\n}\n.GuideBody_entry {\n  display: flex;\n  gap: 14px;\n  align-items: center;\n  box-sizing: border-box;\n  width: 380px;\n  max-width: 100%;\n  min-height: 56px;\n  padding: 14px 20px;\n  color: var(--dsw-alias-label-primary);\n  font: inherit;\n  text-align: left;\n  background: var(--dsw-alias-bg-layer-1);\n  border: 0.5px solid var(--dsw-alias-border-l3);\n  border-radius: var(--dsl-guide-entry-radius);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .GuideBody_entry:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.GuideBody_entryIcon {\n  display: flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 26px;\n  height: 26px;\n  color: var(--dsw-alias-label-secondary);\n}\n.GuideBody_placeholderInk {\n  color: var(--dsw-alias-label-tertiary);\n}\n.GuideBody_entryText {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  gap: 3px;\n  min-width: 0;\n}\n.GuideBody_entryTitle {\n  overflow: hidden;\n  font-size: 14px;\n  line-height: 1.4;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.GuideBody_entryDescription {\n  overflow: hidden;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 11px;\n  line-height: 1.4;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.GuideBody_titleIcon {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n}\n.GuideBody_entryCell {\n  width: 380px;\n  max-width: 100%;\n}\n.GuideBody_moreAnchor {\n  display: flex;\n  width: 380px;\n  max-width: 100%;\n}\n.GuideBody_moreAnchor .GuideBody_entry[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.GuideBody_moreMenu {\n  width: max-content;\n  max-width: min(480px, calc(100vw - 24px));\n}\n\n/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/ExpandButton.module.css */\n.ExpandButton_button {\n  flex: none;\n  width: 28px;\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n}\n.ExpandButton_button svg {\n  width: 15px;\n  height: 15px;\n}\n.ExpandButton_expanded {\n  visibility: hidden;\n}\n.ExpandButton_icon {\n  transform: scaleX(-1);\n}\n\n/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/SidebarRight.module.css */\n.SidebarRight_session {\n  display: contents;\n}\n.SidebarRight_session[hidden] {\n  display: none;\n}\n.SidebarRight_panel {\n  --dsh-dockkit-dock-layer: 10;\n  --dsh-dockkit-float-layer: 60;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  display: flex;\n  flex-direction: column;\n  min-width: 0;\n  overflow: clip;\n  pointer-events: none;\n}\n.SidebarRight_panel [data-dockkit-host=dock],\n.SidebarRight_panel [data-dockkit-empty],\n.SidebarRight_panel [data-dockkit-divider] {\n  transform: translateX(var(--dsh-sidebar-width));\n  visibility: hidden;\n  transition: transform var(--ds-transition-duration-slow) var(--ds-ease-in-out), visibility 0s linear var(--ds-transition-duration-slow);\n}\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-host=dock],\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-empty],\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-divider] {\n  transform: none;\n  visibility: visible;\n  transition: transform var(--ds-transition-duration-slow) var(--ds-ease-in-out);\n}\n@starting-style {\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-host=dock],\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-empty],\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-divider] {\n    transform: translateX(var(--dsh-sidebar-width));\n  }\n}\n.SidebarRight_panel[data-sidebar-right-panel=fullscreen] {\n  --dsh-dockkit-dock-layer: 40;\n}\n[data-windows-titlebar] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] {\n  max-width: calc(100vw - var(--dsh-windows-sidebar-width));\n}\n[data-windows-titlebar] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-column=\"0\"][data-dockkit-pane] {\n  border-radius: var(--dsh-windows-content-radius) 0 0 0;\n  corner-shape: round;\n}\n[data-platform=darwin] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"0\"] {\n  --dsh-dockkit-strip-inline-start: 88px;\n}\n[data-platform=darwin] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"1\"] {\n  --dsh-dockkit-strip-inline-start: 10px;\n}\n[data-platform=darwin][data-fullscreen] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"0\"] {\n  --dsh-dockkit-strip-inline-start: 10px;\n}\n@media (prefers-reduced-motion: reduce) {\n  .SidebarRight_panel [data-dockkit-host=dock],\n  .SidebarRight_panel [data-dockkit-empty],\n  .SidebarRight_panel [data-dockkit-divider],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-host=dock],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-empty],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-divider] {\n    transition: none;\n  }\n}\n.SidebarRight_iconButton {\n  display: inline-flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 6px;\n  color: var(--dsw-alias-label-secondary);\n  line-height: 1;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n}\n.SidebarRight_iconButton svg {\n  width: 15px;\n  height: 15px;\n}\n@media (hover: hover) {\n  .SidebarRight_iconButton:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.SidebarRight_collapseGlyph {\n  transform: scaleX(-1);\n}\n.SidebarRight_panelBody {\n  display: flex;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n@media (pointer: coarse) {\n  .SidebarRight_panelBody [data-dockkit-split-control]:has(> [data-dockkit-split-blocked]) {\n    visibility: hidden;\n  }\n}\n.SidebarRight_unavailable {\n  margin: 0;\n  padding: 12px;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n}\n.SidebarRight_tabTitle {\n  display: contents;\n}\n.SidebarRight_tabBody {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  min-height: 0;\n  min-width: 0;\n  overflow: hidden;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash],\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  --sidebar-right-flash-color: var(--dsw-specific-sidebar-right-flash);\n  --sidebar-right-flash-ring: color-mix(in srgb, var(--sidebar-right-flash-color) 48%, transparent);\n  --sidebar-right-flash-near: color-mix(in srgb, var(--sidebar-right-flash-color) 16%, transparent);\n  --sidebar-right-flash-far: color-mix(in srgb, var(--sidebar-right-flash-color) 10%, transparent);\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash] {\n  position: relative;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  z-index: 7;\n  pointer-events: none;\n  --sidebar-right-flash-from:\n    inset 0 0 0 1px var(--sidebar-right-flash-ring),\n    inset 0 2px 4px 0 var(--sidebar-right-flash-near),\n    inset 0 0 10px 0 var(--sidebar-right-flash-far);\n  --sidebar-right-flash-to:\n    inset 0 0 0 1px transparent,\n    inset 0 2px 4px 0 transparent,\n    inset 0 0 10px 0 transparent;\n}\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  --sidebar-right-flash-from:\n    var(--dsw-elevation-prominent),\n    0 0 0 1px var(--sidebar-right-flash-ring),\n    0 2px 4px 0 var(--sidebar-right-flash-near),\n    0 0 10px 0 var(--sidebar-right-flash-far);\n  --sidebar-right-flash-to:\n    var(--dsw-elevation-prominent),\n    0 0 0 1px transparent,\n    0 2px 4px 0 transparent,\n    0 0 10px 0 transparent;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  animation-duration: calc(var(--ds-transition-duration-slow) * 2);\n  animation-timing-function: var(--ds-ease-in-out);\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash=odd]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash=odd] {\n  animation-name: SidebarRight_flashOdd;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash=even]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash=even] {\n  animation-name: SidebarRight_flashEven;\n}\n@keyframes SidebarRight_flashOdd {\n  from {\n    box-shadow: var(--sidebar-right-flash-from);\n  }\n  to {\n    box-shadow: var(--sidebar-right-flash-to);\n  }\n}\n@keyframes SidebarRight_flashEven {\n  from {\n    box-shadow: var(--sidebar-right-flash-from);\n  }\n  to {\n    box-shadow: var(--sidebar-right-flash-to);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after,\n  .SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n    animation-timing-function: step-end;\n  }\n}\n";
+var __teleworkCss = "/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/tabs/guide/GuideBody.module.css */\n.GuideBody_guide {\n  --dsl-guide-entry-radius: var(--dsw-radius-xl);\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  min-height: 100%;\n  padding: 0 24px;\n}\n.GuideBody_guide::after {\n  content: \"\";\n  flex: 0 1 10%;\n}\n.GuideBody_hero {\n  display: flex;\n  margin-bottom: 16px;\n  color: var(--dsw-specific-guide-hero);\n}\n.GuideBody_entry {\n  display: flex;\n  gap: 14px;\n  align-items: center;\n  box-sizing: border-box;\n  width: 380px;\n  max-width: 100%;\n  min-height: 56px;\n  padding: 14px 20px;\n  color: var(--dsw-alias-label-primary);\n  font: inherit;\n  text-align: left;\n  background: var(--dsw-alias-bg-layer-1);\n  border: 0.5px solid var(--dsw-alias-border-l3);\n  border-radius: var(--dsl-guide-entry-radius);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .GuideBody_entry:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.GuideBody_entryIcon {\n  display: flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 26px;\n  height: 26px;\n  color: var(--dsw-alias-label-secondary);\n}\n.GuideBody_placeholderInk {\n  color: var(--dsw-alias-label-tertiary);\n}\n.GuideBody_entryText {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  gap: 3px;\n  min-width: 0;\n}\n.GuideBody_entryTitle {\n  overflow: hidden;\n  font-size: 14px;\n  line-height: 1.4;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.GuideBody_entryDescription {\n  overflow: hidden;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: 11px;\n  line-height: 1.4;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.GuideBody_titleIcon {\n  flex: none;\n  color: var(--dsw-alias-label-tertiary);\n}\n.GuideBody_entryCell {\n  width: 380px;\n  max-width: 100%;\n}\n.GuideBody_moreAnchor {\n  display: flex;\n  width: 380px;\n  max-width: 100%;\n}\n.GuideBody_moreAnchor .GuideBody_entry[aria-expanded=true] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.GuideBody_moreMenu {\n  width: max-content;\n  max-width: min(480px, calc(100vw - 24px));\n}\n\n/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/ExpandButton.module.css */\n.ExpandButton_button {\n  flex: none;\n  width: 28px;\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n}\n.ExpandButton_button svg {\n  width: 15px;\n  height: 15px;\n}\n.ExpandButton_expanded {\n  visibility: hidden;\n}\n.ExpandButton_icon {\n  transform: scaleX(-1);\n}\n\n/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/dockkit.module.css */\n.dockkit_split {\n  display: flex;\n  flex: 1 1 auto;\n  min-width: 0;\n  min-height: 0;\n}\n.dockkit_splitRow {\n  flex-direction: row;\n}\n.dockkit_splitColumn {\n  flex-direction: column;\n}\n.dockkit_splitCell {\n  display: flex;\n  flex-basis: 0;\n  min-width: 0;\n  min-height: 0;\n}\n.dockkit_divider {\n  position: relative;\n  z-index: 1;\n  flex: none;\n  touch-action: none;\n}\n.dockkit_divider::before,\n.dockkit_divider::after {\n  content: \"\";\n  position: absolute;\n}\n.dockkit_divider::before {\n  background: var(--dsw-alias-border-l4);\n}\n.dockkit_splitRow > .dockkit_divider {\n  width: 0;\n  cursor: col-resize;\n}\n.dockkit_splitRow > .dockkit_divider::before {\n  top: 0;\n  bottom: 0;\n  left: -0.25px;\n  width: 0.5px;\n}\n.dockkit_splitRow > .dockkit_divider::after {\n  top: 0;\n  bottom: 0;\n  left: -4px;\n  right: -4px;\n}\n.dockkit_splitColumn > .dockkit_divider {\n  height: 0;\n  cursor: row-resize;\n}\n.dockkit_splitColumn > .dockkit_divider::before {\n  left: 0;\n  right: 0;\n  top: -0.25px;\n  height: 0.5px;\n}\n.dockkit_splitColumn > .dockkit_divider::after {\n  left: 0;\n  right: 0;\n  top: -4px;\n  bottom: -4px;\n}\n.dockkit_divider::after {\n  opacity: 0;\n  transition: opacity 120ms ease-out;\n}\n@media (hover: hover) {\n  .dockkit_divider:hover::after {\n    opacity: 1;\n  }\n}\n.dockkit_splitRow > .dockkit_divider::after {\n  background:\n    linear-gradient(\n      to bottom,\n      transparent,\n      var(--dsw-alias-label-caption) 50%,\n      transparent) center / 1px 100% no-repeat;\n}\n.dockkit_splitColumn > .dockkit_divider::after {\n  background:\n    linear-gradient(\n      to right,\n      transparent,\n      var(--dsw-alias-label-caption) 50%,\n      transparent) center / 100% 1px no-repeat;\n}\n.dockkit_surface {\n  display: flex;\n  flex: 1 1 auto;\n  min-width: 0;\n  min-height: 0;\n}\n.dockkit_tabLayout {\n  display: grid;\n  flex: 1 1 auto;\n  grid-template-rows: minmax(0, 1fr);\n  min-width: 0;\n  min-height: 0;\n}\n.dockkit_tabCell,\n.dockkit_emptyTabHost {\n  display: flex;\n  min-width: 0;\n  min-height: 0;\n  z-index: var(--dsh-dockkit-dock-layer, 10);\n}\n.dockkit_tabCell[hidden] {\n  display: none;\n}\n.dockkit_floatingCell {\n  width: 0;\n  height: 0;\n  z-index: var(--dsh-dockkit-float-layer, 60);\n}\n.dockkit_tabHost {\n  min-width: 0;\n  min-height: 0;\n  pointer-events: auto;\n}\n.dockkit_tabHost:not(.dockkit_float),\n.dockkit_emptyTabHost {\n  background: var(--dsw-alias-bg-base);\n}\n.dockkit_tabCell[data-dockkit-host=dock][data-dockkit-column=\"0\"] > .dockkit_tabHost {\n  border-left: 0.5px solid var(--dsw-alias-border-l4);\n}\n.dockkit_tabHostHeader {\n  flex: none;\n}\n.dockkit_tabHostBody {\n  position: relative;\n  min-width: 0;\n}\n.dockkit_tabLayoutDivider {\n  width: 0;\n  cursor: col-resize;\n  z-index: calc(var(--dsh-dockkit-dock-layer, 10) + 1);\n  pointer-events: auto;\n}\n.dockkit_tabLayoutDivider::before {\n  top: 0;\n  bottom: 0;\n  left: -0.25px;\n  width: 0.5px;\n}\n.dockkit_tabLayoutDivider::after {\n  top: 0;\n  bottom: 0;\n  left: -4px;\n  right: -4px;\n  background:\n    linear-gradient(\n      to bottom,\n      transparent,\n      var(--dsw-alias-label-caption) 50%,\n      transparent) center / 1px 100% no-repeat;\n}\n.dockkit_tabLayoutDividerVertical {\n  width: auto;\n  height: 0;\n  cursor: row-resize;\n}\n.dockkit_tabLayoutDividerVertical::before {\n  top: -0.25px;\n  bottom: auto;\n  left: 0;\n  right: 0;\n  width: auto;\n  height: 0.5px;\n}\n.dockkit_tabLayoutDividerVertical::after {\n  top: -4px;\n  bottom: -4px;\n  left: 0;\n  right: 0;\n  background:\n    linear-gradient(\n      to right,\n      transparent,\n      var(--dsw-alias-label-caption) 50%,\n      transparent) center / 100% 1px no-repeat;\n}\n.dockkit_pane {\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: column;\n  min-width: 0;\n  min-height: 0;\n  overflow: hidden;\n}\n.dockkit_pane:focus,\n.dockkit_float:focus {\n  outline: none;\n}\n.dockkit_tabStrip {\n  display: flex;\n  flex: none;\n  gap: 4px;\n  align-items: center;\n  height: 28px;\n  padding: 10px 6px 0 var(--dsh-dockkit-strip-inline-start, 10px);\n  touch-action: none;\n}\n.dockkit_stripTabs {\n  display: flex;\n  flex: 0 1 auto;\n  align-items: center;\n  min-width: 0;\n  overflow-x: auto;\n  overflow-y: hidden;\n  scroll-behavior: smooth;\n  scrollbar-width: none;\n  touch-action: none;\n}\n.dockkit_stripTabs::-webkit-scrollbar {\n  display: none;\n}\n.dockkit_stripTabs[data-dockkit-strip-scroll=end] {\n  mask-image:\n    linear-gradient(\n      to right,\n      black calc(100% - 24px),\n      transparent);\n}\n.dockkit_stripTabs[data-dockkit-strip-scroll=start] {\n  mask-image:\n    linear-gradient(\n      to right,\n      transparent,\n      black 24px);\n}\n.dockkit_stripTabs[data-dockkit-strip-scroll=\"start end\"] {\n  mask-image:\n    linear-gradient(\n      to right,\n      transparent,\n      black 24px,\n      black calc(100% - 24px),\n      transparent);\n}\n.dockkit_stripFill {\n  flex: 1 1 0;\n  min-width: 0;\n}\n.dockkit_stripChrome {\n  display: flex;\n  flex: none;\n  gap: 8px;\n  align-items: center;\n  height: 28px;\n  margin-left: 4px;\n}\n:where(html[data-platform=darwin]) .dockkit_pane,\n:where(html[data-platform=darwin]) .dockkit_stripChrome,\n:where(html[data-platform=darwin]) .dockkit_float,\n:where(html[data-platform=darwin]) .dockkit_divider {\n  -webkit-app-region: no-drag;\n}\n.dockkit_slot {\n  display: flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 10px;\n  height: 28px;\n}\n.dockkit_slot::before {\n  content: \"\";\n  width: 0.5px;\n  height: 14px;\n  background: var(--dsw-alias-border-l4);\n}\n.dockkit_tabActive + .dockkit_slot:not(.dockkit_slotCaret)::before,\n.dockkit_slot:not(.dockkit_slotCaret):has(+ .dockkit_tabActive)::before {\n  background: transparent;\n}\n.dockkit_slotCaret::before {\n  width: 2px;\n  height: 20px;\n  background: var(--dsw-alias-brand-primary-new-colorprimary-new-color);\n}\n.dockkit_tab {\n  position: relative;\n  display: flex;\n  flex: 0 1 auto;\n  align-items: center;\n  min-width: 80px;\n  max-width: 170px;\n  height: 28px;\n  padding: 0 10px;\n  color: var(--dsw-alias-label-secondary);\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n  line-height: 1;\n  white-space: nowrap;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n  touch-action: none;\n  user-select: none;\n}\n.dockkit_tabTitle {\n  display: flex;\n  flex: 1 1 auto;\n  gap: 5px;\n  align-items: center;\n  min-width: 0;\n  overflow: hidden;\n  line-height: 1.4;\n}\n.dockkit_tabTitle[data-dockkit-tab-clipped] {\n  mask-image:\n    linear-gradient(\n      to right,\n      black calc(100% - 16px),\n      transparent);\n}\n.dockkit_tab:not(.dockkit_floatTitle):focus-within .dockkit_tabTitle,\n.dockkit_tabActive .dockkit_tabTitle {\n  mask-image:\n    linear-gradient(\n      to right,\n      black calc(100% - 30px),\n      transparent calc(100% - 14px));\n}\n@media (hover: hover) {\n  .dockkit_tab:not(.dockkit_floatTitle):hover .dockkit_tabTitle {\n    mask-image:\n      linear-gradient(\n        to right,\n        black calc(100% - 30px),\n        transparent calc(100% - 14px));\n  }\n}\n.dockkit_tabClose {\n  position: absolute;\n  top: 4px;\n  right: 4px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 20px;\n  height: 20px;\n  padding: 0;\n  color: var(--dsw-alias-label-tertiary);\n  line-height: 1;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n  opacity: 0;\n  pointer-events: none;\n}\n.dockkit_tab:focus-within .dockkit_tabClose,\n.dockkit_tabActive .dockkit_tabClose {\n  opacity: 1;\n  pointer-events: auto;\n}\n@media (hover: hover) {\n  .dockkit_tab:hover .dockkit_tabClose {\n    opacity: 1;\n    pointer-events: auto;\n  }\n}\n.dockkit_addTab {\n  display: flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n  line-height: 1;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .dockkit_addTab:hover {\n    color: var(--dsw-alias-label-primary);\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n  .dockkit_tabClose:hover {\n    color: var(--dsw-alias-label-primary);\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n  .dockkit_tab:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.dockkit_tabActive {\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-markdown-tag);\n}\n.dockkit_tab.dockkit_tabQuiet {\n  color: var(--dsw-alias-label-primary);\n  background: transparent;\n  cursor: default;\n}\n@media (hover: hover) {\n  .dockkit_tab.dockkit_tabQuiet:hover {\n    color: var(--dsw-alias-label-primary);\n    background: transparent;\n    cursor: default;\n  }\n}\n.dockkit_tab.dockkit_tabQuiet .dockkit_tabTitle,\n.dockkit_tab.dockkit_tabQuiet:focus-within .dockkit_tabTitle {\n  mask-image: none;\n}\n@media (hover: hover) {\n  .dockkit_tab.dockkit_tabQuiet:hover .dockkit_tabTitle {\n    mask-image: none;\n  }\n}\n.dockkit_tab.dockkit_tabQuiet .dockkit_tabTitle[data-dockkit-tab-clipped] {\n  mask-image:\n    linear-gradient(\n      to right,\n      black calc(100% - 16px),\n      transparent);\n}\n.dockkit_tabDragging {\n  opacity: 0.5;\n}\n.dockkit_iconButton {\n  display: inline-flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 6px;\n  color: var(--dsw-alias-label-secondary);\n  line-height: 1;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n}\n.dockkit_iconButton svg {\n  width: 15px;\n  height: 15px;\n}\n@media (hover: hover) {\n  .dockkit_iconButton:hover:not(:disabled) {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.dockkit_iconButton:disabled {\n  opacity: 0.4;\n  cursor: default;\n}\n.dockkit_iconButton[data-dockkit-split-blocked] {\n  pointer-events: none;\n}\n.dockkit_menu {\n  position: fixed;\n  z-index: 70;\n  display: flex;\n  flex-direction: column;\n  min-width: 96px;\n  padding: 4px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n}\n.dockkit_menu:not(:has([role=menuitem], [role=menuitemcheckbox], [role=menuitemradio])) {\n  display: none;\n}\n.dockkit_menuItem {\n  padding: 4px 7px;\n  color: var(--dsw-alias-label-primary);\n  font-size: calc(var(--dsh-content-font-size-secondary, 13px) - 1px);\n  text-align: left;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-md);\n  cursor: pointer;\n}\n@media (hover: hover) {\n  .dockkit_menuItem:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.dockkit_paneBody {\n  position: relative;\n  flex: 1 1 auto;\n  min-width: 0;\n  min-height: 0;\n  overflow: auto;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.dockkit_empty {\n  margin: 0;\n  padding: 12px;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n}\n.dockkit_dockScrim {\n  position: absolute;\n  inset: 0;\n  z-index: 10;\n  pointer-events: none;\n  background: color-mix(in srgb, var(--dsw-alias-bg-base) 72%, transparent);\n  backdrop-filter: blur(6px);\n  animation: dockkit_dockScrimIn 140ms ease-out;\n}\n.dockkit_dockHint {\n  position: absolute;\n  z-index: 10;\n  display: flex;\n  box-sizing: border-box;\n  padding: 8px;\n  pointer-events: none;\n}\n.dockkit_dockHint[data-dockkit-dock-zone=center] {\n  inset: 0;\n}\n.dockkit_dockHint[data-dockkit-dock-zone=left] {\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 40%;\n}\n.dockkit_dockHint[data-dockkit-dock-zone=right] {\n  top: 0;\n  right: 0;\n  bottom: 0;\n  width: 40%;\n}\n[data-dockkit-drop-zones=horizontal] .dockkit_dockHint[data-dockkit-dock-zone=left] {\n  width: 50%;\n  padding-right: 4px;\n}\n[data-dockkit-drop-zones=horizontal] .dockkit_dockHint[data-dockkit-dock-zone=right] {\n  width: 50%;\n  padding-left: 4px;\n}\n.dockkit_dockHintCard {\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: column;\n  gap: 8px;\n  align-items: center;\n  justify-content: center;\n  min-width: 0;\n  min-height: 0;\n  padding: 12px;\n  overflow: hidden;\n  color: var(--dsw-alias-label-tertiary);\n  border: 1.5px dashed var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  transition:\n    color 120ms ease-out,\n    background-color 120ms ease-out,\n    border-color 120ms ease-out;\n  animation: dockkit_dockHintIn 140ms ease-out;\n}\n.dockkit_dockHint[data-dockkit-drop-active] .dockkit_dockHintCard {\n  color: var(--dsw-alias-label-secondary);\n  background: color-mix(in srgb, var(--dsw-alias-brand-primary-new-colorprimary-new-color) 8%, transparent);\n  border-color: var(--dsw-alias-brand-primary-new-colorprimary-new-color);\n}\n.dockkit_dockHintCard svg {\n  flex: none;\n  width: 20px;\n  height: 20px;\n}\n.dockkit_dockHintLabel {\n  max-width: 100%;\n  overflow: hidden;\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n  font-weight: 500;\n  line-height: 1.4;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n@keyframes dockkit_dockHintIn {\n  from {\n    opacity: 0;\n    transform: scale(0.98);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes dockkit_dockScrimIn {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.dockkit_dockHint[data-dockkit-dock-zone=top] {\n  top: 0;\n  right: 0;\n  left: 0;\n  height: 40%;\n}\n.dockkit_dockHint[data-dockkit-dock-zone=bottom] {\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 40%;\n}\nhtml[data-windows-titlebar] .dockkit_float {\n  --dsh-dockkit-float-top: calc(var(--dsh-windows-titlebar-height) + 20px);\n}\nhtml[data-windows-titlebar][data-fullscreen] .dockkit_float {\n  --dsh-dockkit-float-top: 20px;\n}\n.dockkit_float {\n  position: fixed;\n  left: max(0px, min(var(--dsh-dockkit-float-x), 100vw - var(--dsh-dockkit-float-width)));\n  top: max(var(--dsh-dockkit-float-top, 0px), min(var(--dsh-dockkit-float-y), 100dvh - var(--dsh-dockkit-float-height)));\n  width: min(var(--dsh-dockkit-float-width), 100vw);\n  height: min(var(--dsh-dockkit-float-height), 100dvh - var(--dsh-dockkit-float-top, 0px));\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n  background: var(--dsw-alias-bg-layer-2);\n  border-radius: var(--dsw-radius-panel);\n  --dsw-elevation-stroke-color: var(--dsw-alias-border-l2);\n  box-shadow: var(--dsw-elevation-prominent);\n  pointer-events: auto;\n}\n.dockkit_floatHeader {\n  cursor: move;\n  user-select: none;\n}\n.dockkit_floatTitle {\n  flex: 0 1 auto;\n  cursor: inherit;\n}\n@media (hover: hover) {\n  .dockkit_tab.dockkit_floatTitle:hover {\n    background: transparent;\n  }\n}\n.dockkit_dockGlyph {\n  transform: scaleX(-1);\n}\n.dockkit_floatBody {\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow: auto;\n  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);\n  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);\n}\n.dockkit_floatResize {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  width: 20px;\n  height: 20px;\n  cursor: nwse-resize;\n  touch-action: none;\n}\n.dockkit_floatResize::after {\n  content: \"\";\n  position: absolute;\n  right: 4px;\n  bottom: 4px;\n  width: calc(var(--dsw-radius-panel) - 4px);\n  height: calc(var(--dsw-radius-panel) - 4px);\n  border-right: 1.5px solid var(--dsw-alias-label-caption);\n  border-bottom: 1.5px solid var(--dsw-alias-label-caption);\n  border-bottom-right-radius: calc(var(--dsw-radius-panel) - 4px);\n  opacity: 0;\n  transition: opacity 120ms ease-out;\n}\n.dockkit_floatResize:active::after {\n  opacity: 1;\n}\n@media (hover: hover) {\n  .dockkit_float:hover .dockkit_floatResize::after {\n    opacity: 1;\n  }\n  .dockkit_floatResize:hover::after {\n    border-color: var(--dsw-alias-label-tertiary);\n  }\n}\n\n/* bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/SidebarRight.module.css */\n.SidebarRight_session {\n  display: contents;\n}\n.SidebarRight_session[hidden] {\n  display: none;\n}\n.SidebarRight_panel {\n  --dsh-dockkit-dock-layer: 10;\n  --dsh-dockkit-float-layer: 60;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  display: flex;\n  flex-direction: column;\n  min-width: 0;\n  overflow: clip;\n  pointer-events: none;\n}\n.SidebarRight_panel [data-dockkit-host=dock],\n.SidebarRight_panel [data-dockkit-empty],\n.SidebarRight_panel [data-dockkit-divider] {\n  transform: translateX(var(--dsh-sidebar-width));\n  visibility: hidden;\n  transition: transform var(--ds-transition-duration-slow) var(--ds-ease-in-out), visibility 0s linear var(--ds-transition-duration-slow);\n}\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-host=dock],\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-empty],\n.SidebarRight_panel[data-sidebar-right-open] [data-dockkit-divider] {\n  transform: none;\n  visibility: visible;\n  transition: transform var(--ds-transition-duration-slow) var(--ds-ease-in-out);\n}\n@starting-style {\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-host=dock],\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-empty],\n  .SidebarRight_panel[data-sidebar-right-opening] [data-dockkit-divider] {\n    transform: translateX(var(--dsh-sidebar-width));\n  }\n}\n.SidebarRight_panel[data-sidebar-right-panel=fullscreen] {\n  --dsh-dockkit-dock-layer: 40;\n}\n[data-windows-titlebar] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] {\n  max-width: calc(100vw - var(--dsh-windows-sidebar-width));\n}\n[data-windows-titlebar] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-column=\"0\"][data-dockkit-pane] {\n  border-radius: var(--dsh-windows-content-radius) 0 0 0;\n  corner-shape: round;\n}\n[data-platform=darwin] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"0\"] {\n  --dsh-dockkit-strip-inline-start: 88px;\n}\n[data-platform=darwin] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"1\"] {\n  --dsh-dockkit-strip-inline-start: 10px;\n}\n[data-platform=darwin][data-fullscreen] .SidebarRight_panel[data-sidebar-right-panel=fullscreen] [data-dockkit-host=dock][data-dockkit-column=\"0\"] {\n  --dsh-dockkit-strip-inline-start: 10px;\n}\n@media (prefers-reduced-motion: reduce) {\n  .SidebarRight_panel [data-dockkit-host=dock],\n  .SidebarRight_panel [data-dockkit-empty],\n  .SidebarRight_panel [data-dockkit-divider],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-host=dock],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-empty],\n  .SidebarRight_panel[data-sidebar-right-open] [data-dockkit-divider] {\n    transition: none;\n  }\n}\n.SidebarRight_iconButton {\n  display: inline-flex;\n  flex: none;\n  align-items: center;\n  justify-content: center;\n  width: 28px;\n  height: 28px;\n  padding: 6px;\n  color: var(--dsw-alias-label-secondary);\n  line-height: 1;\n  background: transparent;\n  border: none;\n  border-radius: var(--dsw-radius-sm);\n  cursor: pointer;\n}\n.SidebarRight_iconButton svg {\n  width: 15px;\n  height: 15px;\n}\n@media (hover: hover) {\n  .SidebarRight_iconButton:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n.SidebarRight_collapseGlyph {\n  transform: scaleX(-1);\n}\n.SidebarRight_panelBody {\n  display: flex;\n  flex: 1 1 auto;\n  min-height: 0;\n}\n@media (pointer: coarse) {\n  .SidebarRight_panelBody [data-dockkit-split-control]:has(> [data-dockkit-split-blocked]) {\n    visibility: hidden;\n  }\n}\n.SidebarRight_unavailable {\n  margin: 0;\n  padding: 12px;\n  color: var(--dsw-alias-label-tertiary);\n  font-size: var(--dsh-content-font-size-secondary, 13px);\n}\n.SidebarRight_tabTitle {\n  display: contents;\n}\n.SidebarRight_tabBody {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  min-height: 0;\n  min-width: 0;\n  overflow: hidden;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash],\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  --sidebar-right-flash-color: var(--dsw-specific-sidebar-right-flash);\n  --sidebar-right-flash-ring: color-mix(in srgb, var(--sidebar-right-flash-color) 48%, transparent);\n  --sidebar-right-flash-near: color-mix(in srgb, var(--sidebar-right-flash-color) 16%, transparent);\n  --sidebar-right-flash-far: color-mix(in srgb, var(--sidebar-right-flash-color) 10%, transparent);\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash] {\n  position: relative;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  z-index: 7;\n  pointer-events: none;\n  --sidebar-right-flash-from:\n    inset 0 0 0 1px var(--sidebar-right-flash-ring),\n    inset 0 2px 4px 0 var(--sidebar-right-flash-near),\n    inset 0 0 10px 0 var(--sidebar-right-flash-far);\n  --sidebar-right-flash-to:\n    inset 0 0 0 1px transparent,\n    inset 0 2px 4px 0 transparent,\n    inset 0 0 10px 0 transparent;\n}\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  --sidebar-right-flash-from:\n    var(--dsw-elevation-prominent),\n    0 0 0 1px var(--sidebar-right-flash-ring),\n    0 2px 4px 0 var(--sidebar-right-flash-near),\n    0 0 10px 0 var(--sidebar-right-flash-far);\n  --sidebar-right-flash-to:\n    var(--dsw-elevation-prominent),\n    0 0 0 1px transparent,\n    0 2px 4px 0 transparent,\n    0 0 10px 0 transparent;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n  animation-duration: calc(var(--ds-transition-duration-slow) * 2);\n  animation-timing-function: var(--ds-ease-in-out);\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash=odd]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash=odd] {\n  animation-name: SidebarRight_flashOdd;\n}\n.SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash=even]::after,\n.SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash=even] {\n  animation-name: SidebarRight_flashEven;\n}\n@keyframes SidebarRight_flashOdd {\n  from {\n    box-shadow: var(--sidebar-right-flash-from);\n  }\n  to {\n    box-shadow: var(--sidebar-right-flash-to);\n  }\n}\n@keyframes SidebarRight_flashEven {\n  from {\n    box-shadow: var(--sidebar-right-flash-from);\n  }\n  to {\n    box-shadow: var(--sidebar-right-flash-to);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .SidebarRight_panel [data-dockkit-pane][data-sidebar-right-flash]::after,\n  .SidebarRight_panel [data-dockkit-float][data-sidebar-right-flash] {\n    animation-timing-function: step-end;\n  }\n}\n";
 if (typeof document !== 'undefined') {
   var __teleworkSelector = 'style[data-plugin-css="' + __teleworkPlugin + '"]';
   if (document.querySelector(__teleworkSelector) === null) {
@@ -1823,7 +1823,7 @@ __export(index_exports, {
   inject: () => inject
 });
 module.exports = __toCommonJS(index_exports);
-var import_dsh_client_ui_primitives5 = require("@deepseek-ai/dsh-client-ui-primitives");
+var import_dsh_client_ui_primitives9 = require("@deepseek-ai/dsh-client-ui-primitives");
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/TabMenuContent.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
@@ -2320,9 +2320,1464 @@ function ExpandButton({ sessionId, useStore, actions, t, useShortcuts }) {
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/SidebarRight.tsx
+var import_react11 = require("react");
+var import_dsh_client_ui_primitives8 = require("@deepseek-ai/dsh-client-ui-primitives");
+var import_dsh_client_ui_dockkit4 = require("@deepseek-ai/dsh-client-ui-dockkit");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/DockSurface.tsx
+var import_react10 = require("react");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/engine/tree.ts
+function getNode(state, id) {
+  const node2 = state.nodes[id];
+  if (node2 === void 0) throw new Error(`layout: unknown node ${id}`);
+  return node2;
+}
+function getPane(state, id) {
+  const node2 = getNode(state, id);
+  if (node2.kind !== "pane") throw new Error(`layout: ${id} is not a pane`);
+  return node2;
+}
+function getSplit(state, id) {
+  const node2 = getNode(state, id);
+  if (node2.kind !== "split") throw new Error(`layout: ${id} is not a split`);
+  return node2;
+}
+function getTab(state, id) {
+  const tab = state.tabs[id];
+  if (tab === void 0) throw new Error(`layout: unknown tab ${id}`);
+  return tab;
+}
+function floatRect(pane) {
+  if (pane.host !== "float" || pane.rect === void 0) throw new Error(`layout: ${pane.id} is not floating`);
+  return pane.rect;
+}
+function findTabPane(state, tabId2) {
+  for (const node2 of Object.values(state.nodes)) {
+    if (node2.kind === "pane" && node2.tabs.includes(tabId2)) return node2;
+  }
+  throw new Error(`layout: tab ${tabId2} has no pane`);
+}
+function descend(state, choose) {
+  let node2 = getNode(state, state.rootId);
+  while (node2.kind === "split") {
+    const next = choose(node2);
+    if (next === void 0) throw new Error(`layout: split ${node2.id} has no children`);
+    node2 = getNode(state, next);
+  }
+  return node2.id;
+}
+function topRightPaneId(state) {
+  return descend(state, (split) => split.axis === "row" ? split.children.at(-1) : split.children[0]);
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/engine/constraints.ts
+var MIN_PANE_FRACTION = 0.12;
+var FLOAT_DEFAULT_SIZE = { width: 380, height: 300 };
+var FLOAT_MIN_SIZE = { width: 220, height: 140 };
+var DOCK_EDGE_FRACTION = 0.25;
+function zoneAt(x, y, edge = DOCK_EDGE_FRACTION) {
+  let zone = "left";
+  let distance = x;
+  if (1 - x < distance) {
+    zone = "right";
+    distance = 1 - x;
+  }
+  if (y < distance) {
+    zone = "top";
+    distance = y;
+  }
+  if (1 - y < distance) {
+    zone = "bottom";
+    distance = 1 - y;
+  }
+  return distance < edge ? zone : "center";
+}
+function clampSizes(sizes, minimum = MIN_PANE_FRACTION) {
+  if (sizes.length === 0) return [];
+  const floor = Math.min(minimum, 1 / sizes.length);
+  const positive = sizes.map((size) => size > 0 ? size : 0);
+  const total = positive.reduce((sum, size) => sum + size, 0);
+  let shares = total > 0 ? positive.map((size) => size / total) : positive.map(() => 1 / sizes.length);
+  const pinned = /* @__PURE__ */ new Set();
+  for (; ; ) {
+    const under = shares.flatMap((share, index) => !pinned.has(index) && share < floor ? [index] : []);
+    if (under.length === 0) return shares;
+    for (const index of under) pinned.add(index);
+    const remainder = 1 - pinned.size * floor;
+    const freeTotal = shares.reduce((sum, share, index) => pinned.has(index) ? sum : sum + share, 0);
+    shares = shares.map((share, index) => pinned.has(index) ? floor : share / freeTotal * remainder);
+  }
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/engine/geometry.ts
+function containsPoint(rect, x, y) {
+  return x >= rect.x && x <= rect.x + rect.width && y >= rect.y && y <= rect.y + rect.height;
+}
+function zoneInRect(rect, x, y, edge = DOCK_EDGE_FRACTION) {
+  if (!(rect.width > 0) || !(rect.height > 0)) return "center";
+  return zoneAt((x - rect.x) / rect.width, (y - rect.y) / rect.height, edge);
+}
+function insertionIndex(tabRects, x) {
+  let index = 0;
+  for (const rect of tabRects) {
+    if (x < rect.x + rect.width / 2) break;
+    index += 1;
+  }
+  return index;
+}
+var SPLIT_MINIMUMS = { divider: 0, chip: 100, body: 48 };
+function halvesFit(measure, minimums = SPLIT_MINIMUMS) {
+  const { pane, strip } = measure;
+  if (!(pane.width > 0) || !(pane.height > 0) || !(strip.width > 0)) return { row: true, column: true };
+  const borders = Math.max(0, pane.width - strip.width);
+  const fixed = Math.max(0, strip.width - measure.chipsWidth - measure.fillWidth - (measure.splitControlWidth ?? 0));
+  const halfWidth = (pane.width - minimums.divider) / 2 - borders;
+  const halfHeight = (pane.height - minimums.divider) / 2 - borders;
+  return {
+    row: halfWidth >= fixed + minimums.chip,
+    column: halfHeight >= strip.height + minimums.body
+  };
+}
+var DRAG_THRESHOLD = 4;
+function passedThreshold(startX, startY, x, y) {
+  return Math.abs(x - startX) >= DRAG_THRESHOLD || Math.abs(y - startY) >= DRAG_THRESHOLD;
+}
+function dividerSizes(sizes, index, delta) {
+  const before = sizes[index];
+  const after = sizes[index + 1];
+  if (before === void 0 || after === void 0) return [...sizes];
+  const next = [...sizes];
+  next[index] = before + delta;
+  next[index + 1] = after - delta;
+  return next;
+}
+function movedRect(rect, dx, dy) {
+  return { ...rect, x: rect.x + dx, y: rect.y + dy };
+}
+function resizedRect(rect, dx, dy, min) {
+  return {
+    ...rect,
+    width: Math.max(min.width, rect.width + dx),
+    height: Math.max(min.height, rect.height + dy)
+  };
+}
+var FLOAT_RESISTANCE = 120;
+function clampAxis(value, min, max) {
+  return Math.max(min, Math.min(value, max));
+}
+function legalFloatRect(rect, bounds) {
+  const width = Math.min(rect.width, bounds.width);
+  const height = Math.min(rect.height, bounds.height - bounds.top);
+  return {
+    x: clampAxis(rect.x, 0, bounds.width - width),
+    y: clampAxis(rect.y, bounds.top, bounds.height - height),
+    width,
+    height
+  };
+}
+function resist(overflow) {
+  return Math.sign(overflow) * FLOAT_RESISTANCE * Math.abs(overflow) / (FLOAT_RESISTANCE + Math.abs(overflow));
+}
+function resistedRect(desired, bounds) {
+  const legal = legalFloatRect(desired, bounds);
+  return { ...legal, x: legal.x + resist(desired.x - legal.x), y: legal.y + resist(desired.y - legal.y) };
+}
+var MAX_INVERTIBLE = FLOAT_RESISTANCE * 0.99;
+function unresist(displacement) {
+  const shown = Math.min(Math.abs(displacement), MAX_INVERTIBLE);
+  return Math.sign(displacement) * FLOAT_RESISTANCE * shown / (FLOAT_RESISTANCE - shown);
+}
+function unresistedRect(drawn, bounds) {
+  const legal = legalFloatRect(drawn, bounds);
+  return { ...legal, x: legal.x + unresist(drawn.x - legal.x), y: legal.y + unresist(drawn.y - legal.y) };
+}
+function boundedResize(rect, bounds, min) {
+  return {
+    ...rect,
+    width: Math.max(min.width, Math.min(rect.width, bounds.width - rect.x)),
+    height: Math.max(min.height, Math.min(rect.height, bounds.height - rect.y))
+  };
+}
+function floatRectAt(x, y, size) {
+  return { x: Math.max(0, x - GRAB_OFFSET.x), y: Math.max(0, y - GRAB_OFFSET.y), ...size };
+}
+var GRAB_OFFSET = { x: 60, y: 14 };
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/measure.ts
+var NO_RECT = { x: 0, y: 0, width: 0, height: 0 };
+var UNMEASURED = { row: true, column: true };
+function rectOf(element) {
+  return element === null ? NO_RECT : element.getBoundingClientRect();
+}
+function px(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+function paneElements(root) {
+  const panes = [];
+  for (const pane of root.querySelectorAll("[data-dockkit-pane]")) {
+    const paneId2 = pane.dataset.dockkitPane;
+    if (paneId2 === void 0) continue;
+    panes.push([paneId2, pane]);
+  }
+  return panes;
+}
+function chipMinimum(root) {
+  const chip = root.querySelector("[data-dockkit-tab]");
+  if (chip === null) return SPLIT_MINIMUMS.chip;
+  const style = getComputedStyle(chip);
+  const min = px(style.minWidth);
+  if (min <= 0) return SPLIT_MINIMUMS.chip;
+  if (style.boxSizing === "border-box") return min;
+  return min + px(style.paddingLeft) + px(style.paddingRight) + px(style.borderLeftWidth) + px(style.borderRightWidth);
+}
+function dividerSize(root) {
+  const divider = root.querySelector("[data-dockkit-divider]");
+  if (divider === null) return SPLIT_MINIMUMS.divider;
+  const { width, height } = divider.getBoundingClientRect();
+  const thickness = Math.min(width, height);
+  return thickness > 0 ? thickness : SPLIT_MINIMUMS.divider;
+}
+function splitControlFootprint(pane) {
+  const control = pane.querySelector("[data-dockkit-split-button]");
+  if (control === null) return 0;
+  const width = control.getBoundingClientRect().width;
+  if (!(width > 0)) return 0;
+  const strip = pane.querySelector("[data-dockkit-strip]");
+  return width + (strip === null ? 0 : px(getComputedStyle(strip).columnGap));
+}
+function measurePaneFits(root, splitHiddenWhenBlocked = false) {
+  const minimums = { divider: dividerSize(root), chip: chipMinimum(root), body: SPLIT_MINIMUMS.body };
+  const fits = /* @__PURE__ */ new Map();
+  for (const [paneId2, pane] of paneElements(root)) {
+    fits.set(paneId2, halvesFit({
+      pane: rectOf(pane),
+      strip: rectOf(pane.querySelector("[data-dockkit-strip]")),
+      chipsWidth: rectOf(pane.querySelector("[data-dockkit-strip-tabs]")).width,
+      fillWidth: rectOf(pane.querySelector("[data-dockkit-strip-fill]")).width,
+      splitControlWidth: splitHiddenWhenBlocked ? splitControlFootprint(pane) : 0
+    }, minimums));
+  }
+  return fits;
+}
+function fitOf(fits, paneId2) {
+  return fits.get(paneId2) ?? UNMEASURED;
+}
+function sameFits(a, b) {
+  if (a.size !== b.size) return false;
+  for (const [paneId2, fit] of a) {
+    const other = b.get(paneId2);
+    if (other === void 0 || other.row !== fit.row || other.column !== fit.column) return false;
+  }
+  return true;
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/pointer.ts
 var import_react2 = require("react");
+function capturePointer(element, pointerId) {
+  if (typeof element.setPointerCapture !== "function") return;
+  element.setPointerCapture(pointerId);
+}
+function followPointer(element, pointerId, followers) {
+  capturePointer(element, pointerId);
+  const controller = new AbortController();
+  const { signal } = controller;
+  element.dataset.dockkitPointer = String(pointerId);
+  signal.addEventListener("abort", () => {
+    if (element.dataset.dockkitPointer === String(pointerId)) delete element.dataset.dockkitPointer;
+  }, { once: true });
+  const own = (event) => event.pointerId === pointerId;
+  window.addEventListener("pointermove", (event) => {
+    if (own(event)) followers.move(event);
+  }, { signal });
+  window.addEventListener("pointerup", (event) => {
+    if (!own(event)) return;
+    controller.abort();
+    followers.up(event);
+  }, { signal });
+  window.addEventListener("pointercancel", (event) => {
+    if (!own(event)) return;
+    controller.abort();
+    followers.cancel();
+  }, { signal });
+  return () => {
+    controller.abort();
+  };
+}
+function useGesture(reset) {
+  const inFlight = (0, import_react2.useRef)(void 0);
+  (0, import_react2.useEffect)(() => () => {
+    inFlight.current?.stop();
+  }, []);
+  return (element, pointerId, followers) => {
+    inFlight.current?.end();
+    const settle = () => {
+      inFlight.current = void 0;
+      reset();
+    };
+    const stop = followPointer(element, pointerId, {
+      move: followers.move,
+      up: (event) => {
+        settle();
+        followers.up(event);
+      },
+      cancel: settle
+    });
+    inFlight.current = {
+      stop,
+      end: () => {
+        stop();
+        settle();
+      }
+    };
+  };
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/PaneTree.tsx
+var import_react7 = require("react");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabPanel.tsx
+var import_react6 = require("react");
+var import_dsh_client_ui_primitives6 = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabBody.tsx
+var import_react3 = require("react");
+var TabBody = (0, import_react3.memo)(function TabBody2({ tab, renderTab }) {
+  return renderTab(tab);
+});
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabMenu.tsx
 var import_dsh_client_ui_primitives4 = require("@deepseek-ai/dsh-client-ui-primitives");
-var import_dsh_client_ui_dockkit3 = require("@deepseek-ai/dsh-client-ui-dockkit");
+var import_react4 = require("react");
+var import_react_dom = require("react-dom");
+var import_dsh_client_ui_primitives5 = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/dockkit.module.css
+var dockkit_default = {
+  split: "dockkit_split",
+  splitRow: "dockkit_splitRow",
+  splitColumn: "dockkit_splitColumn",
+  splitCell: "dockkit_splitCell",
+  divider: "dockkit_divider",
+  surface: "dockkit_surface",
+  tabLayout: "dockkit_tabLayout",
+  tabCell: "dockkit_tabCell",
+  emptyTabHost: "dockkit_emptyTabHost",
+  floatingCell: "dockkit_floatingCell",
+  tabHost: "dockkit_tabHost",
+  float: "dockkit_float",
+  tabHostHeader: "dockkit_tabHostHeader",
+  tabHostBody: "dockkit_tabHostBody",
+  tabLayoutDivider: "dockkit_tabLayoutDivider",
+  tabLayoutDividerVertical: "dockkit_tabLayoutDividerVertical",
+  pane: "dockkit_pane",
+  tabStrip: "dockkit_tabStrip",
+  stripTabs: "dockkit_stripTabs",
+  stripFill: "dockkit_stripFill",
+  stripChrome: "dockkit_stripChrome",
+  slot: "dockkit_slot",
+  tabActive: "dockkit_tabActive",
+  slotCaret: "dockkit_slotCaret",
+  tab: "dockkit_tab",
+  tabTitle: "dockkit_tabTitle",
+  floatTitle: "dockkit_floatTitle",
+  tabClose: "dockkit_tabClose",
+  addTab: "dockkit_addTab",
+  tabQuiet: "dockkit_tabQuiet",
+  tabDragging: "dockkit_tabDragging",
+  iconButton: "dockkit_iconButton",
+  menu: "dockkit_menu",
+  menuItem: "dockkit_menuItem",
+  paneBody: "dockkit_paneBody",
+  empty: "dockkit_empty",
+  dockScrim: "dockkit_dockScrim",
+  dockScrimIn: "dockkit_dockScrimIn",
+  dockHint: "dockkit_dockHint",
+  dockHintCard: "dockkit_dockHintCard",
+  dockHintIn: "dockkit_dockHintIn",
+  dockHintLabel: "dockkit_dockHintLabel",
+  floatHeader: "dockkit_floatHeader",
+  dockGlyph: "dockkit_dockGlyph",
+  floatBody: "dockkit_floatBody",
+  floatResize: "dockkit_floatResize"
+};
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabMenu.tsx
+var import_jsx_runtime6 = require("react/jsx-runtime");
+var MENU_GAP = 4;
+function placeMenu(anchor, menu) {
+  const rect = anchor.getBoundingClientRect();
+  const width = menu.offsetWidth;
+  const left = rect.left + width + MENU_GAP > window.innerWidth ? Math.max(MENU_GAP, rect.right - width) : rect.left;
+  return { top: rect.bottom + MENU_GAP, left };
+}
+function TabMenu({ labels, anchor, onClose, onDismiss, extras }) {
+  const self = (0, import_react4.useRef)(null);
+  const [position, setPosition] = (0, import_react4.useState)(void 0);
+  const hasItems = onClose !== void 0 || import_react4.Children.toArray(extras).some((item) => item !== "");
+  (0, import_react4.useLayoutEffect)(() => {
+    if (self.current === null) return;
+    setPosition(placeMenu(anchor, self.current));
+  }, [anchor, hasItems]);
+  (0, import_react4.useEffect)(() => {
+    const menu = self.current;
+    if (menu === null) return void 0;
+    const document2 = menu.ownerDocument;
+    const composition = (0, import_dsh_client_ui_primitives5.observeComposition)(document2);
+    const onKeyDown = (event) => {
+      if (composition.guards(event) || event.defaultPrevented || event.key !== "Escape" || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
+      const top = [...document2.querySelectorAll(import_dsh_client_ui_primitives5.modalSelector)].at(-1);
+      if (top !== menu) return;
+      event.preventDefault();
+      if (event.repeat) return;
+      const restoreFocus = menu.contains(document2.activeElement);
+      onDismiss();
+      if (restoreFocus) (0, import_dsh_client_ui_primitives5.focusWithoutRing)(anchor);
+    };
+    document2.addEventListener("keydown", onKeyDown, true);
+    const onPointerDown = (event) => {
+      if (event.target instanceof Node && menu.contains(event.target)) return;
+      onDismiss();
+    };
+    window.addEventListener("pointerdown", onPointerDown, true);
+    return () => {
+      composition.dispose();
+      document2.removeEventListener("keydown", onKeyDown, true);
+      window.removeEventListener("pointerdown", onPointerDown, true);
+    };
+  }, [anchor, onDismiss, hasItems]);
+  if (!hasItems) return null;
+  return (0, import_react_dom.createPortal)(
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+      import_dsh_client_ui_primitives4.MenuSurface,
+      {
+        className: dockkit_default.menu,
+        ref: self,
+        role: "menu",
+        "data-dockkit-tab-menu": true,
+        style: position ?? { visibility: "hidden", top: 0, left: 0 },
+        onPointerDown: (event) => {
+          event.stopPropagation();
+        },
+        onClick: (event) => {
+          event.stopPropagation();
+        },
+        onAuxClick: (event) => {
+          event.stopPropagation();
+        },
+        children: [
+          onClose !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("button", { type: "button", role: "menuitem", className: dockkit_default.menuItem, "data-dockkit-menu-close": true, onClick: onClose, children: labels.closeTab }),
+          extras
+        ]
+      }
+    ),
+    document.body
+  );
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabTitle.tsx
+var import_react5 = require("react");
+var import_jsx_runtime7 = require("react/jsx-runtime");
+function markClipped(element) {
+  if (element.scrollWidth > element.clientWidth + 1) element.dataset.dockkitTabClipped = "";
+  else delete element.dataset.dockkitTabClipped;
+}
+function TabTitle({ children }) {
+  const span = (0, import_react5.useRef)(null);
+  (0, import_react5.useLayoutEffect)(() => {
+    if (span.current !== null) markClipped(span.current);
+  });
+  (0, import_react5.useLayoutEffect)(() => {
+    const element = span.current;
+    if (element === null || typeof ResizeObserver === "undefined") return void 0;
+    const observer = new ResizeObserver(() => {
+      markClipped(element);
+    });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { ref: span, className: dockkit_default.tabTitle, "data-dockkit-tab-title": true, children });
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabPanel.tsx
+var import_jsx_runtime8 = require("react/jsx-runtime");
+var PANEL_FRAME = "M9.67272 0.522841C10.8339 0.522841 11.76 0.522714 12.4963 0.602493C13.2453 0.683657 13.8789 0.854248 14.4264 1.25197C14.7504 1.48739 15.0355 1.77247 15.2709 2.0965C15.6686 2.64394 15.8392 3.27758 15.9204 4.02655C16.0002 4.7629 16 5.68895 16 6.85014V9.14986C16 10.3111 16.0002 11.2371 15.9204 11.9735C15.8392 12.7224 15.6686 13.3561 15.2709 13.9035C15.0355 14.2275 14.7504 14.5126 14.4264 14.748C13.8789 15.1458 13.2453 15.3163 12.4963 15.3975C11.76 15.4773 10.8339 15.4772 9.67272 15.4772H6.3273C5.16611 15.4772 4.24006 15.4773 3.50371 15.3975C2.75474 15.3163 2.1211 15.1458 1.57366 14.748C1.24963 14.5126 0.964549 14.2275 0.729131 13.9035C0.331407 13.3561 0.160817 12.7224 0.0796529 11.9735C-0.000126137 11.2371 1.25338e-09 10.3111 1.25338e-09 9.14986V6.85014C1.25329e-09 5.68895 -0.000126137 4.7629 0.0796529 4.02655C0.160817 3.27758 0.331407 2.64394 0.729131 2.0965C0.964549 1.77247 1.24963 1.48739 1.57366 1.25197C2.1211 0.854248 2.75474 0.683657 3.50371 0.602493C4.24006 0.522714 5.16611 0.522841 6.3273 0.522841H9.67272ZM4.1828 14.0873L5.54303 14.1118C5.78636 14.1128 6.04709 14.1169 6.3273 14.1169H9.67272C10.8639 14.1169 11.7032 14.1164 12.3493 14.0465C12.9824 13.9779 13.3497 13.8494 13.6268 13.6482C13.8354 13.4966 14.0195 13.3125 14.1711 13.1039C14.3723 12.8268 14.5007 12.4595 14.5693 11.8264C14.6393 11.1803 14.6398 10.341 14.6398 9.14986V6.85014C14.6398 5.65896 14.6393 4.81967 14.5693 4.1736C14.5007 3.54048 14.3723 3.17318 14.1711 2.89609C14.0195 2.68747 13.8354 2.50337 13.6268 2.35179C13.3497 2.1506 12.9824 2.02212 12.3493 1.95353C11.7032 1.88358 10.8639 1.88307 9.67272 1.88307H6.3273C6.04709 1.88307 5.78636 1.8862 5.54303 1.88715L4.1828 1.91166C3.99125 1.9216 3.8148 1.93577 3.65076 1.95353C3.01764 2.02212 2.65034 2.1506 2.37325 2.35179C2.16463 2.50337 1.98052 2.68747 1.82895 2.89609C1.62776 3.17318 1.49928 3.54048 1.43069 4.1736C1.36074 4.81967 1.36023 5.65896 1.36023 6.85014V9.14986C1.36023 10.341 1.36074 11.1803 1.43069 11.8264C1.49928 12.4595 1.62776 12.8268 1.82895 13.1039C1.98052 13.3125 2.16463 13.4966 2.37325 13.6482C2.65034 13.8494 3.01764 13.9779 3.65076 14.0465C3.81478 14.0642 3.99127 14.0774 4.1828 14.0873Z";
+function SplitGlyph() {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M13.5 1.5H2.5C1.94772 1.5 1.5 1.94772 1.5 2.5V13.5C1.5 14.0523 1.94772 14.5 2.5 14.5H13.5C14.0523 14.5 14.5 14.0523 14.5 13.5V2.5C14.5 1.94772 14.0523 1.5 13.5 1.5Z", stroke: "currentColor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M8 1.5V14.5", stroke: "currentColor" })
+  ] });
+}
+var ZONE_FILL = {
+  center: "M4.56 3.48H11.44A1.6 1.6 0 0 1 13.04 5.08V10.92A1.6 1.6 0 0 1 11.44 12.52H4.56A1.6 1.6 0 0 1 2.96 10.92V5.08A1.6 1.6 0 0 1 4.56 3.48Z",
+  left: "M4 0.523H8V15.477H4A4 4 0 0 1 0 11.477V4.523A4 4 0 0 1 4 0.523Z",
+  right: "M8 0.523H12A4 4 0 0 1 16 4.523V11.477A4 4 0 0 1 12 15.477H8Z",
+  top: "M0 8V4.523A4 4 0 0 1 4 0.523H12A4 4 0 0 1 16 4.523V8Z",
+  bottom: "M0 8H16V11.477A4 4 0 0 1 12 15.477H4A4 4 0 0 1 0 11.477Z"
+};
+function ZoneGlyph({ zone }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: PANEL_FRAME, fill: "currentColor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: ZONE_FILL[zone], fill: "currentColor" })
+  ] });
+}
+function DockHint({ zone, active, labels }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: dockkit_default.dockHint, "data-dockkit-dock-zone": zone, "data-dockkit-drop-active": active || void 0, children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: dockkit_default.dockHintCard, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ZoneGlyph, { zone }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: dockkit_default.dockHintLabel, children: labels.dropZone[zone] })
+  ] }) });
+}
+function chipToFocus(key, tabs, tabId2) {
+  const count = tabs.length;
+  const index = tabs.indexOf(tabId2);
+  switch (key) {
+    case "ArrowLeft":
+      return tabs[(index - 1 + count) % count];
+    case "ArrowRight":
+      return tabs[(index + 1) % count];
+    case "Home":
+      return tabs[0];
+    case "End":
+      return tabs.at(-1);
+    default:
+      return void 0;
+  }
+}
+function selects(key) {
+  return key === "Enter" || key === " ";
+}
+function hiddenSides(box) {
+  const start = box.scrollLeft > 1;
+  const end = box.scrollLeft + box.clientWidth < box.scrollWidth - 1;
+  if (start && end) return "start end";
+  if (start) return "start";
+  if (end) return "end";
+  return void 0;
+}
+function useStripScrollFades(box, tabs) {
+  (0, import_react6.useLayoutEffect)(() => {
+    const element = box.current;
+    if (element === null) return void 0;
+    const apply2 = () => {
+      const sides = hiddenSides(element);
+      if (sides === void 0) delete element.dataset.dockkitStripScroll;
+      else element.dataset.dockkitStripScroll = sides;
+    };
+    apply2();
+    element.addEventListener("scroll", apply2, { passive: true });
+    const observer = typeof ResizeObserver === "undefined" ? void 0 : new ResizeObserver(apply2);
+    observer?.observe(element);
+    return () => {
+      element.removeEventListener("scroll", apply2);
+      observer?.disconnect();
+    };
+  }, [box, tabs]);
+}
+function jumpTo(element, left) {
+  element.style.scrollBehavior = "auto";
+  element.scrollLeft = left;
+  element.style.removeProperty("scroll-behavior");
+}
+function useActiveChipInView(box, chips, tabs, activeTabId, paneId2, offsets) {
+  const placed = (0, import_react6.useRef)(void 0);
+  (0, import_react6.useLayoutEffect)(() => {
+    if (offsets === void 0) return void 0;
+    const element = box.current;
+    if (element === null) return void 0;
+    return () => {
+      offsets.set(paneId2, element.scrollLeft);
+    };
+  }, [box, paneId2, offsets]);
+  (0, import_react6.useLayoutEffect)(() => {
+    const element = box.current;
+    const chip = activeTabId === void 0 ? void 0 : chips.get(activeTabId);
+    if (element === null || chip === void 0) return;
+    const first = placed.current !== paneId2;
+    placed.current = paneId2;
+    const recorded = first ? offsets?.get(paneId2) : void 0;
+    if (recorded !== void 0) jumpTo(element, recorded);
+    const bounds = element.getBoundingClientRect();
+    const rect = chip.getBoundingClientRect();
+    let delta = 0;
+    if (rect.left < bounds.left) delta = rect.left - bounds.left - STRIP_FADE;
+    else if (rect.right > bounds.right) delta = rect.right - bounds.right + STRIP_FADE;
+    if (delta === 0) return;
+    if (first && recorded === void 0) jumpTo(element, element.scrollLeft + delta);
+    else element.scrollLeft += delta;
+  }, [box, chips, tabs, activeTabId, paneId2, offsets]);
+}
+var STRIP_FADE = 24;
+function splitBlockedTitle(labels, block) {
+  switch (block) {
+    case "budget":
+      return labels.splitPaneDisabled;
+    case "width":
+      return labels.splitPaneNarrow;
+  }
+}
+function TabStrip({ state, pane, callbacks, offsets }) {
+  const [menu, setMenu] = (0, import_react6.useState)(void 0);
+  const [chips] = (0, import_react6.useState)(() => /* @__PURE__ */ new Map());
+  const stripTabs = (0, import_react6.useRef)(null);
+  useStripScrollFades(stripTabs, pane.tabs);
+  useActiveChipInView(stripTabs, chips, pane.tabs, pane.activeTabId, pane.id, offsets);
+  const block = callbacks.splitBlock(pane.id);
+  const target = callbacks.dropTarget;
+  const stripIndex = target !== void 0 && target.kind === "strip" && target.paneId === pane.id ? target.index : void 0;
+  const activate = (tabId2) => {
+    if (state.activePaneId === pane.id && pane.activeTabId === tabId2) return;
+    callbacks.onFocusTab(tabId2);
+  };
+  const focusChip = (tabId2) => {
+    const chip = chips.get(tabId2);
+    if (chip === void 0) return;
+    chip.focus();
+  };
+  return (
+    // The window drag claim is withdrawn while any pane floats: a floating pane
+    // renders among this surface's cells in tab-id order, so one sorted before this
+    // row would sit earlier in the document, where this row's drag box overrides the
+    // float's own subtraction and swallows the panel's header and controls.
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+      "div",
+      {
+        className: dockkit_default.tabStrip,
+        role: "tablist",
+        "data-dockkit-strip": pane.id,
+        "data-window-drag": state.floats.length === 0 ? true : void 0,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { ref: stripTabs, className: dockkit_default.stripTabs, role: "presentation", "data-dockkit-strip-tabs": pane.id, "data-window-drag-exclude": true, children: [
+            pane.tabs.map((tabId2, index) => {
+              const tab = getTab(state, tabId2);
+              const selected = tabId2 === pane.activeTabId;
+              const closable = callbacks.canCloseTab(tabId2);
+              const quiet = !closable && pane.tabs.length === 1;
+              const onKeyDown = (event) => {
+                if (event.target !== event.currentTarget) return;
+                if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.nativeEvent.isComposing) return;
+                const next = chipToFocus(event.key, pane.tabs, tabId2);
+                if (next !== void 0) {
+                  event.preventDefault();
+                  focusChip(next);
+                  return;
+                }
+                if (selects(event.key)) {
+                  event.preventDefault();
+                  activate(tabId2);
+                }
+              };
+              return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_react6.Fragment, { children: [
+                (index > 0 || stripIndex === index) && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+                  "div",
+                  {
+                    className: clsx_default(dockkit_default.slot, stripIndex === index && dockkit_default.slotCaret),
+                    "data-dockkit-caret": stripIndex === index ? index : void 0
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+                  "div",
+                  {
+                    role: "tab",
+                    "aria-selected": selected,
+                    tabIndex: selected ? 0 : -1,
+                    className: clsx_default(
+                      dockkit_default.tab,
+                      selected && dockkit_default.tabActive,
+                      quiet && dockkit_default.tabQuiet,
+                      callbacks.draggingTabId === tabId2 && dockkit_default.tabDragging
+                    ),
+                    "data-dockkit-tab": tabId2,
+                    "data-dockkit-tab-quiet": quiet || void 0,
+                    ref: (element) => {
+                      if (element === null) chips.delete(tabId2);
+                      else chips.set(tabId2, element);
+                    },
+                    onPointerDown: (event) => {
+                      if (event.button !== 0) return;
+                      callbacks.onTabPressed(tabId2, event);
+                    },
+                    onMouseDown: (event) => {
+                      if (event.button === 1) event.preventDefault();
+                    },
+                    onAuxClick: (event) => {
+                      if (event.button !== 1) return;
+                      event.preventDefault();
+                      event.stopPropagation();
+                      if (closable && event.buttons === 0) callbacks.onCloseTab(tabId2);
+                    },
+                    onClick: (event) => {
+                      event.stopPropagation();
+                      activate(tabId2);
+                    },
+                    ...callbacks.getTabTriggerProps?.(tab, pane.id, { onKeyDown, tabIndex: selected ? 0 : -1 }) ?? {
+                      onKeyDown,
+                      onContextMenu: (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        const anchor = event.currentTarget;
+                        setMenu((current) => current?.tabId === tabId2 ? void 0 : { tabId: tabId2, anchor });
+                      }
+                    },
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TabTitle, { children: callbacks.renderTabTitle?.(tab) ?? tab.title }),
+                      closable && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_dsh_client_ui_primitives6.Tooltip, { disabled: menu !== void 0 || callbacks.tabMenuOpen === true, label: callbacks.labels.closeTab, shortcutKeys: callbacks.labels.closeTabKeys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+                        "button",
+                        {
+                          type: "button",
+                          className: dockkit_default.tabClose,
+                          "aria-label": callbacks.labels.closeTab,
+                          "aria-keyshortcuts": callbacks.labels.closeTabShortcut,
+                          "data-dockkit-tab-close": tabId2,
+                          onPointerDown: (event) => {
+                            event.stopPropagation();
+                          },
+                          onClick: (event) => {
+                            event.stopPropagation();
+                            callbacks.onCloseTab(tabId2);
+                          },
+                          children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_dsh_client_ui_primitives6.IconCloseFillRegular, { size: 14 })
+                        }
+                      ) }),
+                      menu?.tabId === tabId2 && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+                        TabMenu,
+                        {
+                          labels: callbacks.labels,
+                          anchor: menu.anchor,
+                          onClose: closable ? () => {
+                            setMenu(void 0);
+                            callbacks.onCloseTab(tabId2);
+                          } : void 0,
+                          onDismiss: () => {
+                            setMenu(void 0);
+                          },
+                          extras: callbacks.renderTabMenuItems?.(tab, () => {
+                            setMenu(void 0);
+                          })
+                        }
+                      )
+                    ]
+                  }
+                )
+              ] }, tabId2);
+            }),
+            stripIndex === pane.tabs.length && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: clsx_default(dockkit_default.slot, dockkit_default.slotCaret), "data-dockkit-caret": stripIndex })
+          ] }),
+          callbacks.canAddTab(pane.id) && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_dsh_client_ui_primitives6.Tooltip, { label: callbacks.labels.addTab, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+            "button",
+            {
+              type: "button",
+              className: dockkit_default.addTab,
+              "aria-label": callbacks.labels.addTab,
+              "data-dockkit-add-tab": pane.id,
+              onClick: (event) => {
+                event.stopPropagation();
+                callbacks.onAddTab(pane.id);
+              },
+              children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_dsh_client_ui_primitives6.IconPlusOutlineRegular, { size: 14 })
+            }
+          ) }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: dockkit_default.stripFill, "data-dockkit-strip-fill": true }),
+          !(callbacks.hideSplitWhenBlocked && block !== void 0) && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_dsh_client_ui_primitives6.Tooltip, { label: block === void 0 ? callbacks.labels.splitPane : splitBlockedTitle(callbacks.labels, block), shortcutKeys: callbacks.labels.splitPaneKeys, side: "bottom", delayMs: 500, openOnClick: block !== void 0, children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+            "span",
+            {
+              "data-dockkit-split-control": true,
+              tabIndex: block === void 0 ? void 0 : 0,
+              "aria-label": block === void 0 ? void 0 : splitBlockedTitle(callbacks.labels, block),
+              onClick: (event) => {
+                if (block !== void 0) event.stopPropagation();
+              },
+              children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+                "button",
+                {
+                  type: "button",
+                  className: dockkit_default.iconButton,
+                  "aria-label": callbacks.labels.splitPane,
+                  "aria-keyshortcuts": callbacks.labels.splitPaneShortcut,
+                  disabled: block !== void 0,
+                  "data-dockkit-split-button": pane.id,
+                  "data-dockkit-split-blocked": block,
+                  onClick: (event) => {
+                    event.stopPropagation();
+                    callbacks.onSplitPane(pane.id);
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(SplitGlyph, {})
+                }
+              )
+            }
+          ) }),
+          pane.id === callbacks.chromePaneId && callbacks.chrome !== void 0 && // The embedder's controls report their own intents; the pane's
+          // click-to-focus must not add a focus entry to each of them.
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+            "div",
+            {
+              className: dockkit_default.stripChrome,
+              "data-dockkit-strip-chrome": true,
+              onClick: (event) => {
+                event.stopPropagation();
+              },
+              children: callbacks.chrome
+            }
+          )
+        ]
+      }
+    )
+  );
+}
+function PaneDropHints({ pane, callbacks }) {
+  const target = callbacks.dropTarget;
+  const zone = target?.kind === "zone" && target.paneId === pane.id ? target.zone : void 0;
+  if (zone === void 0) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_jsx_runtime8.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: dockkit_default.dockScrim, "data-dockkit-dock-scrim": true }),
+    callbacks.horizontalDrops && zone !== "center" ? /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_jsx_runtime8.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(DockHint, { zone: "left", active: zone === "left", labels: callbacks.labels }),
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(DockHint, { zone: "right", active: zone === "right", labels: callbacks.labels })
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(DockHint, { zone, active: true, labels: callbacks.labels })
+  ] });
+}
+function TabPanel({ state, pane, callbacks }) {
+  const active = pane.activeTabId === void 0 ? void 0 : getTab(state, pane.activeTabId);
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+    "section",
+    {
+      className: dockkit_default.pane,
+      "data-dockkit-pane": pane.id,
+      tabIndex: -1,
+      "data-dockkit-pane-active": state.activePaneId === pane.id || void 0,
+      onClick: () => {
+        if (state.activePaneId !== pane.id) callbacks.onFocusPane(pane.id);
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TabStrip, { state, pane, callbacks }),
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: dockkit_default.paneBody, "data-dockkit-pane-body": "", children: [
+          active === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: dockkit_default.empty, children: callbacks.labels.emptyPane }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TabBody, { tab: active, renderTab: callbacks.renderTab }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(PaneDropHints, { pane, callbacks })
+        ] })
+      ]
+    }
+  );
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/PaneTree.tsx
+var import_jsx_runtime9 = require("react/jsx-runtime");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabLayout.tsx
+var import_react9 = require("react");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/FloatLayer.tsx
+var import_react8 = require("react");
+var import_dsh_client_ui_primitives7 = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/engine/spring.ts
+var RESPONSE = 0.32;
+var DAMPING_RATIO = 0.72;
+var OMEGA = 2 * Math.PI / RESPONSE;
+var SUBSTEP = 1 / 480;
+var REST_DISTANCE = 1;
+var REST_SPEED = 60;
+var SPRING_MAX_VELOCITY = 1500;
+var SPRING_DEADLINE_MS = 900;
+var SPRING_MAX_FRAME_MS = 64;
+var SPRING_STALL_MS = 250;
+function stepSpring(axis, target, dtSeconds) {
+  const steps = Math.max(1, Math.ceil(dtSeconds / SUBSTEP));
+  const h = dtSeconds / steps;
+  let { position, velocity } = axis;
+  for (let step = 0; step < steps; step++) {
+    velocity += (-OMEGA * OMEGA * (position - target) - 2 * DAMPING_RATIO * OMEGA * velocity) * h;
+    position += velocity * h;
+  }
+  return { position, velocity };
+}
+function launchVelocity(position, target, velocity, reach) {
+  const offset = position - target;
+  if (offset === 0) return 0;
+  if (Math.sign(velocity) !== Math.sign(offset)) return velocity;
+  return Math.sign(offset) * Math.min(Math.abs(velocity), OMEGA * Math.max(0, reach - Math.abs(offset)));
+}
+function springSettled(axis, target) {
+  return Math.abs(axis.position - target) <= REST_DISTANCE && Math.abs(axis.velocity) <= REST_SPEED;
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/FloatLayer.tsx
+var import_jsx_runtime10 = require("react/jsx-runtime");
+function draggedRect(drag, x, y) {
+  const dx = x - drag.originX;
+  const dy = y - drag.originY;
+  return drag.mode === "move" ? movedRect(drag.rect, dx, dy) : resizedRect(drag.rect, dx, dy, FLOAT_MIN_SIZE);
+}
+function sameRect(a, b) {
+  return a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height;
+}
+function raised(state, paneId2) {
+  return state.activePaneId === paneId2 && state.floats.at(-1) === paneId2;
+}
+function floatBounds() {
+  const root = document.documentElement;
+  const windows = root.hasAttribute("data-windows-titlebar");
+  const caption = windows && !root.hasAttribute("data-fullscreen") ? Number.parseFloat(root.style.getPropertyValue("--dsh-windows-titlebar-height")) : 0;
+  return { top: windows ? (Number.isFinite(caption) ? caption : 0) + 20 : 0, width: window.innerWidth, height: window.innerHeight };
+}
+function reducedMotion() {
+  return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+var VELOCITY_WINDOW_MS = 100;
+function sampleDrawn(samples, t, rect) {
+  samples.push({ t, x: rect.x, y: rect.y });
+  while (t - samples[0].t > VELOCITY_WINDOW_MS) samples.shift();
+}
+function releaseVelocity(samples) {
+  const first = samples[0];
+  const last = samples[samples.length - 1];
+  if (last.t === first.t) return { x: 0, y: 0 };
+  const rate = (travel) => Math.max(-SPRING_MAX_VELOCITY, Math.min(SPRING_MAX_VELOCITY, travel / (last.t - first.t) * 1e3));
+  return { x: rate(last.x - first.x), y: rate(last.y - first.y) };
+}
+function floatStyle(rect, lifted) {
+  if (lifted) return { left: rect.x, top: rect.y, width: rect.width, height: rect.height };
+  return {
+    "--dsh-dockkit-float-x": `${rect.x}px`,
+    "--dsh-dockkit-float-y": `${rect.y}px`,
+    "--dsh-dockkit-float-width": `${rect.width}px`,
+    "--dsh-dockkit-float-height": `${rect.height}px`
+  };
+}
+function useFloatGestures(state, intents) {
+  const [preview, setPreview] = (0, import_react8.useState)(void 0);
+  const [bounds, setBounds] = (0, import_react8.useState)(floatBounds);
+  const area = (0, import_react8.useRef)(bounds);
+  const latest = (0, import_react8.useRef)(state);
+  latest.current = state;
+  const settling = (0, import_react8.useRef)(void 0);
+  const begin = useGesture(() => {
+    setPreview(void 0);
+  });
+  const cancelSettling = (0, import_react8.useRef)(() => {
+    const running = settling.current;
+    if (running === void 0) return false;
+    cancelAnimationFrame(running.frame);
+    settling.current = void 0;
+    return true;
+  }).current;
+  (0, import_react8.useEffect)(() => {
+    const resize = () => {
+      if (cancelSettling()) setPreview(void 0);
+      area.current = floatBounds();
+      setBounds(area.current);
+    };
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelSettling();
+    };
+  }, [cancelSettling]);
+  const frame = () => {
+    const running = settling.current;
+    const now = performance.now();
+    const gap = now - running.last;
+    running.last = now;
+    const layout2 = latest.current;
+    const recorded = layout2.floats.includes(running.paneId) && sameRect(legalFloatRect(floatRect(getPane(layout2, running.paneId)), area.current), running.target);
+    if (recorded && gap <= SPRING_STALL_MS && now - running.started < SPRING_DEADLINE_MS) {
+      const dt = Math.min(gap, SPRING_MAX_FRAME_MS) / 1e3;
+      running.x = stepSpring(running.x, running.target.x, dt);
+      running.y = stepSpring(running.y, running.target.y, dt);
+      if (!springSettled(running.x, running.target.x) || !springSettled(running.y, running.target.y)) {
+        setPreview({ paneId: running.paneId, rect: { ...running.target, x: running.x.position, y: running.y.position } });
+        running.frame = requestAnimationFrame(frame);
+        return;
+      }
+    }
+    settling.current = void 0;
+    setPreview(void 0);
+  };
+  const settle = (paneId2, from, target, velocity) => {
+    const axis = (position, goal, speed) => ({ position, velocity: launchVelocity(position, goal, speed, FLOAT_RESISTANCE) });
+    const now = performance.now();
+    settling.current = {
+      paneId: paneId2,
+      target,
+      started: now,
+      last: now,
+      x: axis(from.x, target.x, velocity.x),
+      y: axis(from.y, target.y, velocity.y),
+      frame: requestAnimationFrame(frame)
+    };
+    setPreview({ paneId: paneId2, rect: from });
+  };
+  const raise = (paneId2) => {
+    if (raised(state, paneId2)) return;
+    intents.focusPane(paneId2);
+  };
+  const rectOf2 = (paneId2, stored) => preview?.paneId === paneId2 ? preview.rect : legalFloatRect(stored, bounds);
+  const drag = (mode, paneId2, event) => {
+    event.stopPropagation();
+    const drawn = settling.current?.paneId === paneId2 ? preview?.rect : void 0;
+    if (cancelSettling() && drawn === void 0) setPreview(void 0);
+    area.current = floatBounds();
+    const reduce = reducedMotion();
+    const shown = drawn ?? legalFloatRect(floatRect(getPane(state, paneId2)), area.current);
+    const rect = mode === "move" && !reduce ? unresistedRect(shown, area.current) : shown;
+    const start = { mode, originX: event.clientX, originY: event.clientY, rect };
+    const reached = (x, y) => {
+      const desired = draggedRect(start, x, y);
+      if (mode === "resize") {
+        const resized = boundedResize(desired, area.current, FLOAT_MIN_SIZE);
+        const legal2 = legalFloatRect(resized, area.current);
+        return { drawn: reduce ? legal2 : resized, legal: legal2 };
+      }
+      const legal = legalFloatRect(desired, area.current);
+      return { drawn: reduce ? legal : resistedRect(desired, area.current), legal };
+    };
+    const pressed = reached(event.clientX, event.clientY);
+    const samples = [];
+    sampleDrawn(samples, performance.now(), pressed.drawn);
+    begin(event.currentTarget, event.pointerId, {
+      move: (moved) => {
+        const { drawn: drawn2 } = reached(moved.clientX, moved.clientY);
+        sampleDrawn(samples, performance.now(), drawn2);
+        setPreview({ paneId: paneId2, rect: drawn2 });
+      },
+      up: (released) => {
+        const { drawn: drawn2, legal } = reached(released.clientX, released.clientY);
+        sampleDrawn(samples, performance.now(), drawn2);
+        if (sameRect(legal, pressed.legal)) raise(paneId2);
+        else if (mode === "move") intents.moveFloat(paneId2, legal.x, legal.y);
+        else intents.resizeFloat(paneId2, legal);
+        if (!sameRect(drawn2, legal)) settle(paneId2, drawn2, legal, releaseVelocity(samples));
+      }
+    });
+  };
+  return { preview, raise, drag, rectOf: rectOf2 };
+}
+function FloatHeader({ paneId: paneId2, tab, labels, intents, renderTabTitle, canCloseTab: canCloseTab2, drag }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
+    "header",
+    {
+      className: clsx_default(dockkit_default.tabStrip, dockkit_default.floatHeader),
+      "data-dockkit-float-grip": paneId2,
+      onPointerDown: (event) => {
+        drag("move", paneId2, event);
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: clsx_default(dockkit_default.tab, dockkit_default.floatTitle), "data-dockkit-float-title": true, children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(TabTitle, { children: renderTabTitle?.(tab) ?? tab.title }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: dockkit_default.stripFill }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dsh_client_ui_primitives7.Tooltip, { label: labels.dockFloat, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "button",
+          {
+            type: "button",
+            className: dockkit_default.iconButton,
+            "aria-label": labels.dockFloat,
+            "data-dockkit-float-dock": paneId2,
+            onPointerDown: (event) => {
+              event.stopPropagation();
+            },
+            onClick: () => {
+              intents.unfloatPane(paneId2);
+            },
+            children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dsh_client_ui_primitives7.IconPanelLeftOutlineRegular, { className: dockkit_default.dockGlyph })
+          }
+        ) }),
+        (canCloseTab2?.(tab.id) ?? true) && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dsh_client_ui_primitives7.Tooltip, { label: labels.closeTab, shortcutKeys: labels.closeTabKeys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "button",
+          {
+            type: "button",
+            className: dockkit_default.iconButton,
+            "aria-label": labels.closeTab,
+            "data-dockkit-float-close": paneId2,
+            onPointerDown: (event) => {
+              event.stopPropagation();
+            },
+            onClick: () => {
+              intents.closeTab(tab.id);
+            },
+            children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_dsh_client_ui_primitives7.IconCloseOutlineRegular, {})
+          }
+        ) })
+      ]
+    }
+  );
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/TabLayout.tsx
+var import_jsx_runtime11 = require("react/jsx-runtime");
+function TabHost({
+  state,
+  callbacks,
+  intents,
+  tab,
+  pane,
+  column,
+  vertical,
+  floats,
+  focusRequest,
+  offsets,
+  keepMounted,
+  active = true
+}) {
+  const floating = pane.host === "float";
+  const selected = floating || pane.activeTabId === tab.id;
+  const visible = active && selected && (floating || state.expanded);
+  const retained = keepMounted?.(tab) ?? false;
+  const [visited, setVisited] = (0, import_react9.useState)(visible);
+  if (visible && !visited) setVisited(true);
+  const host = (0, import_react9.useRef)(null);
+  const body = (0, import_react9.useRef)(null);
+  (0, import_react9.useLayoutEffect)(() => {
+    const section = host.current;
+    section.inert = !visible;
+    const focused = document.activeElement;
+    if (!visible && focused instanceof HTMLElement && section.contains(focused)) focused.blur();
+    const request = focusRequest.current;
+    if (!visible || request?.tabId !== tab.id) return;
+    focusRequest.current = void 0;
+    if (focused !== null && focused !== document.body && focused !== document.documentElement && focused !== request.origin) return;
+    const strip = section.querySelector("[data-dockkit-strip]");
+    const chip = [...strip?.querySelectorAll("[data-dockkit-tab]") ?? []].find((element) => element.dataset.dockkitTab === tab.id);
+    chip?.focus({ preventScroll: true });
+  }, [visible, tab.id, focusRequest]);
+  (0, import_react9.useEffect)(() => {
+    const element = body.current;
+    const focus = () => {
+      if (!visible) return;
+      if (floating) floats.raise(pane.id);
+      else if (state.activePaneId !== pane.id) callbacks.onFocusPane(pane.id);
+    };
+    element.addEventListener("focus", focus, true);
+    return () => {
+      element.removeEventListener("focus", focus, true);
+    };
+  }, [visible, floating, floats, pane.id, state.activePaneId, callbacks]);
+  const lifted = floating && floats.preview?.paneId === pane.id ? floats.preview.rect : void 0;
+  const rect = floating ? floats.rectOf(pane.id, floatRect(pane)) : void 0;
+  const depth = lifted === void 0 ? state.floats.indexOf(pane.id) + 1 : state.floats.length + 1;
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    "div",
+    {
+      className: clsx_default(dockkit_default.tabCell, floating && dockkit_default.floatingCell),
+      hidden: !selected,
+      "data-dockkit-host": floating ? "float" : "dock",
+      "data-dockkit-column": floating || vertical ? void 0 : column,
+      "data-dockkit-row": !floating && vertical ? column : void 0,
+      style: vertical ? { gridColumn: 1, gridRow: floating ? 1 : column * 2 + 1, order: floating ? depth : 0 } : { gridColumn: floating ? 1 : column * 2 + 1, gridRow: 1, order: floating ? depth : 0 },
+      children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+        "section",
+        {
+          ref: host,
+          tabIndex: -1,
+          className: clsx_default(dockkit_default.tabHost, floating ? dockkit_default.float : dockkit_default.pane),
+          "aria-hidden": !visible || void 0,
+          "data-dockkit-content": tab.id,
+          "data-dockkit-pane": !floating && selected ? pane.id : void 0,
+          "data-dockkit-pane-active": !floating && state.activePaneId === pane.id || void 0,
+          "data-dockkit-float": floating ? pane.id : void 0,
+          "data-dockkit-float-active": floating && state.activePaneId === pane.id || void 0,
+          "data-dockkit-column": !floating && !vertical ? column : void 0,
+          "data-dockkit-row": !floating && vertical ? column : void 0,
+          style: rect === void 0 ? void 0 : floatStyle(rect, lifted !== void 0),
+          onPointerDown: () => {
+            if (floating) floats.raise(pane.id);
+          },
+          onClick: () => {
+            if (!floating && state.activePaneId !== pane.id) callbacks.onFocusPane(pane.id);
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: dockkit_default.tabHostHeader, children: selected && (floating ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+              FloatHeader,
+              {
+                paneId: pane.id,
+                tab,
+                labels: callbacks.labels,
+                intents,
+                renderTabTitle: callbacks.renderTabTitle,
+                canCloseTab: callbacks.canCloseTab,
+                drag: floats.drag
+              }
+            ) : /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(TabStrip, { state, pane, callbacks, offsets })) }),
+            /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+              "div",
+              {
+                ref: body,
+                className: clsx_default(dockkit_default.tabHostBody, floating ? dockkit_default.floatBody : dockkit_default.paneBody),
+                "data-dockkit-pane-body": floating ? void 0 : "",
+                children: [
+                  visited && (retained || active && selected) ? /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(TabBody, { tab, renderTab: callbacks.renderTab }) : null,
+                  !floating && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PaneDropHints, { pane, callbacks })
+                ]
+              }
+            ),
+            floating && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+              "div",
+              {
+                className: dockkit_default.floatResize,
+                "data-dockkit-float-resize": pane.id,
+                onPointerDown: (event) => {
+                  floats.drag("resize", pane.id, event);
+                }
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+}
+function TabLayout(props) {
+  const { state, callbacks, preview } = props;
+  const focusRequest = (0, import_react9.useRef)();
+  const [offsets] = (0, import_react9.useState)(() => /* @__PURE__ */ new Map());
+  const tabCallbacks = {
+    ...callbacks,
+    onFocusTab: (tabId2) => {
+      focusRequest.current = findTabPane(state, tabId2).activeTabId === tabId2 ? void 0 : { tabId: tabId2, origin: document.activeElement };
+      callbacks.onFocusTab(tabId2);
+    }
+  };
+  const root = getNode(state, state.rootId);
+  if (root.kind === "split" && root.children.length !== 2) {
+    throw new Error("DockLayout requires one pane or two split panes");
+  }
+  const vertical = root.kind === "split" && root.axis === "column";
+  const panes = root.kind === "pane" ? [root] : root.children.map((id) => getPane(state, id));
+  const sizes = root.kind === "split" ? preview?.splitId === root.id ? preview.sizes : root.sizes : [1];
+  const floats = useFloatGestures(state, props.intents);
+  const tracks = sizes.map((size) => `minmax(0, ${size}fr)`).join(" 0px ");
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
+    "div",
+    {
+      className: dockkit_default.tabLayout,
+      "data-dockkit-split": root.kind === "split" ? root.id : void 0,
+      "data-dockkit-axis": vertical ? "column" : "row",
+      style: vertical ? { gridTemplateRows: tracks } : { gridTemplateColumns: tracks },
+      children: [
+        Object.values(state.tabs).sort((a, b) => a.id.localeCompare(b.id)).map((tab) => {
+          const pane = findTabPane(state, tab.id);
+          return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+            TabHost,
+            {
+              ...props,
+              callbacks: tabCallbacks,
+              tab,
+              pane,
+              vertical,
+              column: panes.findIndex((candidate) => candidate.id === pane.id),
+              floats,
+              focusRequest,
+              offsets
+            },
+            tab.id
+          );
+        }),
+        panes.filter((pane) => pane.tabs.length === 0).map((pane) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+          "div",
+          {
+            className: dockkit_default.emptyTabHost,
+            "data-dockkit-empty": true,
+            style: vertical ? { gridColumn: 1, gridRow: panes.indexOf(pane) * 2 + 1 } : { gridColumn: panes.indexOf(pane) * 2 + 1, gridRow: 1 },
+            children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(TabPanel, { state, pane, callbacks })
+          },
+          pane.id
+        )),
+        root.kind === "split" && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+          "div",
+          {
+            className: clsx_default(dockkit_default.divider, dockkit_default.tabLayoutDivider, vertical && dockkit_default.tabLayoutDividerVertical),
+            "data-dockkit-divider": `${root.id}:0`,
+            style: vertical ? { gridColumn: 1, gridRow: 2 } : { gridColumn: 2, gridRow: 1 },
+            onPointerDown: (event) => {
+              callbacks.onDividerPressed(root.id, 0, event);
+            }
+          }
+        )
+      ]
+    }
+  );
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/dockkit/components/DockSurface.tsx
+var import_jsx_runtime12 = require("react/jsx-runtime");
+var NO_PREVIEW = { draggingTabId: void 0, dropTarget: void 0, sizes: void 0 };
+var NO_FITS = /* @__PURE__ */ new Map();
+var ALWAYS = () => true;
+function hitTest(root, x, y, tabId2, canSplit4, fits, dropZones) {
+  for (const [paneId2, pane] of paneElements(root)) {
+    const rect = pane.getBoundingClientRect();
+    if (!containsPoint(rect, x, y)) continue;
+    const strip = pane.querySelector("[data-dockkit-strip]");
+    if (strip !== null && containsPoint(strip.getBoundingClientRect(), x, y)) {
+      const tabs = [...strip.querySelectorAll("[data-dockkit-tab]")];
+      const index = insertionIndex(tabs.map((tab) => tab.getBoundingClientRect()), x);
+      const sourceIndex = tabs.findIndex((tab) => tab.dataset.dockkitTab === tabId2);
+      if (sourceIndex >= 0 && (index === sourceIndex || index === sourceIndex + 1)) return void 0;
+      return { kind: "strip", paneId: paneId2, index };
+    }
+    const zone = dropZones === "horizontal" ? canSplit4 && fitOf(fits, paneId2).row ? x < rect.x + rect.width / 2 ? "left" : "right" : "center" : zoneInRect(rect, x, y);
+    if (zone !== "center") {
+      const fit = fitOf(fits, paneId2);
+      const room = zone === "left" || zone === "right" ? fit.row : fit.column;
+      if (!canSplit4 || !room) return void 0;
+    }
+    return { kind: "zone", paneId: paneId2, zone };
+  }
+  return void 0;
+}
+function draggedSizes(drag, x, y, minimum) {
+  const moved = (drag.axis === "row" ? x : y) - drag.origin;
+  const delta = drag.extent > 0 ? moved / drag.extent : 0;
+  return clampSizes(dividerSizes(drag.sizes, drag.index, delta), minimum);
+}
+var SIZE_TOLERANCE = 1e-9;
+function sameSizes(a, b) {
+  return a.length === b.length && a.every((size, index) => {
+    const other = b[index];
+    return other !== void 0 && Math.abs(size - other) < SIZE_TOLERANCE;
+  });
+}
+function Surface({
+  state,
+  canSplit: canSplit4,
+  canAddTab,
+  canCloseTab: canCloseTab2,
+  intents,
+  labels,
+  renderTab,
+  renderTabTitle,
+  renderTabMenuItems,
+  getTabTriggerProps,
+  tabMenuOpen,
+  chrome,
+  onRoom,
+  draw,
+  dropZones = "edges",
+  minPaneFraction = MIN_PANE_FRACTION,
+  hideSplitWhenBlocked = false
+}) {
+  const surface2 = (0, import_react10.useRef)(null);
+  const [preview, setPreview] = (0, import_react10.useState)(NO_PREVIEW);
+  const [fits, setFits] = (0, import_react10.useState)(NO_FITS);
+  const begin = useGesture(() => {
+    setPreview(NO_PREVIEW);
+  });
+  const withSurface = (0, import_react10.useCallback)((use) => {
+    const root = surface2.current;
+    if (root === null) return;
+    use(root);
+  }, []);
+  const remeasure = (0, import_react10.useCallback)(() => {
+    withSurface((root) => {
+      const next = measurePaneFits(root, hideSplitWhenBlocked);
+      setFits((current) => sameFits(current, next) ? current : next);
+    });
+  }, [withSurface, hideSplitWhenBlocked]);
+  (0, import_react10.useLayoutEffect)(() => {
+    remeasure();
+  });
+  (0, import_react10.useEffect)(() => {
+    onRoom?.(fits);
+  }, [fits, onRoom]);
+  (0, import_react10.useEffect)(() => {
+    const root = surface2.current;
+    if (root === null || typeof ResizeObserver === "undefined") return void 0;
+    const observer = new ResizeObserver(() => {
+      remeasure();
+    });
+    observer.observe(root);
+    return () => {
+      observer.disconnect();
+    };
+  }, [remeasure]);
+  const splitBlock = (paneId2) => {
+    if (!canSplit4) return "budget";
+    return fitOf(fits, paneId2).column ? void 0 : "width";
+  };
+  const callbacks = {
+    onFocusTab: intents.focusTab.bind(intents),
+    onFocusPane: intents.focusPane.bind(intents),
+    onSplitPane: intents.splitPane.bind(intents),
+    onAddTab: intents.addTab.bind(intents),
+    onCloseTab: intents.closeTab.bind(intents),
+    // A press is not yet a drag: the chip lifts, and the drop preview follows,
+    // once the pointer has travelled the threshold. A release before that is a
+    // click and reports nothing here.
+    onTabPressed: (tabId2, event) => {
+      withSurface((root) => {
+        const startX = event.clientX;
+        const startY = event.clientY;
+        let dragging = false;
+        begin(event.currentTarget, event.pointerId, {
+          move: (moved) => {
+            if (!dragging) {
+              if (!passedThreshold(startX, startY, moved.clientX, moved.clientY)) return;
+              dragging = true;
+            }
+            setPreview({
+              ...NO_PREVIEW,
+              draggingTabId: tabId2,
+              dropTarget: hitTest(root, moved.clientX, moved.clientY, tabId2, canSplit4, fits, dropZones)
+            });
+          },
+          up: (released) => {
+            if (!dragging) return;
+            const target = hitTest(root, released.clientX, released.clientY, tabId2, canSplit4, fits, dropZones);
+            if (target === void 0) {
+              if (containsPoint(root.getBoundingClientRect(), released.clientX, released.clientY)) return;
+              intents.floatTab(tabId2, floatRectAt(released.clientX, released.clientY, FLOAT_DEFAULT_SIZE));
+              return;
+            }
+            if (target.kind === "strip") intents.placeTab(tabId2, target.paneId, target.index);
+            else intents.dropTab(tabId2, target.paneId, target.zone);
+          }
+        });
+      });
+    },
+    onDividerPressed: (splitId2, index, event) => {
+      const container = event.currentTarget.parentElement;
+      if (container === null) return;
+      const split = getSplit(state, splitId2);
+      const box = container.getBoundingClientRect();
+      const drag = {
+        splitId: splitId2,
+        index,
+        axis: split.axis,
+        origin: split.axis === "row" ? event.clientX : event.clientY,
+        extent: split.axis === "row" ? box.width : box.height,
+        sizes: split.sizes
+      };
+      begin(event.currentTarget, event.pointerId, {
+        move: (moved) => {
+          setPreview({ ...NO_PREVIEW, sizes: { splitId: splitId2, sizes: draggedSizes(drag, moved.clientX, moved.clientY, minPaneFraction) } });
+        },
+        up: (released) => {
+          const sizes = draggedSizes(drag, released.clientX, released.clientY, minPaneFraction);
+          if (sameSizes(sizes, drag.sizes)) return;
+          intents.resizeSplit(splitId2, sizes);
+        }
+      });
+    },
+    splitBlock,
+    hideSplitWhenBlocked,
+    canAddTab: canAddTab ?? ALWAYS,
+    canCloseTab: canCloseTab2 ?? ALWAYS,
+    dropTarget: preview.dropTarget,
+    horizontalDrops: dropZones === "horizontal",
+    draggingTabId: preview.draggingTabId,
+    labels,
+    renderTab,
+    renderTabTitle,
+    renderTabMenuItems,
+    getTabTriggerProps,
+    tabMenuOpen,
+    chromePaneId: topRightPaneId(state),
+    chrome
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: dockkit_default.surface, ref: surface2, "data-dockkit-surface": true, "data-dockkit-drop-zones": dropZones, children: draw(callbacks, preview.sizes) });
+}
+function DockLayout(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Surface, { ...props, draw: (callbacks, preview) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(TabLayout, { ...props, callbacks, preview }) });
+}
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/contract/seed.ts
 function defaultSeed(tabs) {
@@ -2457,7 +3912,30 @@ function clearSidebarLayout(sessionId) {
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/stores.ts
+var import_dsh_client_ui_dockkit3 = require("@deepseek-ai/dsh-client-ui-dockkit");
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/split-column.ts
 var import_dsh_client_ui_dockkit2 = require("@deepseek-ai/dsh-client-ui-dockkit");
+var NOTHING = [];
+function planSplitPaneColumn(state, mint, paneId2, makePaneTab) {
+  if (!(0, import_dsh_client_ui_dockkit2.canSplit)(state)) return NOTHING;
+  const target = paneId2 ?? (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state);
+  if ((0, import_dsh_client_ui_dockkit2.getPane)(state, target).host !== "dock") return NOTHING;
+  const newPaneId = mint("pane");
+  const ops = [{
+    type: "split",
+    paneId: target,
+    axis: "column",
+    direction: "after",
+    newPaneId,
+    newSplitId: mint("split")
+  }];
+  const seed = makePaneTab?.(mint("tab"));
+  if (seed !== void 0) ops.push({ type: "openTab", paneId: newPaneId, tab: seed, index: 0 });
+  return ops;
+}
+
+// bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/stores.ts
 function canCloseTab(surface2, tabId2) {
   const tab = surface2.layout.tabs[tabId2];
   return tab !== void 0 && !(tab.kind === GUIDE_KIND && soleDockedTab(surface2.layout, tabId2));
@@ -2467,9 +3945,9 @@ function seedRecord(id, seed) {
   return { id, kind: initial.kind, title: initial.title, contentId: pageAddress(initial.kind) };
 }
 function findHostContentTab(state, destination, contentId, kind) {
-  const panes = destination === "sidebar" ? (0, import_dsh_client_ui_dockkit2.dockPaneIds)(state) : state.floats;
+  const panes = destination === "sidebar" ? (0, import_dsh_client_ui_dockkit3.dockPaneIds)(state) : state.floats;
   for (const paneId2 of panes) {
-    const found = (0, import_dsh_client_ui_dockkit2.findPaneContentTab)(state, paneId2, contentId, kind);
+    const found = (0, import_dsh_client_ui_dockkit3.findPaneContentTab)(state, paneId2, contentId, kind);
     if (found !== void 0) return found;
   }
   return void 0;
@@ -2480,20 +3958,20 @@ function planOpenIn(state, mint, intent, destination) {
   const here = findHostContentTab(state, destination, contentId, kind);
   const there = here === void 0 ? findHostContentTab(state, other, contentId, kind) : void 0;
   if (destination === "sidebar") {
-    const expand = (0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, true);
+    const expand = (0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, true);
     if (here !== void 0) return { ops: [...expand, { type: "focusTab", tabId: here }], tabId: here };
-    const paneId3 = (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state);
-    if (there !== void 0) return { ops: [...expand, ...(0, import_dsh_client_ui_dockkit2.planUnfloatPane)(state, (0, import_dsh_client_ui_dockkit2.findTabPane)(state, there).id, paneId3)], tabId: there };
-    const opened2 = (0, import_dsh_client_ui_dockkit2.planOpenContent)(state, mint, { kind, contentId, title, paneId: paneId3, revealIfOpened: false });
+    const paneId3 = (0, import_dsh_client_ui_dockkit3.activeDockPaneId)(state);
+    if (there !== void 0) return { ops: [...expand, ...(0, import_dsh_client_ui_dockkit3.planUnfloatPane)(state, (0, import_dsh_client_ui_dockkit3.findTabPane)(state, there).id, paneId3)], tabId: there };
+    const opened2 = (0, import_dsh_client_ui_dockkit3.planOpenContent)(state, mint, { kind, contentId, title, paneId: paneId3, revealIfOpened: false });
     return { ops: [...expand, ...opened2.ops], tabId: opened2.tabId };
   }
   if (here !== void 0) return { ops: [{ type: "focusTab", tabId: here }], tabId: here };
-  if (there !== void 0) return { ops: (0, import_dsh_client_ui_dockkit2.planFloatTab)(state, mint, there).ops, tabId: there };
-  const paneId2 = (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state);
-  const pane = (0, import_dsh_client_ui_dockkit2.getPane)(state, paneId2);
+  if (there !== void 0) return { ops: (0, import_dsh_client_ui_dockkit3.planFloatTab)(state, mint, there).ops, tabId: there };
+  const paneId2 = (0, import_dsh_client_ui_dockkit3.activeDockPaneId)(state);
+  const pane = (0, import_dsh_client_ui_dockkit3.getPane)(state, paneId2);
   const index = pane.activeTabId === void 0 ? 0 : pane.tabs.indexOf(pane.activeTabId) + 1;
-  const opened = (0, import_dsh_client_ui_dockkit2.planOpenContent)(state, mint, { kind, contentId, title, paneId: paneId2, index, revealIfOpened: false });
-  return { ops: [...opened.ops, ...(0, import_dsh_client_ui_dockkit2.planFloatTab)(state, mint, opened.tabId).ops], tabId: opened.tabId };
+  const opened = (0, import_dsh_client_ui_dockkit3.planOpenContent)(state, mint, { kind, contentId, title, paneId: paneId2, index, revealIfOpened: false });
+  return { ops: [...opened.ops, ...(0, import_dsh_client_ui_dockkit3.planFloatTab)(state, mint, opened.tabId).ops], tabId: opened.tabId };
 }
 function counting(from) {
   let counter = from;
@@ -2506,24 +3984,24 @@ function counting(from) {
 function createSurface() {
   const counter = counting(0);
   return {
-    layout: (0, import_dsh_client_ui_dockkit2.createInitialState)({ next: counter.mint }),
-    history: import_dsh_client_ui_dockkit2.EMPTY_HISTORY,
+    layout: (0, import_dsh_client_ui_dockkit3.createInitialState)({ next: counter.mint }),
+    history: import_dsh_client_ui_dockkit3.EMPTY_HISTORY,
     minted: counter.used()
   };
 }
 function panePage(state, paneId2, kind) {
-  return (0, import_dsh_client_ui_dockkit2.findPaneContentTab)(state, paneId2, pageAddress(kind), kind);
+  return (0, import_dsh_client_ui_dockkit3.findPaneContentTab)(state, paneId2, pageAddress(kind), kind);
 }
 function pageKind(state, tabId2) {
   const tab = state.tabs[tabId2];
   return tab !== void 0 && tab.contentId === pageAddress(tab.kind) ? tab.kind : void 0;
 }
 function soleDockedTab(state, tabId2) {
-  const pane = (0, import_dsh_client_ui_dockkit2.findTabPane)(state, tabId2);
-  return pane.host === "dock" && pane.tabs.length === 1 && (0, import_dsh_client_ui_dockkit2.dockPaneIds)(state).length === 1;
+  const pane = (0, import_dsh_client_ui_dockkit3.findTabPane)(state, tabId2);
+  return pane.host === "dock" && pane.tabs.length === 1 && (0, import_dsh_client_ui_dockkit3.dockPaneIds)(state).length === 1;
 }
 function planFocusTab(state, tabId2) {
-  const pane = (0, import_dsh_client_ui_dockkit2.findTabPane)(state, tabId2);
+  const pane = (0, import_dsh_client_ui_dockkit3.findTabPane)(state, tabId2);
   return pane.activeTabId === tabId2 && state.activePaneId === pane.id ? [] : [{ type: "focusTab", tabId: tabId2 }];
 }
 function planFocusPane(state, paneId2) {
@@ -2541,9 +4019,9 @@ function advance(surface2, plan, seed) {
   const makeTab = (id) => seedRecord(id, seed);
   const planned = plan(surface2.layout, counter.mint, makeTab);
   if (planned.length === 0) return surface2;
-  const after = (0, import_dsh_client_ui_dockkit2.replay)(surface2.layout, planned);
-  const settled = (0, import_dsh_client_ui_dockkit2.planSettle)(after, counter.mint, after.expanded ? makeTab : void 0);
-  const stepped2 = (0, import_dsh_client_ui_dockkit2.record)(surface2.history, surface2.layout, [...planned, ...settled]);
+  const after = (0, import_dsh_client_ui_dockkit3.replay)(surface2.layout, planned);
+  const settled = (0, import_dsh_client_ui_dockkit3.planSettle)(after, counter.mint, after.expanded ? makeTab : void 0);
+  const stepped2 = (0, import_dsh_client_ui_dockkit3.record)(surface2.history, surface2.layout, [...planned, ...settled]);
   return { layout: stepped2.state, history: stepped2.history, minted: counter.used() };
 }
 function seat(state, sessionId, next) {
@@ -2565,24 +4043,24 @@ function createSidebarRightStore(seed) {
         d.bySession = seat(d, sessionId, (surface2) => surface2);
       },
       setExpanded: (d, sessionId, expanded) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, expanded), seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, expanded), seed));
       },
       toggleExpanded: (d, sessionId) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, !state.expanded), seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, !state.expanded), seed));
       },
       // Switching presentation is recorded like any other change, so stepping
       // back through the sequence puts the surface back the way it was drawn.
       setMode: (d, sessionId, mode) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit2.planSetMode)(state, mode), seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => (0, import_dsh_client_ui_dockkit3.planSetMode)(state, mode), seed));
       },
       // `settled` reports the pane the split created, synchronously, because
       // actions return nothing; it is not called when nothing was split.
       splitPane: (d, sessionId, paneId2, settled) => {
         d.bySession = seat(d, sessionId, (s) => {
-          const next = advance(s, (state, mint, makeTab) => (0, import_dsh_client_ui_dockkit2.dockPaneIds)(state).length >= 2 || (0, import_dsh_client_ui_dockkit2.getPane)(state, paneId2 ?? (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state)).tabs.length === 0 ? [] : (0, import_dsh_client_ui_dockkit2.planSplitPane)(state, mint, paneId2, makeTab), seed);
+          const next = advance(s, (state, mint, makeTab) => (0, import_dsh_client_ui_dockkit3.dockPaneIds)(state).length >= 2 || (0, import_dsh_client_ui_dockkit3.getPane)(state, paneId2 ?? (0, import_dsh_client_ui_dockkit3.activeDockPaneId)(state)).tabs.length === 0 ? [] : planSplitPaneColumn(state, mint, paneId2, makeTab), seed);
           if (settled !== void 0 && next !== s) {
-            const before = new Set((0, import_dsh_client_ui_dockkit2.dockPaneIds)(s.layout));
-            for (const id of (0, import_dsh_client_ui_dockkit2.dockPaneIds)(next.layout)) {
+            const before = new Set((0, import_dsh_client_ui_dockkit3.dockPaneIds)(s.layout));
+            for (const id of (0, import_dsh_client_ui_dockkit3.dockPaneIds)(next.layout)) {
               if (!before.has(id)) settled(id);
             }
           }
@@ -2603,13 +4081,13 @@ function createSidebarRightStore(seed) {
           }
           const { kind, contentId, title } = intent;
           const replace = intent.replaceTab !== void 0 && state.tabs[intent.replaceTab] !== void 0 ? intent.replaceTab : void 0;
-          const replaced = replace === void 0 ? void 0 : (0, import_dsh_client_ui_dockkit2.findTabPane)(state, replace);
+          const replaced = replace === void 0 ? void 0 : (0, import_dsh_client_ui_dockkit3.findTabPane)(state, replace);
           const lent = replaced?.host === "dock" ? replaced : void 0;
           const paneId2 = lent?.id ?? intent.paneId;
           const index = lent === void 0 || replace === void 0 ? void 0 : lent.tabs.indexOf(replace);
           const page = contentId === pageAddress(kind);
-          const held = page ? panePage(state, replaced?.id ?? paneId2 ?? (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state), kind) : void 0;
-          const revealed = page ? held : intent.revealIfOpened === false ? void 0 : (0, import_dsh_client_ui_dockkit2.findContentTab)(state, contentId, kind);
+          const held = page ? panePage(state, replaced?.id ?? paneId2 ?? (0, import_dsh_client_ui_dockkit3.activeDockPaneId)(state), kind) : void 0;
+          const revealed = page ? held : intent.revealIfOpened === false ? void 0 : (0, import_dsh_client_ui_dockkit3.findContentTab)(state, contentId, kind);
           if (replace !== void 0 && revealed === void 0 && replaced?.host === "float") {
             const tab = { id: mint("tab"), kind, contentId, title };
             settled(tab.id);
@@ -2624,13 +4102,13 @@ function createSidebarRightStore(seed) {
               { type: "focusTab", tabId: tab.id }
             ];
           }
-          const ops = revealed !== void 0 && (0, import_dsh_client_ui_dockkit2.findTabPane)(state, revealed).host === "float" ? [] : [...(0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, true)];
+          const ops = revealed !== void 0 && (0, import_dsh_client_ui_dockkit3.findTabPane)(state, revealed).host === "float" ? [] : [...(0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, true)];
           let openedInNewPane;
-          const split = intent.preferNewPane === true && replace === void 0 && revealed === void 0 ? (0, import_dsh_client_ui_dockkit2.planSplitPane)(state, mint, paneId2, (id) => {
+          const split = intent.preferNewPane === true && replace === void 0 && revealed === void 0 ? planSplitPaneColumn(state, mint, paneId2, (id) => {
             openedInNewPane = id;
             return { id, kind, contentId, title };
           }) : [];
-          const planned = revealed !== void 0 ? { ops: [{ type: "focusTab", tabId: revealed }], tabId: revealed } : openedInNewPane !== void 0 ? { ops: split, tabId: openedInNewPane } : (0, import_dsh_client_ui_dockkit2.planOpenContent)(state, mint, {
+          const planned = revealed !== void 0 ? { ops: [{ type: "focusTab", tabId: revealed }], tabId: revealed } : openedInNewPane !== void 0 ? { ops: split, tabId: openedInNewPane } : (0, import_dsh_client_ui_dockkit3.planOpenContent)(state, mint, {
             kind,
             contentId,
             title,
@@ -2646,7 +4124,7 @@ function createSidebarRightStore(seed) {
       },
       // A page is never copied: the copy would sit beside it in the same pane.
       duplicateTab: (d, sessionId, tabId2) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state, mint) => pageKind(state, tabId2) !== void 0 ? [] : (0, import_dsh_client_ui_dockkit2.planDuplicateTab)(state, mint, tabId2).ops, seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state, mint) => pageKind(state, tabId2) !== void 0 ? [] : (0, import_dsh_client_ui_dockkit3.planDuplicateTab)(state, mint, tabId2).ops, seed));
       },
       // A tab already gone — closed twice by a racing callback and the user — is
       // left alone rather than handed to the kit, which refuses an unknown tab.
@@ -2659,7 +4137,7 @@ function createSidebarRightStore(seed) {
         d.bySession = seat(d, sessionId, (s) => advance(s, (state) => {
           if (!canCloseTab(s, tabId2)) return [];
           if (!soleDockedTab(state, tabId2)) return [{ type: "closeTab", tabId: tabId2 }];
-          return [{ type: "closeTab", tabId: tabId2 }, ...(0, import_dsh_client_ui_dockkit2.planSetMode)(state, "push"), ...(0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, false)];
+          return [{ type: "closeTab", tabId: tabId2 }, ...(0, import_dsh_client_ui_dockkit3.planSetMode)(state, "push"), ...(0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, false)];
         }, seed));
       },
       focusTab: (d, sessionId, tabId2) => {
@@ -2669,7 +4147,7 @@ function createSidebarRightStore(seed) {
         d.bySession = seat(d, sessionId, (s) => advance(s, (state) => planFocusPane(state, paneId2), seed));
       },
       placeTab: (d, sessionId, tabId2, toPaneId, index) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => arriving(state, tabId2, toPaneId, () => (0, import_dsh_client_ui_dockkit2.planPlaceTab)(state, tabId2, toPaneId, index)), seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state) => arriving(state, tabId2, toPaneId, () => (0, import_dsh_client_ui_dockkit3.planPlaceTab)(state, tabId2, toPaneId, index)), seed));
       },
       // Only a centre release lands in the target pane; an edge release makes a
       // new pane, where nothing can already be — and when the release drags a
@@ -2677,23 +4155,23 @@ function createSidebarRightStore(seed) {
       dropTab: (d, sessionId, tabId2, paneId2, zone) => {
         d.bySession = seat(d, sessionId, (s) => advance(s, (state, mint, makeTab) => {
           if (zone === "top" || zone === "bottom") return [];
-          if (zone !== "center" && (0, import_dsh_client_ui_dockkit2.dockPaneIds)(state).length >= 2) return [];
-          const plan = () => (0, import_dsh_client_ui_dockkit2.planDropTab)(state, mint, tabId2, paneId2, zone, makeTab);
+          if (zone !== "center" && (0, import_dsh_client_ui_dockkit3.dockPaneIds)(state).length >= 2) return [];
+          const plan = () => (0, import_dsh_client_ui_dockkit3.planDropTab)(state, mint, tabId2, paneId2, zone, makeTab);
           return zone === "center" ? arriving(state, tabId2, paneId2, plan) : plan();
         }, seed));
       },
       floatTab: (d, sessionId, tabId2, rect) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, (state, mint) => (0, import_dsh_client_ui_dockkit2.planFloatTab)(state, mint, tabId2, rect).ops, seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, (state, mint) => (0, import_dsh_client_ui_dockkit3.planFloatTab)(state, mint, tabId2, rect).ops, seed));
       },
       // A floating pane holds one tab; docking it back expands the column and
       // lands in the active docked pane, and only a page is subject to the
       // merge rule there.
       unfloatPane: (d, sessionId, paneId2) => {
         d.bySession = seat(d, sessionId, (s) => advance(s, (state) => {
-          const floated = (0, import_dsh_client_ui_dockkit2.getPane)(state, paneId2).tabs[0];
-          const plan = () => (0, import_dsh_client_ui_dockkit2.planUnfloatPane)(state, paneId2);
-          const ops = floated === void 0 ? plan() : arriving(state, floated, (0, import_dsh_client_ui_dockkit2.activeDockPaneId)(state), plan);
-          return [...(0, import_dsh_client_ui_dockkit2.planSetExpanded)(state, true), ...ops];
+          const floated = (0, import_dsh_client_ui_dockkit3.getPane)(state, paneId2).tabs[0];
+          const plan = () => (0, import_dsh_client_ui_dockkit3.planUnfloatPane)(state, paneId2);
+          const ops = floated === void 0 ? plan() : arriving(state, floated, (0, import_dsh_client_ui_dockkit3.activeDockPaneId)(state), plan);
+          return [...(0, import_dsh_client_ui_dockkit3.planSetExpanded)(state, true), ...ops];
         }, seed));
       },
       moveFloat: (d, sessionId, paneId2, x, y) => {
@@ -2703,13 +4181,13 @@ function createSidebarRightStore(seed) {
         d.bySession = seat(d, sessionId, (s) => advance(s, () => [{ type: "resizeFloat", paneId: paneId2, rect }], seed));
       },
       resizeSplit: (d, sessionId, splitId2, sizes) => {
-        d.bySession = seat(d, sessionId, (s) => advance(s, () => (0, import_dsh_client_ui_dockkit2.planResizeSplit)(splitId2, sizes, 0.2), seed));
+        d.bySession = seat(d, sessionId, (s) => advance(s, () => (0, import_dsh_client_ui_dockkit3.planResizeSplit)(splitId2, sizes, 0.2), seed));
       },
       undo: (d, sessionId) => {
-        d.bySession = seat(d, sessionId, (s) => stepped(s, import_dsh_client_ui_dockkit2.stepBack));
+        d.bySession = seat(d, sessionId, (s) => stepped(s, import_dsh_client_ui_dockkit3.stepBack));
       },
       redo: (d, sessionId) => {
-        d.bySession = seat(d, sessionId, (s) => stepped(s, import_dsh_client_ui_dockkit2.stepForward));
+        d.bySession = seat(d, sessionId, (s) => stepped(s, import_dsh_client_ui_dockkit3.stepForward));
       }
     }
   });
@@ -2768,9 +4246,9 @@ var SidebarRight_default = {
 };
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/SidebarRight.tsx
-var import_jsx_runtime6 = require("react/jsx-runtime");
+var import_jsx_runtime13 = require("react/jsx-runtime");
 function guideIn(layout2, paneId2) {
-  return (0, import_dsh_client_ui_dockkit3.findPaneContentTab)(layout2, paneId2, pageAddress(GUIDE_KIND), GUIDE_KIND);
+  return (0, import_dsh_client_ui_dockkit4.findPaneContentTab)(layout2, paneId2, pageAddress(GUIDE_KIND), GUIDE_KIND);
 }
 function intentsFor(sessionId, actions, openTab, closeTab, splitPane) {
   return {
@@ -2836,8 +4314,8 @@ function TabSlot({
   const { id, signal, tabActions } = occurrence(tab);
   const definition = useTabTypes((types) => types.find((definition2) => definition2.kind === tab.kind));
   const retained = seat2 === "sidebar.right.pane.tab" && definition?.keepMounted === true;
-  (0, import_react2.useLayoutEffect)(() => retained ? retainTab(tab.id, signal) : void 0, [retained, retainTab, tab.id, signal]);
-  const hookContext = (0, import_react2.useMemo)(() => ({
+  (0, import_react11.useLayoutEffect)(() => retained ? retainTab(tab.id, signal) : void 0, [retained, retainTab, tab.id, signal]);
+  const hookContext = (0, import_react11.useMemo)(() => ({
     tabId: tab.id,
     shortcuts,
     title: seat2 === "sidebar.right.pane.tab.title",
@@ -2849,31 +4327,31 @@ function TabSlot({
     useTabNavigation
   }), [tab.id, seat2, fullscreen, active, signal, tabActions, useStore, useTabNavigation, shortcuts]);
   const content = renderSlot(seat2, {}, { entryKey: definition?.id ?? tab.kind, fallback, hookContext });
-  return seat2 === "sidebar.right.pane.tab.title" ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: SidebarRight_default.tabTitle, "data-sidebar-right-tab": tab.id, "data-sidebar-right-occurrence": id, children: content }, id) : /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: SidebarRight_default.tabBody, "data-sidebar-right-tab": tab.id, "data-sidebar-right-occurrence": id, children: content }, id);
+  return seat2 === "sidebar.right.pane.tab.title" ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: SidebarRight_default.tabTitle, "data-sidebar-right-tab": tab.id, "data-sidebar-right-occurrence": id, children: content }, id) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: SidebarRight_default.tabBody, "data-sidebar-right-tab": tab.id, "data-sidebar-right-occurrence": id, children: content }, id);
 }
 function bodiesFor(panel) {
   const { t, ...rest } = panel;
-  return (tab) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+  return (tab) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
     TabSlot,
     {
       ...rest,
       tab,
       seat: "sidebar.right.pane.tab",
-      fallback: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: SidebarRight_default.unavailable, "data-sidebar-right-unavailable": true, children: t("tab.unavailable") })
+      fallback: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("p", { className: SidebarRight_default.unavailable, "data-sidebar-right-unavailable": true, children: t("tab.unavailable") })
     },
     tab.id
   );
 }
 function titlesFor(panel) {
-  return (tab) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TabSlot, { ...panel, tab, seat: "sidebar.right.pane.tab.title", fallback: tab.title }, tab.id);
+  return (tab) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(TabSlot, { ...panel, tab, seat: "sidebar.right.pane.tab.title", fallback: tab.title }, tab.id);
 }
 function FullscreenGlyph() {
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("path", { d: "M2.33203 10.4054V13.1681C2.33229 13.444 2.55605 13.6681 2.83203 13.6681H5.49512V14.6681H2.83203C2.00376 14.6681 1.33229 13.9963 1.33203 13.1681V10.4054H2.33203ZM14.6689 13.1681C14.6687 13.996 13.9968 14.6676 13.1689 14.6681H10.4951V13.6681H13.1689C13.4445 13.6676 13.6687 13.4437 13.6689 13.1681V10.4054H14.6689V13.1681ZM13.1689 1.33118C13.9969 1.33163 14.6688 2.00315 14.6689 2.83118V5.4054H13.6689V2.83118C13.6688 2.55544 13.4446 2.33162 13.1689 2.33118H10.4951V1.33118H13.1689ZM5.49512 2.33118H2.83203C2.55598 2.33118 2.33218 2.55516 2.33203 2.83118V5.4054H1.33203V2.83118C1.33218 2.00288 2.00369 1.33118 2.83203 1.33118H5.49512V2.33118Z", fill: "currentColor" }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M2.33203 10.4054V13.1681C2.33229 13.444 2.55605 13.6681 2.83203 13.6681H5.49512V14.6681H2.83203C2.00376 14.6681 1.33229 13.9963 1.33203 13.1681V10.4054H2.33203ZM14.6689 13.1681C14.6687 13.996 13.9968 14.6676 13.1689 14.6681H10.4951V13.6681H13.1689C13.4445 13.6676 13.6687 13.4437 13.6689 13.1681V10.4054H14.6689V13.1681ZM13.1689 1.33118C13.9969 1.33163 14.6688 2.00315 14.6689 2.83118V5.4054H13.6689V2.83118C13.6688 2.55544 13.4446 2.33162 13.1689 2.33118H10.4951V1.33118H13.1689ZM5.49512 2.33118H2.83203C2.55598 2.33118 2.33218 2.55516 2.33203 2.83118V5.4054H1.33203V2.83118C1.33218 2.00288 2.00369 1.33118 2.83203 1.33118H5.49512V2.33118Z", fill: "currentColor" }) });
 }
 function ExitFullscreenGlyph() {
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("path", { d: "M9 2.5V6C9 6.26522 9.10536 6.51957 9.29289 6.70711C9.48043 6.89464 9.73478 7 10 7H13.5", stroke: "currentColor" }),
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("path", { d: "M7 13.5V10C7 9.73478 6.89464 9.48043 6.70711 9.29289C6.51957 9.10536 6.26522 9 6 9H2.5", stroke: "currentColor" })
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", "aria-hidden": "true", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M9 2.5V6C9 6.26522 9.10536 6.51957 9.29289 6.70711C9.48043 6.89464 9.73478 7 10 7H13.5", stroke: "currentColor" }),
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M7 13.5V10C7 9.73478 6.89464 9.48043 6.70711 9.29289C6.51957 9.10536 6.26522 9 6 9H2.5", stroke: "currentColor" })
   ] });
 }
 function PanelChrome({ sessionId, fullscreen, actions, t, shortcuts, toggleFullscreen }) {
@@ -2881,8 +4359,8 @@ function PanelChrome({ sessionId, fullscreen, actions, t, shortcuts, toggleFulls
   const modeLabel = fullscreen ? t("chrome.exitFullscreen") : t("chrome.toFullscreen");
   const mode = shortcuts.find((entry) => entry.id === "pane.fullscreen.toggle");
   const toggle = shortcuts.find((entry) => entry.id === "sidebar.right.toggle");
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_dsh_client_ui_primitives4.Tooltip, { label: modeLabel, shortcutKeys: mode?.keys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(import_jsx_runtime13.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_dsh_client_ui_primitives8.Tooltip, { label: modeLabel, shortcutKeys: mode?.keys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       "button",
       {
         type: "button",
@@ -2891,10 +4369,10 @@ function PanelChrome({ sessionId, fullscreen, actions, t, shortcuts, toggleFulls
         "aria-keyshortcuts": mode?.aria,
         "data-sidebar-right-mode": next,
         onClick: toggleFullscreen,
-        children: fullscreen ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(ExitFullscreenGlyph, {}) : /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FullscreenGlyph, {})
+        children: fullscreen ? /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(ExitFullscreenGlyph, {}) : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FullscreenGlyph, {})
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_dsh_client_ui_primitives4.Tooltip, { label: t("chrome.collapse"), shortcutKeys: toggle?.keys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_dsh_client_ui_primitives8.Tooltip, { label: t("chrome.collapse"), shortcutKeys: toggle?.keys, side: "bottom", delayMs: 500, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
       "button",
       {
         type: "button",
@@ -2905,7 +4383,7 @@ function PanelChrome({ sessionId, fullscreen, actions, t, shortcuts, toggleFulls
         onClick: () => {
           actions.toggleExpanded(sessionId);
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_dsh_client_ui_primitives4.IconPanelLeftOutlineRegular, { className: SidebarRight_default.collapseGlyph })
+        children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_dsh_client_ui_primitives8.IconPanelLeftOutlineRegular, { className: SidebarRight_default.collapseGlyph })
       }
     ) })
   ] });
@@ -2915,21 +4393,21 @@ function SidebarPanel(panel) {
   const { expanded } = surface2.layout;
   const types = panel.useTabTypes((value) => value);
   const flash = panel.useFlash((value) => value);
-  const played = (0, import_react2.useRef)(flash?.serial);
-  (0, import_react2.useLayoutEffect)(() => {
+  const played = (0, import_react11.useRef)(flash?.serial);
+  (0, import_react11.useLayoutEffect)(() => {
     if (flash === void 0 || flash.serial === played.current) return void 0;
     played.current = flash.serial;
     return panel.active ? flashPane(panelRef.current, flash) : void 0;
   }, [flash, panel.active, panelRef]);
-  const [opened, setOpened] = (0, import_react2.useState)(expanded);
-  const [opening, setOpening] = (0, import_react2.useState)(false);
+  const [opened, setOpened] = (0, import_react11.useState)(expanded);
+  const [opening, setOpening] = (0, import_react11.useState)(false);
   if (opened !== expanded) {
     setOpened(expanded);
     setOpening(expanded && panel.active);
   } else if (opening && !panel.active) {
     setOpening(false);
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
     "div",
     {
       ref: panelRef,
@@ -2946,12 +4424,12 @@ function SidebarPanel(panel) {
         setOpening(false);
       } : void 0,
       "aria-hidden": !expanded && surface2.layout.floats.length === 0 || void 0,
-      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: SidebarRight_default.panelBody, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-        import_dsh_client_ui_dockkit3.DockLayout,
+      children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: SidebarRight_default.panelBody, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        DockLayout,
         {
           state: surface2.layout,
-          canSplit: (0, import_dsh_client_ui_dockkit3.canSplit)(surface2.layout) && (0, import_dsh_client_ui_dockkit3.dockPaneIds)(surface2.layout).length < 2,
-          dropZones: "vertical",
+          canSplit: (0, import_dsh_client_ui_dockkit4.canSplit)(surface2.layout) && (0, import_dsh_client_ui_dockkit4.dockPaneIds)(surface2.layout).length < 2,
+          dropZones: "edges",
           minPaneFraction: 0.2,
           canAddTab: (paneId2) => guideIn(surface2.layout, paneId2) === void 0,
           canCloseTab: (tabId2) => canCloseTab(surface2, tabId2),
@@ -2963,7 +4441,7 @@ function SidebarPanel(panel) {
           keepMounted: (tab) => types.find((type) => type.kind === tab.kind)?.keepMounted === true,
           getTabTriggerProps: panel.getTabTriggerProps,
           tabMenuOpen: panel.tabMenuOpen,
-          chrome: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          chrome: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
             PanelChrome,
             {
               sessionId,
@@ -3014,24 +4492,24 @@ function RightbarSeat({
   const shown = active && surface2 !== void 0 && surface2.layout.expanded;
   const autoFullscreen = viewportWidth < 768;
   const fullscreen = autoFullscreen || surface2?.layout.mode === "fullscreen";
-  const panelRef = (0, import_react2.useRef)(null);
-  const reportRoom = (0, import_react2.useCallback)((fits) => {
+  const panelRef = (0, import_react11.useRef)(null);
+  const reportRoom = (0, import_react11.useCallback)((fits) => {
     measureRoom((paneId2) => {
       const fit = fits.get(paneId2);
       return (fit?.column ?? fit?.row) !== false;
     });
   }, [measureRoom]);
   const track = shown && !autoFullscreen;
-  (0, import_react2.useEffect)(() => {
+  (0, import_react11.useEffect)(() => {
     if (active && surface2 === void 0) actions.open(sessionId);
   }, [actions, sessionId, surface2, active]);
-  (0, import_react2.useLayoutEffect)(() => {
+  (0, import_react11.useLayoutEffect)(() => {
     if (shown && !fullscreen && !canShow) actions.setExpanded(sessionId, false);
   }, [actions, sessionId, shown, fullscreen, canShow]);
-  (0, import_react2.useLayoutEffect)(() => {
+  (0, import_react11.useLayoutEffect)(() => {
     reportAutoFullscreen(autoFullscreen);
   }, [reportAutoFullscreen, autoFullscreen]);
-  (0, import_react2.useLayoutEffect)(() => {
+  (0, import_react11.useLayoutEffect)(() => {
     if (!active) return;
     let disposed = false;
     const reportWhenCovered = () => {
@@ -3048,7 +4526,7 @@ function RightbarSeat({
       disposed = true;
     };
   }, [sessionId, shown, track, fullscreen, syncPresentation, active]);
-  (0, import_react2.useLayoutEffect)(() => active ? () => {
+  (0, import_react11.useLayoutEffect)(() => active ? () => {
     syncPresentation({ shown: false, track: false, fullscreen: false });
   } : void 0, [syncPresentation, active]);
   if (surface2 === void 0) return null;
@@ -3076,14 +4554,14 @@ function RightbarSeat({
     splitPane,
     toggleFullscreen
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(SidebarPanel, { ...panel, width, panelRef });
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(SidebarPanel, { ...panel, width, panelRef });
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/close-focus.ts
-var import_react_dom = require("react-dom");
+var import_react_dom2 = require("react-dom");
 function openWithPaneFocus(document2, sessionId, open) {
   let paneId2;
-  (0, import_react_dom.flushSync)(() => {
+  (0, import_react_dom2.flushSync)(() => {
     paneId2 = open();
   });
   if (paneId2 !== void 0) visibleSidebarPane(document2, sessionId, paneId2)?.focus({ preventScroll: true });
@@ -3093,23 +4571,23 @@ function closeWithPaneFocus(document2, sessionId, paneId2, close) {
   const owner = before?.closest("[data-sidebar-right-session]");
   const source = before?.closest("[data-dockkit-pane], [data-dockkit-float]");
   const retain = owner?.dataset.sidebarRightSession === sessionId && (source?.dataset.dockkitPane ?? source?.dataset.dockkitFloat) === paneId2;
-  (0, import_react_dom.flushSync)(close);
+  (0, import_react_dom2.flushSync)(close);
   if (!retain || document2.activeElement !== document2.body && document2.activeElement !== before) return;
   visibleSidebarPane(document2, sessionId, paneId2)?.focus({ preventScroll: true });
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/shell/RightbarRoot.tsx
-var import_react3 = require("react");
-var import_jsx_runtime7 = require("react/jsx-runtime");
+var import_react12 = require("react");
+var import_jsx_runtime14 = require("react/jsx-runtime");
 function SessionView({ view, visible, SessionProvider, renderSlot, mountView, width, viewportWidth, canShow }) {
-  (0, import_react3.useLayoutEffect)(() => mountView(view.reference), [mountView, view.reference]);
+  (0, import_react12.useLayoutEffect)(() => mountView(view.reference), [mountView, view.reference]);
   const active = visible && view.selected;
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: SidebarRight_default.session, hidden: !active, "data-sidebar-right-session": view.sessionId, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(SessionProvider, { session: view.reference, children: renderSlot("rightbar.session", { width, viewportWidth, canShow, active, retainTab: view.retainTab }) }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: SidebarRight_default.session, hidden: !active, "data-sidebar-right-session": view.sessionId, children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SessionProvider, { session: view.reference, children: renderSlot("rightbar.session", { width, viewportWidth, canShow, active, retainTab: view.retainTab }) }) });
 }
 function RightbarRoot({ usePanelInfo, useViews, ...props }) {
   const visible = usePanelInfo((info) => info.activePanelId === null);
   const views = useViews((value) => value);
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_jsx_runtime7.Fragment, { children: views.map((view) => /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(SessionView, { ...props, view, visible }, view.sessionId)) });
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_jsx_runtime14.Fragment, { children: views.map((view) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SessionView, { ...props, view, visible }, view.sessionId)) });
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/session-views.ts
@@ -3273,10 +4751,10 @@ function randomUUID() {
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/service.ts
 var import_dsh_client_store6 = require("@deepseek-ai/dsh-client-store");
-var import_dsh_client_ui_dockkit5 = require("@deepseek-ai/dsh-client-ui-dockkit");
+var import_dsh_client_ui_dockkit6 = require("@deepseek-ai/dsh-client-ui-dockkit");
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/tab-domain.ts
-var import_dsh_client_ui_dockkit4 = require("@deepseek-ai/dsh-client-ui-dockkit");
+var import_dsh_client_ui_dockkit5 = require("@deepseek-ai/dsh-client-ui-dockkit");
 var import_dsh_client_store4 = require("@deepseek-ai/dsh-client-store");
 var TabDomain = class {
   /**
@@ -3307,7 +4785,7 @@ var TabDomain = class {
     }
     for (const tab of Object.values(layout2.tabs)) {
       const occurrence = held.get(tab.id) ?? this.hold(sessionId, tab.id, { address: tab.contentId, params: void 0, revision: 0 });
-      const pane = (0, import_dsh_client_ui_dockkit4.findTabPane)(layout2, tab.id);
+      const pane = (0, import_dsh_client_ui_dockkit5.findTabPane)(layout2, tab.id);
       occurrence.paneId = pane.host === "dock" ? pane.id : void 0;
       if (occurrence.pinned) continue;
       occurrence.pinned = true;
@@ -3664,9 +5142,9 @@ var SidebarRightController = class {
     const surface2 = this.adopted.get(sessionId)?.store.getSnapshot().bySession[sessionId];
     const layout2 = surface2?.layout;
     const replaced = placement.replaceTab === void 0 ? void 0 : layout2?.tabs[placement.replaceTab];
-    const targetPane = layout2 === void 0 ? void 0 : placement.paneId ?? (0, import_dsh_client_ui_dockkit5.activeDockPaneId)(layout2);
+    const targetPane = layout2 === void 0 ? void 0 : placement.paneId ?? (0, import_dsh_client_ui_dockkit6.activeDockPaneId)(layout2);
     const target = targetPane === void 0 ? void 0 : layout2?.nodes[targetPane];
-    const preferNewPane = placement.preferNewPane === true && replaced === void 0 && layout2 !== void 0 && target?.kind === "pane" && target.host === "dock" && target.tabs.length > 0 && (0, import_dsh_client_ui_dockkit5.canSplit)(layout2) && (0, import_dsh_client_ui_dockkit5.dockPaneIds)(layout2).length < 2 && this.mounted.getSnapshot() === sessionId && this.canSplitPane(sessionId, target.id);
+    const preferNewPane = placement.preferNewPane === true && replaced === void 0 && layout2 !== void 0 && target?.kind === "pane" && target.host === "dock" && target.tabs.length > 0 && (0, import_dsh_client_ui_dockkit6.canSplit)(layout2) && (0, import_dsh_client_ui_dockkit6.dockPaneIds)(layout2).length < 2 && this.mounted.getSnapshot() === sessionId && this.canSplitPane(sessionId, target.id);
     const commit = () => {
       actions.openContent(sessionId, {
         kind: claim.kind,
@@ -3680,8 +5158,8 @@ var SidebarRightController = class {
         this.tabDomain.navigate(sessionId, tabId2, { address, params });
       });
     };
-    const pagePane = layout2 === void 0 ? void 0 : replaced === void 0 ? targetPane : (0, import_dsh_client_ui_dockkit5.findTabPane)(layout2, replaced.id).id;
-    const revealed = layout2 === void 0 || pagePane === void 0 ? void 0 : claim.contentId === pageAddress(claim.kind) ? (0, import_dsh_client_ui_dockkit5.findPaneContentTab)(layout2, pagePane, claim.contentId, claim.kind) : placement.revealIfOpened === false ? void 0 : (0, import_dsh_client_ui_dockkit5.findContentTab)(layout2, claim.contentId, claim.kind);
+    const pagePane = layout2 === void 0 ? void 0 : replaced === void 0 ? targetPane : (0, import_dsh_client_ui_dockkit6.findTabPane)(layout2, replaced.id).id;
+    const revealed = layout2 === void 0 || pagePane === void 0 ? void 0 : claim.contentId === pageAddress(claim.kind) ? (0, import_dsh_client_ui_dockkit6.findPaneContentTab)(layout2, pagePane, claim.contentId, claim.kind) : placement.revealIfOpened === false ? void 0 : (0, import_dsh_client_ui_dockkit6.findContentTab)(layout2, claim.contentId, claim.kind);
     if (replaced === void 0 || revealed !== void 0) commit();
     else this.removeAfterCleanup(sessionId, replaced, commit);
     if (layout2 !== void 0 && revealed !== void 0) this.flashShowing(sessionId, layout2, revealed);
@@ -3709,7 +5187,7 @@ var SidebarRightController = class {
    * tabs or expands the column is its own visible change.
    */
   flashShowing(sessionId, layout2, tabId2) {
-    const pane = (0, import_dsh_client_ui_dockkit5.findTabPane)(layout2, tabId2);
+    const pane = (0, import_dsh_client_ui_dockkit6.findTabPane)(layout2, tabId2);
     if (pane.activeTabId === tabId2 && (pane.host === "float" || layout2.expanded)) this.flash(sessionId, pane.id);
   }
   /** Ask a Session's seat to highlight the pane holding a revealed tab. */
@@ -3731,7 +5209,7 @@ var SidebarRightController = class {
   hide(tabId2) {
     const layout2 = this.mountedSurface()?.layout;
     if (layout2?.tabs[tabId2] === void 0) return;
-    if ((0, import_dsh_client_ui_dockkit5.findTabPane)(layout2, tabId2).host === "float") this.close(tabId2);
+    if ((0, import_dsh_client_ui_dockkit6.findTabPane)(layout2, tabId2).host === "float") this.close(tabId2);
     else if (layout2.expanded) this.toggleExpanded();
   }
   /**
@@ -3741,7 +5219,7 @@ var SidebarRightController = class {
   active() {
     const layout2 = this.mountedSurface()?.layout;
     if (layout2 === void 0) return void 0;
-    const { activeTabId } = (0, import_dsh_client_ui_dockkit5.getPane)(layout2, layout2.activePaneId);
+    const { activeTabId } = (0, import_dsh_client_ui_dockkit6.getPane)(layout2, layout2.activePaneId);
     return Object.values(layout2.tabs).find((tab) => tab.id === activeTabId);
   }
   /**
@@ -3757,7 +5235,7 @@ var SidebarRightController = class {
     this.host.openWithFocus(sessionId, () => {
       actions.toggleExpanded(sessionId);
       const layout2 = this.mountedSurface()?.layout;
-      return layout2?.expanded ? (0, import_dsh_client_ui_dockkit5.activeDockPaneId)(layout2) : void 0;
+      return layout2?.expanded ? (0, import_dsh_client_ui_dockkit6.activeDockPaneId)(layout2) : void 0;
     });
   }
   /**
@@ -3794,7 +5272,7 @@ var SidebarRightController = class {
     const screen = this.screen();
     if (screen === void 0) return void 0;
     const { sessionId, surface: { layout: layout2 } } = screen;
-    const pane = (0, import_dsh_client_ui_dockkit5.getPane)(layout2, (0, import_dsh_client_ui_dockkit5.activeDockPaneId)(layout2));
+    const pane = (0, import_dsh_client_ui_dockkit6.getPane)(layout2, (0, import_dsh_client_ui_dockkit6.activeDockPaneId)(layout2));
     const tabId2 = pane.activeTabId;
     const held = tabId2 === void 0 ? void 0 : this.tabDomain.occurrence(sessionId, { id: tabId2 });
     return {
@@ -3883,8 +5361,8 @@ var SidebarRightController = class {
     const { layout: layout2 } = surface2;
     if (target.host === "float") return "float";
     if (!layout2.expanded) return "collapsed";
-    if ((0, import_dsh_client_ui_dockkit5.getPane)(layout2, target.paneId).tabs.length === 0) return "empty";
-    if (!(0, import_dsh_client_ui_dockkit5.canSplit)(layout2) || (0, import_dsh_client_ui_dockkit5.dockPaneIds)(layout2).length >= 2) return "budget";
+    if ((0, import_dsh_client_ui_dockkit6.getPane)(layout2, target.paneId).tabs.length === 0) return "empty";
+    if (!(0, import_dsh_client_ui_dockkit6.canSplit)(layout2) || (0, import_dsh_client_ui_dockkit6.dockPaneIds)(layout2).length >= 2) return "budget";
     if (!this.canSplitPane(target.sessionId, target.paneId)) return "width";
     return void 0;
   }
@@ -3909,10 +5387,10 @@ var SidebarRightController = class {
     const { sessionId, actions } = this.require();
     const layout2 = this.mountedSurface()?.layout;
     if (layout2 === void 0) return void 0;
-    const target = paneId2 ?? (0, import_dsh_client_ui_dockkit5.activeDockPaneId)(layout2);
+    const target = paneId2 ?? (0, import_dsh_client_ui_dockkit6.activeDockPaneId)(layout2);
     const node2 = layout2.nodes[target];
     if (node2 === void 0 || node2.kind !== "pane" || node2.host !== "dock") return void 0;
-    if (!(0, import_dsh_client_ui_dockkit5.canSplit)(layout2) || (0, import_dsh_client_ui_dockkit5.dockPaneIds)(layout2).length >= 2 || !this.canSplitPane(sessionId, target)) return void 0;
+    if (!(0, import_dsh_client_ui_dockkit6.canSplit)(layout2) || (0, import_dsh_client_ui_dockkit6.dockPaneIds)(layout2).length >= 2 || !this.canSplitPane(sessionId, target)) return void 0;
     let created;
     this.host.openWithFocus(sessionId, () => {
       actions.splitPane(sessionId, target, (id) => {
@@ -3931,7 +5409,7 @@ var SidebarRightController = class {
     const { sessionId, actions } = this.require();
     const layout2 = this.mountedSurface()?.layout;
     if (layout2 === void 0 || layout2.tabs[tabId2] === void 0) return;
-    if ((0, import_dsh_client_ui_dockkit5.findTabPane)(layout2, tabId2).host !== "dock") return;
+    if ((0, import_dsh_client_ui_dockkit6.findTabPane)(layout2, tabId2).host !== "dock") return;
     actions.floatTab(sessionId, tabId2, rect);
   }
   /**
@@ -4540,20 +6018,20 @@ function guideDefinition(t) {
 }
 
 // bundles/dsh-telework-rightbar/vendor/dsh-client-ui-sidebar-right/src/client/tab-info.ts
-var import_react4 = require("react");
-var import_dsh_client_ui_dockkit6 = require("@deepseek-ai/dsh-client-ui-dockkit");
+var import_react13 = require("react");
+var import_dsh_client_ui_dockkit7 = require("@deepseek-ai/dsh-client-ui-dockkit");
 var tabInfoFactory = (standard, context) => {
   const { sessionId } = standard;
   const { tabId: tabId2, title, fullscreen, active, signal, actions, useStore, useTabNavigation, shortcuts } = context;
   return function useTabInfo() {
     const layout2 = useStore((state) => state.bySession[sessionId]?.layout);
     const navigation = useTabNavigation(tabId2);
-    return (0, import_react4.useMemo)(() => {
+    return (0, import_react13.useMemo)(() => {
       const tab = layout2?.tabs[tabId2];
       if (layout2 === void 0 || tab === void 0 || navigation === void 0) {
         throw new Error(`sidebarRight: tab "${tabId2}" is not committed in session "${sessionId}"`);
       }
-      const pane = (0, import_dsh_client_ui_dockkit6.findTabPane)(layout2, tabId2);
+      const pane = (0, import_dsh_client_ui_dockkit7.findTabPane)(layout2, tabId2);
       return {
         sidebar: { expanded: layout2.expanded, fullscreen },
         panel: { id: pane.id, isFloating: pane.host === "float" },
@@ -4610,7 +6088,7 @@ function apply(ctx) {
   ctx.effect(() => ctx.slots.inject("contextMenu.icon", () => ctx.slots.register({
     name: "contextMenu.icon",
     key: "sidebar.close"
-  }, import_dsh_client_ui_primitives5.IconCloseOutlineRegular)), "sidebar: menu icon");
+  }, import_dsh_client_ui_primitives9.IconCloseOutlineRegular)), "sidebar: menu icon");
   ctx.effect(() => ctx.contextMenus.register({
     id: "sidebar.close",
     target: "tab",

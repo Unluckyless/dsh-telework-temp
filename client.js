@@ -789,7 +789,9 @@ window.__ModuleLoader__.load({
               return
             }
             try {
-              sidebarRight.openTab('terminal', { preferNewPane: true })
+              const newPane = sidebarRight.split()
+              if (newPane !== undefined) sidebarRight.openTab('terminal', { paneId: newPane })
+              else sidebarRight.openTab('terminal')
               seeded = true
             } catch (error) {
               console.warn('telework: cannot seed the right-sidebar terminal:', error)
